@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Thovin</string>
+    <string name="MainActivity_InfoSaisieAdresse">Entrez votre adresse pour trouver les restaurants à proximité :</string>
+    <string name="MainActivity_QuickConnection">Connecter-vous pour retrouver vos adresses récentes</string>
+    <string name="MainActivity_transAdresse">Saisissez votre adresse</string>
+    <string name="MainActivity_Localisation">Me localiser</string>
+    <string name="MainActivity_transMotClef">Un mot clé pour trouver ton précieux</string>
 </resources>
