@@ -4,33 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profil"
+    tools:context=".ProfilEditor"
     android:orientation="vertical">
 
-
-    <Button
-        android:id="@+id/profil_close"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="profil" />
-    <Button
-        android:id="@+id/profil_panier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="panier"/>
-
-    <Button
-        android:id="@+id/profil_editButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EDIT" />
+        android:text="PROFIL_EDITOR"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Profil_Nom" />
-    <TextView
-        android:id="@+id/profil_nom"
+    <EditText
+        android:id="@+id/profilEdit_nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
@@ -39,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Profil_Prenom" />
-    <TextView
-        android:id="@+id/profil_prenom"
+    <EditText
+        android:id="@+id/profilEdit_prenom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
@@ -50,8 +37,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Profil_Email" />
+    <EditText
+        android:id="@+id/profilEdit_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+
     <TextView
-        android:id="@+id/profil_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_Mdp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_Mdp1" />
+    <EditText
+        android:id="@+id/profilEdit_pass1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_Mdp2" />
+    <EditText
+        android:id="@+id/profilEdit_pass2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
@@ -61,8 +71,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Profil_Adresse" />
-    <TextView
-        android:id="@+id/profil_adresse"
+    <EditText
+        android:id="@+id/profilEdit_adresse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
@@ -72,8 +82,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Profil_CompAdresse" />
-    <TextView
-        android:id="@+id/profil_compAdresse"
+    <EditText
+        android:id="@+id/profilEdit_compAdresse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
@@ -83,8 +93,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Profil_Ville" />
-    <TextView
-        android:id="@+id/profil_ville"
+    <EditText
+        android:id="@+id/profilEdit_ville"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
@@ -94,8 +104,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Profil_CodePostal" />
-    <TextView
-        android:id="@+id/profil_codePostal"
+    <EditText
+        android:id="@+id/profilEdit_codePostal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
@@ -105,11 +115,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Profil_Tel" />
-    <TextView
-        android:id="@+id/profil_tel"
+    <EditText
+        android:id="@+id/profilEdit_tel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
 
+    <Button
+        android:id="@+id/profilEdit_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_non" />
+    <Button
+        android:id="@+id/profilEdit_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_oui" />
 
 </LinearLayout>

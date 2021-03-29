@@ -5,4 +5,19 @@
     <string name="MainActivity_transAdresse">Saisissez votre adresse</string>
     <string name="MainActivity_Localisation">Me localiser</string>
     <string name="MainActivity_transMotClef">Un mot clé pour trouver ton précieux</string>
+    <string name="Profil_Nom">Nom</string>
+    <string name="Profil_Prenom">Prenom</string>
+    <string name="Profil_Email">Email</string>
+    <string name="Profil_Mdp">Mot de passe</string>
+    <string name="Profil_Adresse">Adresse</string>
+    <string name="Profil_CompAdresse">Complément d\'adresse</string>
+    <string name="Profil_Ville">Ville</string>
+    <string name="Profil_CodePostal">Code Postal</string>
+    <string name="Profil_Tel">Téléphone</string>
+    <string name="Profil_non">Annuler</string>
+    <string name="Profil_oui">Sauvegarder</string>
+    <string name="Profil_Mdp1">Nouveau mot de passe</string>
+    <string name="Profil_Mdp2">Retaper le mot de passe</string>
+    <string name="Panier_titre">Votre panier</string>
+    <string name="Panier_cancel">Tout annuler</string>
 </resources>
