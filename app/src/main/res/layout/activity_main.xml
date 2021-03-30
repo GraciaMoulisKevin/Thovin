@@ -1,50 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/MainActivity_HomePicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TableRow>
+        <ImageView
+            android:id="@+id/MainActivity_HomePicture"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="0" />
+
+        <Button
+            android:id="@+id/MainActivity_Panier"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="panier"
+            android:layout_column="1"/>
+
+        <Button
+            android:id="@+id/MainActivity_Profil"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="profil"
+            android:layout_column="2"/>
+    </TableRow>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="WeeberEat" />
-
-    <Button
-        android:id="@+id/MainActivity_Panier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="panier" />
-
-    <Button
-        android:id="@+id/MainActivity_Profil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="profil" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/MainActivity_InfoSaisieAdresse" />
 
-    <EditText
-        android:id="@+id/MainActivity_saisieAdresse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/MainActivity_transAdresse" />
+    <TableRow>
+        <EditText
+            android:id="@+id/MainActivity_saisieAdresse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/MainActivity_transAdresse"/>
 
-    <Button
-        android:id="@+id/MainActivity_Localisation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/MainActivity_Localisation" />
+        <Button
+            android:id="@+id/MainActivity_Localisation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/MainActivity_Localisation"/>
+    </TableRow>
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,23 +76,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AucuneIdéeCeQueJeFais"/>
+                android:text="Resto1 _ Ceci est dans une scrollView"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AucuneIdéeCeQueJeFais"/>
+                android:text="Resto2"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AucuneIdéeCeQueJeFais"/>
+                android:text="Resto3"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AucuneIdéeCeQueJeFais"/>
+                android:text="Resto4"/>
 
         </LinearLayout>
     </ScrollView>
 
 
 
-</LinearLayout>
+</TableLayout>
