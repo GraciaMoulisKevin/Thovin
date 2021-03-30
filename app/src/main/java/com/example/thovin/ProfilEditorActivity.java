@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class ProfilEditor extends AppCompatActivity {
+public class ProfilEditorActivity extends AppCompatActivity {
 
     private Button oui, non;
     private EditText nom, prenom, email, mdp1, mdp2, adr, compAdr, ville, codePostal, tel;

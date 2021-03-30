@@ -30,35 +30,35 @@
         android:id="@+id/MainActivity_infoSaisie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/MainActivity_InfoSaisieAdresse"
+        android:text="@string/activity_main_address_input_header"
         android:layout_below="@+id/MainActivity_Panier"/>
 
     <EditText
         android:id="@+id/MainActivity_saisieAdresse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/MainActivity_transAdresse"
+        android:hint="@string/activity_main_address_input_placeholder"
         android:layout_below="@+id/MainActivity_infoSaisie"/>
 
     <Button
         android:id="@+id/MainActivity_Localisation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/MainActivity_Localisation"
+        android:text="@string/activity_main_position_btn"
         android:layout_below="@+id/MainActivity_infoSaisie"
         android:layout_toRightOf="@+id/MainActivity_saisieAdresse"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/MainActivity_QuickConnection"
+        android:text="@string/activity_main_quick_connection"
         android:layout_below="@+id/MainActivity_saisieAdresse"/>
 
     <EditText
         android:id="@+id/MainActivity_keyword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/MainActivity_transMotClef"
+        android:hint="@string/activity_main_searchbar_placeholder"
         android:layout_below="@+id/MainActivity_Localisation"/>
 
     <Spinner
@@ -97,5 +97,13 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/MainActivity_ScrollRestaurant"
+        android:layout_marginTop="-262dp"
+        android:text="Button" />
 
 </RelativeLayout>

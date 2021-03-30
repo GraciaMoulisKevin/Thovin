@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profil">
+    tools:context=".ProfilActivity">
 
     <Button
         android:id="@+id/profil_close"
@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Nom"
+        android:text="@string/activity_profil_user_name"
         android:layout_below="@+id/profil_editButton"/>
     <TextView
         android:id="@+id/profil_nom"
@@ -45,7 +45,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Prenom"
+        android:text="@string/activity_profil_user_first_name"
         android:layout_below="@+id/profil_nom"/>
     <TextView
         android:id="@+id/profil_prenom"
@@ -58,7 +58,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Email"
+        android:text="@string/activity_profil_user_mail"
         android:layout_below="@+id/profil_prenom"/>
     <TextView
         android:id="@+id/profil_email"
@@ -71,7 +71,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Adresse"
+        android:text="@string/activity_profil_user_address"
         android:layout_below="@+id/profil_email" />
     <TextView
         android:id="@+id/profil_adresse"
@@ -84,7 +84,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_CompAdresse"
+        android:text="@string/activity_profil_user_additionnal_address"
         android:layout_below="@+id/profil_adresse"/>
     <TextView
         android:id="@+id/profil_compAdresse"
@@ -97,7 +97,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Ville"
+        android:text="@string/activity_profil_city"
         android:layout_below="@+id/profil_compAdresse" />
     <TextView
         android:id="@+id/profil_ville"
@@ -110,7 +110,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_CodePostal"
+        android:text="@string/activity_profil_postal_code"
         android:layout_below="@+id/profil_ville"/>
     <TextView
         android:id="@+id/profil_codePostal"
@@ -123,7 +123,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Tel"
+        android:text="@string/activity_profil_user_phone"
         android:layout_below="@+id/profil_codePostal"/>
     <TextView
         android:id="@+id/profil_tel"

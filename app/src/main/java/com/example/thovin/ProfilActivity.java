@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Profil extends AppCompatActivity {
+public class ProfilActivity extends AppCompatActivity {
 
     private Button editButton, panier, close;
     private TextView nom, prenom, email, adresse, compAdresse, ville, codePostal, tel;
@@ -36,7 +36,7 @@ public class Profil extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_profilEditor = new Intent(Profil.this, ProfilEditor.class);
+                Intent intent_profilEditor = new Intent(ProfilActivity.this, ProfilEditorActivity.class);
                 startActivity(intent_profilEditor);
             }
         });
@@ -49,7 +49,7 @@ public class Profil extends AppCompatActivity {
         panier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_panier = new Intent(Profil.this, Panier.class);
+                Intent intent_panier = new Intent(ProfilActivity.this, CartActivity.class);
                 startActivity(intent_panier);
             }
         });

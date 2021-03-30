@@ -1,23 +1,42 @@
 <resources>
-    <string name="app_name">Thovin</string>
-    <string name="MainActivity_InfoSaisieAdresse">Entrez votre adresse pour trouver les restaurants à proximité :</string>
-    <string name="MainActivity_QuickConnection">Connecter-vous pour retrouver vos adresses récentes</string>
-    <string name="MainActivity_transAdresse">Saisissez votre adresse</string>
-    <string name="MainActivity_Localisation">Me localiser</string>
-    <string name="MainActivity_transMotClef">Un mot clé pour trouver ton précieux</string>
-    <string name="Profil_Nom">Nom</string>
-    <string name="Profil_Prenom">Prenom</string>
-    <string name="Profil_Email">Email</string>
-    <string name="Profil_Mdp">Mot de passe</string>
-    <string name="Profil_Adresse">Adresse</string>
-    <string name="Profil_CompAdresse">Complément d\'adresse</string>
-    <string name="Profil_Ville">Ville</string>
-    <string name="Profil_CodePostal">Code Postal</string>
-    <string name="Profil_Tel">Téléphone</string>
-    <string name="Profil_non">Annuler</string>
-    <string name="Profil_oui">Sauvegarder</string>
-    <string name="Profil_Mdp1">Nouveau mot de passe</string>
-    <string name="Profil_Mdp2">Retaper le mot de passe</string>
-    <string name="Panier_titre">Votre panier</string>
-    <string name="Panier_cancel">Tout annuler</string>
+    <!-- Global -->
+    <string name="app_name">WeeberEat</string>
+    <string name="cancel">Annuler</string>
+    <string name="save">Sauvegarder</string>
+
+    <!-- MainActivity -->
+    <string name="activity_main_address_input_header">Entrez votre adresse pour trouver les restaurants à proximité :</string>
+    <string name="activity_main_quick_connection">Connecter-vous pour retrouver vos adresses récentes</string>
+    <string name="activity_main_address_input_placeholder">Saisissez votre adresse</string>
+    <string name="activity_main_position_btn">Me localiser</string>
+    <string name="activity_main_searchbar_placeholder">Un mot clé pour trouver ton précieux</string>
+
+    <!-- ProfilActivity -->
+    <string name="activity_profil_user_name">Nom</string>
+    <string name="activity_profil_user_first_name">Prenom</string>
+    <string name="activity_profil_user_mail">Email</string>
+    <string name="activity_profil_user_password">Mot de passe</string>
+    <string name="activity_profil_user_address">Adresse</string>
+    <string name="activity_profil_user_additionnal_address">Complément d\'adresse</string>
+    <string name="activity_profil_city">Ville</string>
+    <string name="activity_profil_postal_code">Code Postal</string>
+    <string name="activity_profil_user_phone">Téléphone</string>
+    <string name="activity_profil_new_password_input">Nouveau mot de passe</string>
+    <string name="activity_profil_new_password_verification_input">Retaper le mot de passe</string>
+
+    <!-- PanierActivity -->
+    <string name="activity_cart_title">Votre panier</string>
+    <string name="activity_cart_delete_all">Tout annuler</string>
+
+    <!-- AuthentificationActivity -->
+    <string name="activity_authentication_text">Je souhaite me connecter en tant que :</string>
+    <string name="activity_authentication_btn_client">Client Homosapiens</string>
+    <string name="activity_authentication_btn_deliverer">Livreur de compétition</string>
+    <string name="activity_authentication_btn_restaurant">Restaurateur aguérris</string>
+
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>

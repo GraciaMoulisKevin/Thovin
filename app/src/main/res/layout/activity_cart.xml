@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Panier">
+    tools:context=".CartActivity">
 
     <Button
         android:id="@+id/panier_profil"
@@ -24,7 +24,7 @@
         android:id="@+id/panier_nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Panier_titre"
+        android:text="@string/activity_cart_title"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/panier_panier"/>
 
@@ -63,7 +63,7 @@
         android:id="@+id/panier_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Panier_cancel"
+        android:text="@string/activity_cart_delete_all"
         android:layout_below="@+id/panier_articles"
         android:layout_toLeftOf="@+id/panier_validate"/>
     <Button

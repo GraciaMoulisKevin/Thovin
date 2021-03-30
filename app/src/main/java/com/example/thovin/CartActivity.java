@@ -5,11 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ScrollView;
 
-public class Panier extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity {
 
     private Button panier, profil, cancel, validate;
     private ScrollView articles;
@@ -17,7 +16,7 @@ public class Panier extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_panier);
+        setContentView(R.layout.activity_cart);
 
         articles = (ScrollView) findViewById(R.id.panier_articles);
 
@@ -40,7 +39,7 @@ public class Panier extends AppCompatActivity {
         profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_profil = new Intent(Panier.this, Profil.class);
+                Intent intent_profil = new Intent(CartActivity.this, ProfilActivity.class);
                 startActivity(intent_profil);
             }
         });
