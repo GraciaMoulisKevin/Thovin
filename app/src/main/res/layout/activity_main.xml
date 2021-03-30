@@ -1,72 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context=".MainActivity">
 
-    <TableRow>
-        <ImageView
-            android:id="@+id/MainActivity_HomePicture"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_column="0" />
+    <ImageView
+        android:id="@+id/MainActivity_HomePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"/>
 
-        <Button
-            android:id="@+id/MainActivity_Panier"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="panier"
-            android:layout_column="1"/>
+    <Button
+        android:id="@+id/MainActivity_Profil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="profil"
+        android:layout_alignParentRight="true"/>
 
-        <Button
-            android:id="@+id/MainActivity_Profil"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="profil"
-            android:layout_column="2"/>
-    </TableRow>
+    <Button
+        android:id="@+id/MainActivity_Panier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="panier"
+        android:layout_toLeftOf="@id/MainActivity_Profil"/>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:id="@+id/MainActivity_infoSaisie"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/MainActivity_InfoSaisieAdresse" />
+        android:text="@string/MainActivity_InfoSaisieAdresse"
+        android:layout_below="@+id/MainActivity_Panier"/>
 
-    <TableRow>
-        <EditText
-            android:id="@+id/MainActivity_saisieAdresse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/MainActivity_transAdresse"/>
+    <EditText
+        android:id="@+id/MainActivity_saisieAdresse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/MainActivity_transAdresse"
+        android:layout_below="@+id/MainActivity_infoSaisie"/>
 
-        <Button
-            android:id="@+id/MainActivity_Localisation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/MainActivity_Localisation"/>
-    </TableRow>
+    <Button
+        android:id="@+id/MainActivity_Localisation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/MainActivity_Localisation"
+        android:layout_below="@+id/MainActivity_infoSaisie"
+        android:layout_toRightOf="@+id/MainActivity_saisieAdresse"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/MainActivity_QuickConnection"/>
+        android:text="@string/MainActivity_QuickConnection"
+        android:layout_below="@+id/MainActivity_saisieAdresse"/>
 
     <EditText
         android:id="@+id/MainActivity_keyword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/MainActivity_transMotClef" />
+        android:hint="@string/MainActivity_transMotClef"
+        android:layout_below="@+id/MainActivity_Localisation"/>
 
     <Spinner
         android:id="@+id/MainActivity_SpinnerCategorie"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/MainActivity_keyword"/>
 
     <ScrollView
         android:id="@+id/MainActivity_ScrollRestaurant"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/MainActivity_SpinnerCategorie">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,6 +98,4 @@
         </LinearLayout>
     </ScrollView>
 
-
-
-</TableLayout>
+</RelativeLayout>

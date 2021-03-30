@@ -1,133 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Profil">
 
-    <TableRow>
-        <Button
-            android:id="@+id/profil_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="profil"
-            android:layout_column="1" />
-        <Button
-            android:id="@+id/profil_panier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="panier"
-            android:layout_column="2"/>
-    </TableRow>
+    <Button
+        android:id="@+id/profil_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="profil"
+        android:layout_alignParentRight="true" />
+    <Button
+        android:id="@+id/profil_panier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="panier"
+        android:layout_toLeftOf="@+id/profil_close"/>
 
 
-    <TableRow>
-        <Button
-            android:id="@+id/profil_editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EDIT"
-            android:layout_column="1"/>
-    </TableRow>
+    <Button
+        android:id="@+id/profil_editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EDIT"
+        android:layout_below="@id/profil_panier"
+        android:layout_toLeftOf="@id/profil_panier"/>
 
 
-    <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Profil_Nom" />
-        <TextView
-            android:id="@+id/profil_nom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-    </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_Nom"
+        android:layout_below="@+id/profil_editButton"/>
+    <TextView
+        android:id="@+id/profil_nom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/profil_editButton"
+        android:layout_toRightOf="@id/profil_editButton"/>
 
-    <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Profil_Prenom" />
-        <TextView
-            android:id="@+id/profil_prenom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-    </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_Prenom"
+        android:layout_below="@+id/profil_nom"/>
+    <TextView
+        android:id="@+id/profil_prenom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/profil_nom"
+        android:layout_toRightOf="@id/profil_editButton"/>
 
-    <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Profil_Email" />
-        <TextView
-            android:id="@+id/profil_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-    </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_Email"
+        android:layout_below="@+id/profil_prenom"/>
+    <TextView
+        android:id="@+id/profil_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/profil_prenom"
+        android:layout_toRightOf="@id/profil_editButton"/>
 
-    <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Profil_Adresse" />
-        <TextView
-            android:id="@+id/profil_adresse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-    </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_Adresse"
+        android:layout_below="@+id/profil_email" />
+    <TextView
+        android:id="@+id/profil_adresse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/profil_email"
+        android:layout_toRightOf="@id/profil_editButton"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_CompAdresse"
+        android:layout_below="@+id/profil_adresse"/>
+    <TextView
+        android:id="@+id/profil_compAdresse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/profil_adresse"
+        android:layout_toRightOf="@id/profil_editButton"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_Ville"
+        android:layout_below="@+id/profil_compAdresse" />
+    <TextView
+        android:id="@+id/profil_ville"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/profil_compAdresse"
+        android:layout_toRightOf="@id/profil_editButton"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_CodePostal"
+        android:layout_below="@+id/profil_ville"/>
+    <TextView
+        android:id="@+id/profil_codePostal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/profil_ville"
+        android:layout_toRightOf="@id/profil_editButton"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Profil_Tel"
+        android:layout_below="@+id/profil_codePostal"/>
+    <TextView
+        android:id="@+id/profil_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/profil_codePostal"
+        android:layout_toRightOf="@id/profil_editButton"/>
 
 
-    <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Profil_CompAdresse" />
-        <TextView
-            android:id="@+id/profil_compAdresse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-    </TableRow>
-
-    <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Profil_Ville" />
-        <TextView
-            android:id="@+id/profil_ville"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-    </TableRow>
-
-    <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Profil_CodePostal" />
-        <TextView
-            android:id="@+id/profil_codePostal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-    </TableRow>
-
-    <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Profil_Tel" />
-        <TextView
-            android:id="@+id/profil_tel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-    </TableRow>
-
-
-</TableLayout>
+</RelativeLayout>
