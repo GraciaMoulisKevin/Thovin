@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfilEditor">
+    tools:context=".ProfilEditorActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_Nom" />
+            android:text="@string/name" />
         <EditText
             android:id="@+id/profilEdit_nom"
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_Prenom" />
+            android:text="@string/first_name" />
         <EditText
             android:id="@+id/profilEdit_prenom"
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_Email" />
+            android:text="@string/mail" />
         <EditText
             android:id="@+id/profilEdit_email"
             android:layout_width="wrap_content"
@@ -51,12 +51,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_Mdp1"
+            android:text="@string/activity_profil_new_password_input"
             android:layout_column="0"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_Mdp2"
+            android:text="@string/password_verification"
             android:layout_column="1"/>
     </TableRow>
 
@@ -79,7 +79,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_Adresse" />
+            android:text="@string/address" />
         <EditText
             android:id="@+id/profilEdit_adresse"
             android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_CompAdresse" />
+            android:text="@string/additionnal_address" />
         <EditText
             android:id="@+id/profilEdit_compAdresse"
             android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_Ville" />
+            android:text="@string/city" />
         <EditText
             android:id="@+id/profilEdit_ville"
             android:layout_width="wrap_content"
@@ -115,7 +115,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_CodePostal" />
+            android:text="@string/postal_code" />
         <EditText
             android:id="@+id/profilEdit_codePostal"
             android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_Tel" />
+            android:text="@string/phone" />
         <EditText
             android:id="@+id/profilEdit_tel"
             android:layout_width="wrap_content"
@@ -136,16 +136,18 @@
     </TableRow>
 
     <TableRow>
+
         <Button
             android:id="@+id/profilEdit_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_non"/>
+            android:text="@string/cancel" />
+
         <Button
             android:id="@+id/profilEdit_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Profil_oui"/>
+            android:text="@string/save" />
     </TableRow>
 
 </TableLayout>

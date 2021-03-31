@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profil">
+    tools:context=".ProfilActivity">
 
     <Button
         android:id="@+id/profil_close"
@@ -13,7 +13,7 @@
         android:text="profil"
         android:layout_alignParentRight="true" />
     <Button
-        android:id="@+id/profil_panier"
+        android:id="@+id/profil_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="panier"
@@ -21,31 +21,31 @@
 
 
     <Button
-        android:id="@+id/profil_editButton"
+        android:id="@+id/profil_edit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EDIT"
-        android:layout_below="@id/profil_panier"
-        android:layout_toLeftOf="@id/profil_panier"/>
+        android:layout_below="@id/profil_cart"
+        android:layout_toLeftOf="@id/profil_cart"/>
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Nom"
-        android:layout_below="@+id/profil_editButton"/>
+        android:text="@string/name"
+        android:layout_below="@+id/profil_edit_btn"/>
     <TextView
         android:id="@+id/profil_nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:layout_below="@+id/profil_editButton"
-        android:layout_toRightOf="@id/profil_editButton"/>
+        android:layout_below="@+id/profil_edit_btn"
+        android:layout_toRightOf="@id/profil_edit_btn"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Prenom"
+        android:text="@string/first_name"
         android:layout_below="@+id/profil_nom"/>
     <TextView
         android:id="@+id/profil_prenom"
@@ -53,12 +53,12 @@
         android:layout_height="wrap_content"
         android:text=""
         android:layout_below="@+id/profil_nom"
-        android:layout_toRightOf="@id/profil_editButton"/>
+        android:layout_toRightOf="@id/profil_edit_btn"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Email"
+        android:text="@string/mail"
         android:layout_below="@+id/profil_prenom"/>
     <TextView
         android:id="@+id/profil_email"
@@ -66,12 +66,12 @@
         android:layout_height="wrap_content"
         android:text=""
         android:layout_below="@+id/profil_prenom"
-        android:layout_toRightOf="@id/profil_editButton"/>
+        android:layout_toRightOf="@id/profil_edit_btn"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Adresse"
+        android:text="@string/address"
         android:layout_below="@+id/profil_email" />
     <TextView
         android:id="@+id/profil_adresse"
@@ -79,12 +79,12 @@
         android:layout_height="wrap_content"
         android:text=""
         android:layout_below="@+id/profil_email"
-        android:layout_toRightOf="@id/profil_editButton"/>
+        android:layout_toRightOf="@id/profil_edit_btn"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_CompAdresse"
+        android:text="@string/additionnal_address"
         android:layout_below="@+id/profil_adresse"/>
     <TextView
         android:id="@+id/profil_compAdresse"
@@ -92,12 +92,12 @@
         android:layout_height="wrap_content"
         android:text=""
         android:layout_below="@+id/profil_adresse"
-        android:layout_toRightOf="@id/profil_editButton"/>
+        android:layout_toRightOf="@id/profil_edit_btn"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Ville"
+        android:text="@string/city"
         android:layout_below="@+id/profil_compAdresse" />
     <TextView
         android:id="@+id/profil_ville"
@@ -105,12 +105,12 @@
         android:layout_height="wrap_content"
         android:text=""
         android:layout_below="@+id/profil_compAdresse"
-        android:layout_toRightOf="@id/profil_editButton"/>
+        android:layout_toRightOf="@id/profil_edit_btn"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_CodePostal"
+        android:text="@string/postal_code"
         android:layout_below="@+id/profil_ville"/>
     <TextView
         android:id="@+id/profil_codePostal"
@@ -118,12 +118,12 @@
         android:layout_height="wrap_content"
         android:text=""
         android:layout_below="@+id/profil_ville"
-        android:layout_toRightOf="@id/profil_editButton"/>
+        android:layout_toRightOf="@id/profil_edit_btn"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Profil_Tel"
+        android:text="@string/phone"
         android:layout_below="@+id/profil_codePostal"/>
     <TextView
         android:id="@+id/profil_tel"
@@ -131,7 +131,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:layout_below="@+id/profil_codePostal"
-        android:layout_toRightOf="@id/profil_editButton"/>
+        android:layout_toRightOf="@id/profil_edit_btn"/>
 
 
 </RelativeLayout>

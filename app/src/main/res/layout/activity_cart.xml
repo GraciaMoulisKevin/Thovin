@@ -4,32 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Panier">
+    tools:context=".CartActivity">
 
     <Button
-        android:id="@+id/panier_profil"
+        android:id="@+id/cart_profil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="profil"
         android:layout_alignParentRight="true"/>
     <Button
-        android:id="@+id/panier_panier"
+        android:id="@+id/cart_cart_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="panier"
-        android:layout_toLeftOf="@+id/panier_profil"/>
+        android:layout_toLeftOf="@+id/cart_profil"/>
 
 
     <TextView
         android:id="@+id/panier_nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Panier_titre"
+        android:text="@string/activity_cart_title"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/panier_panier"/>
+        android:layout_below="@id/cart_cart_btn"/>
 
     <ScrollView
-        android:id="@+id/panier_articles"
+        android:id="@+id/cart_articles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/panier_nom">
@@ -60,18 +60,18 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/panier_cancel"
+        android:id="@+id/cart_cancel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Panier_cancel"
-        android:layout_below="@+id/panier_articles"
-        android:layout_toLeftOf="@+id/panier_validate"/>
+        android:text="@string/activity_cart_delete_all"
+        android:layout_below="@+id/cart_articles"
+        android:layout_toLeftOf="@+id/cart_validate_btn"/>
     <Button
-        android:id="@+id/panier_validate"
+        android:id="@+id/cart_validate_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:layout_below="@+id/panier_articles"
-        android:layout_toLeftOf="@+id/panier_profil"/>
+        android:layout_below="@+id/cart_articles"
+        android:layout_toLeftOf="@+id/cart_profil"/>
 
 </RelativeLayout>
