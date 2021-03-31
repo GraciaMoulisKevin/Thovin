@@ -21,7 +21,7 @@
 
 
     <TextView
-        android:id="@+id/panier_nom"
+        android:id="@+id/cart_nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/activity_cart_title"
@@ -32,7 +32,7 @@
         android:id="@+id/cart_articles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/panier_nom">
+        android:layout_below="@+id/cart_nom">
 
         <LinearLayout
             android:layout_width="match_parent"

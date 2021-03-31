@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -25,7 +24,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         // --- Handle onclick Deliverer authentication button
         findViewById(R.id.authentication_btn_deliverer).setOnClickListener(v -> {
-            Intent intent = new Intent(this, AuthenticationDeliverer.class);
+            Intent intent = new Intent(this, AuthenticationDelivererActivity.class);
             startActivity(intent);
         });
 

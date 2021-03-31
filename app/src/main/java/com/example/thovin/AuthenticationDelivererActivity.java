@@ -7,9 +7,11 @@ import android.widget.Button;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class AuthenticationDeliverer extends AppCompatActivity {
+public class AuthenticationDelivererActivity extends AppCompatActivity {
 
-    private Button connectBtn, registerBtn, cancelBtn;
+    private Button connectBtn;
+    private Button registerBtn;
+    private Button cancelBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
