@@ -4,13 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
 
 public class CartActivity extends AppCompatActivity {
 
-    private Button panier, profil, cancel, validate;
+    private Button cart, profil, cancel, validate;
     private ScrollView articles;
 
     @Override
@@ -18,34 +17,27 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        articles = (ScrollView) findViewById(R.id.panier_articles);
+        articles = findViewById(R.id.cart_articles);
 
         // Chargement de la scroll view
 
         // Buttons
-        panier = (Button) findViewById(R.id.panier_panier);
-        profil = (Button) findViewById(R.id.panier_profil);
-        cancel = (Button) findViewById(R.id.panier_cancel);
-        validate = (Button) findViewById(R.id.panier_validate);
+        cart = findViewById(R.id.cart_cart_btn);
+        profil = findViewById(R.id.cart_profil);
+        validate = findViewById(R.id.cart_validate_btn);
+        cancel = findViewById(R.id.cart_cancel_btn);
 
-        validate.setText(""+prixPanier());
+        validate.setText(""+ cartTotalPrice());
 
-        panier.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        profil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_profil = new Intent(CartActivity.this, ProfilActivity.class);
-                startActivity(intent_profil);
-            }
+        cart.setOnClickListener(v -> finish());
+
+        profil.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ProfilActivity.class);
+            startActivity(intent);
         });
     }
 
-    private double prixPanier(){
+    private double cartTotalPrice(){
         // calcul prix du panier selon "articles"
         return 32.70;
     }

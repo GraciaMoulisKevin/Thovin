@@ -2,7 +2,10 @@ package com.example.thovin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -14,21 +17,21 @@ public class AuthenticationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_authentication);
 
         // --- Handle onclick Client authentication button
-        findViewById(R.id.authentication_btn_client).setOnClickListener(v -> {
-            Snackbar snackbar = Snackbar.make(v, "Connection client!", Snackbar.LENGTH_LONG);
-            snackbar.show();
+        Button clientButton = findViewById(R.id.authentication_btn_client);
+        clientButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AuthenticationClientActivity.class);
+            startActivity(intent);
         });
 
         // --- Handle onclick Deliverer authentication button
         findViewById(R.id.authentication_btn_deliverer).setOnClickListener(v -> {
-            Snackbar snackbar = Snackbar.make(v, "Connection livreur!", Snackbar.LENGTH_LONG);
-            snackbar.show();
+            Intent intent = new Intent(this, AuthenticationDeliverer.class);
+            startActivity(intent);
         });
 
         // --- Handle onclick Restaurant authentication button
         findViewById(R.id.authentication_btn_restaurant).setOnClickListener(v -> {
-            Snackbar snackbar = Snackbar.make(v, "Connection restaurateur!", Snackbar.LENGTH_LONG);
-            snackbar.show();
+            Snackbar.make(v, "Connection restaurateur!", Snackbar.LENGTH_LONG).show();
         });
     }
 }
