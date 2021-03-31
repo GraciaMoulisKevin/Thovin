@@ -38,7 +38,9 @@
 
     <!-- AuthentificationClientActivity -->
     <string name="activity_authentication_is_subscribe_text">Déjà inscrit ?</string>
-    <string name="activity_authentication_is_new_text1">Nouveau client ?</string>
+    <string name="activity_authentication_is_new_client_text1">Nouveau client ?</string>
+    <string name="activity_authentication_is_new_deliverer_text1">Nouveau livreur ?</string>
+    <string name="activity_authentication_is_new_restaurant_text1">Nouveau restaurant ?</string>
     <string name="activity_authentication_is_new_text2">Inscris toi</string>
 
     <!--

@@ -25,7 +25,8 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         // --- Handle onclick Deliverer authentication button
         findViewById(R.id.authentication_btn_deliverer).setOnClickListener(v -> {
-            Snackbar.make(v, "Connection livreur!", Snackbar.LENGTH_LONG).show();
+            Intent intent = new Intent(this, AuthenticationDeliverer.class);
+            startActivity(intent);
         });
 
         // --- Handle onclick Restaurant authentication button
