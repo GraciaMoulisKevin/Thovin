@@ -24,14 +24,14 @@
             <!--    Application Logo    -->
             <ImageView
                 android:id="@+id/authenticationClient_Logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="36dp"
+                android:src="@drawable/app_logo"
                 android:contentDescription="Application Logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@mipmap/ic_launcher_round" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!--    Application Name    -->
             <TextView

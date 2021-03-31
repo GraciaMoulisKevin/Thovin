@@ -18,13 +18,14 @@ import android.widget.Spinner;
 public class MainActivity extends AppCompatActivity {
 
     private ImageView homePicture;
-    private Button panier;
+    private Button cart;
     private Button profil;
-    private EditText saisieAdresse;
-    private Button localisation;
+    private EditText addressInput;
+    private Button position;
     private EditText keywords;
     private Spinner categories;
     private ScrollView restaurants;
+    private Button connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +33,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Lien entre classe / layout
-        homePicture = (ImageView) findViewById(R.id.MainActivity_HomePicture);
-        panier = (Button) findViewById(R.id.MainActivity_Panier);
-        profil = (Button) findViewById(R.id.MainActivity_Profil);
-        saisieAdresse = (EditText) findViewById(R.id.MainActivity_saisieAdresse);
-        localisation = (Button) findViewById(R.id.MainActivity_Localisation);
-        keywords = (EditText) findViewById(R.id.MainActivity_keyword);
-        categories = (Spinner) findViewById(R.id.MainActivity_SpinnerCategorie);
-        restaurants = (ScrollView) findViewById(R.id.MainActivity_ScrollRestaurant);
+        homePicture = findViewById(R.id.mainActivity_home_picture);
+        cart = findViewById(R.id.mainActivity_cart);
+        profil = findViewById(R.id.mainActivity_profil);
+        addressInput = findViewById(R.id.mainActivity_address_input);
+        position = findViewById(R.id.mainActivity_position_btn);
+        keywords = findViewById(R.id.mainActivity_keyword);
+        categories = findViewById(R.id.mainActivity_spinner_categorie);
+        restaurants = findViewById(R.id.mainActivity_scroll_restaurant);
+        connection = findViewById(R.id.mainActivity_connection);
 
         // Modif
-        localisation.setEnabled(false);
+        position.setEnabled(false);
 
         // Spinner
-        String[] typeRestaurant = {"tmp1","tmp2","tmp3","tmp4"};
-        ArrayAdapter<String> adpater = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeRestaurant);
-        categories.setAdapter(adpater);
+        String[] typeRestaurant = {"Sushis","Burger","Saladerie","Pizza"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeRestaurant);
+        categories.setAdapter(adapter);
 
         // Listeners
         categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        saisieAdresse.addTextChangedListener(new TextWatcher() {
+        addressInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -76,18 +78,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if(s.toString().length() != 0){
-                    localisation.setEnabled(true);
+                    position.setEnabled(true);
                 }else{
-                    localisation.setEnabled(false);
+                    position.setEnabled(false);
                 }
             }
         });
 
-        localisation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Refresh de "restaurants" avec champ de "saisieAdresse"
-            }
+        position.setOnClickListener(v -> {
+            // Refresh de "restaurants" avec champ de "saisieAdresse"
         });
 
         keywords.addTextChangedListener(new TextWatcher() {
@@ -108,19 +107,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Changement activités
-        panier.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_panier = new Intent(MainActivity.this, CartActivity.class);
-                startActivity(intent_panier);
-            }
+        cart.setOnClickListener(v -> {
+            Intent intent_panier = new Intent(this, CartActivity.class);
+            startActivity(intent_panier);
         });
-        profil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_profil = new Intent(MainActivity.this, ProfilActivity.class);
-                startActivity(intent_profil);
-            }
+
+        profil.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ProfilActivity.class);
+            startActivity(intent);
         });
+
+        connection.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AuthenticationActivity.class);
+            startActivity(intent);
+        });
+
     }
 }

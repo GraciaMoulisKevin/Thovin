@@ -11,49 +11,42 @@ import android.widget.EditText;
 
 public class ProfilEditorActivity extends AppCompatActivity {
 
-    private Button oui, non;
-    private EditText nom, prenom, email, mdp1, mdp2, adr, compAdr, ville, codePostal, tel;
+    private Button saveBtn, cancelBtn;
+    private EditText name, firstName, mail, password, passwordVerification, address, additionalAddress, city, postalCode, phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_editor);
 
-        nom = (EditText) findViewById(R.id.profilEdit_nom);
-        prenom = (EditText) findViewById(R.id.profilEdit_prenom);
-        email = (EditText) findViewById(R.id.profilEdit_email);
-        mdp1 = (EditText) findViewById(R.id.profilEdit_pass1);
-        mdp2 = (EditText) findViewById(R.id.profilEdit_pass2);
-        adr = (EditText) findViewById(R.id.profilEdit_adresse);
-        compAdr = (EditText) findViewById(R.id.profilEdit_compAdresse);
-        ville = (EditText) findViewById(R.id.profilEdit_ville);
-        codePostal = (EditText) findViewById(R.id.profilEdit_codePostal);
-        tel = (EditText) findViewById(R.id.profilEdit_tel);
+        name = findViewById(R.id.profilEdit_nom);
+        firstName = findViewById(R.id.profilEdit_prenom);
+        mail = findViewById(R.id.profilEdit_email);
+        password = findViewById(R.id.profilEdit_pass1);
+        passwordVerification = findViewById(R.id.profilEdit_pass2);
+        address = findViewById(R.id.profilEdit_adresse);
+        additionalAddress = findViewById(R.id.profilEdit_compAdresse);
+        city = findViewById(R.id.profilEdit_ville);
+        postalCode = findViewById(R.id.profilEdit_codePostal);
+        phone = findViewById(R.id.profilEdit_tel);
 
         loadData();
 
         // Button
-        oui = (Button) findViewById(R.id.profilEdit_save);
-        non = (Button) findViewById(R.id.profilEdit_cancel);
+        saveBtn = findViewById(R.id.profilEdit_save);
+        cancelBtn = findViewById(R.id.profilEdit_cancel);
 
-        oui.setEnabled(false);
+        saveBtn.setEnabled(false);
 
-        oui.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // rajouter du code pour modifier la dataUser
-                finish();
-            }
+        saveBtn.setOnClickListener(v -> {
+            // rajouter du code pour modifier la dataUser
+            finish();
         });
-        non.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
+        cancelBtn.setOnClickListener(v -> finish());
 
         // PassCheck
-        mdp1.addTextChangedListener(new TextWatcher() {
+        password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -66,14 +59,15 @@ public class ProfilEditorActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(mdp2.getText().toString().equals(s.toString())){
-                    oui.setEnabled(true);
+                if(passwordVerification.getText().toString().equals(s.toString())){
+                    saveBtn.setEnabled(true);
                 }else{
-                    oui.setEnabled(false);
+                    saveBtn.setEnabled(false);
                 }
             }
         });
-        mdp2.addTextChangedListener(new TextWatcher() {
+        
+        passwordVerification.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -86,10 +80,10 @@ public class ProfilEditorActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(mdp1.getText().toString().equals(s.toString())){
-                    oui.setEnabled(true);
+                if(password.getText().toString().equals(s.toString())){
+                    saveBtn.setEnabled(true);
                 }else{
-                    oui.setEnabled(false);
+                    saveBtn.setEnabled(false);
                 }
             }
         });
@@ -97,13 +91,13 @@ public class ProfilEditorActivity extends AppCompatActivity {
 
     // En attendant d'avoir une base de donnée
     private void loadData(){
-        nom.setHint("Weebosaurus");
-        prenom.setHint("Rex");
-        email.setHint("toto@letrain.fr");
-        adr.setHint("117 Avenue du jambon perdu");
-        compAdr.setHint("Sans sauce");
-        ville.setHint("Issou");
-        codePostal.setHint("34000");
-        tel.setHint("0636303630");
+        name.setHint("Weebosaurus");
+        firstName.setHint("Rex");
+        mail.setHint("toto@letrain.fr");
+        address.setHint("117 Avenue du jambon perdu");
+        additionalAddress.setHint("Sans sauce");
+        city.setHint("Issou");
+        postalCode.setHint("34000");
+        phone.setHint("0636303630");
     }
 }

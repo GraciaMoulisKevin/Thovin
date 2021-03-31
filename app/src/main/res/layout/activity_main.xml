@@ -7,71 +7,71 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/MainActivity_HomePicture"
+        android:id="@+id/mainActivity_home_picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"/>
 
     <Button
-        android:id="@+id/MainActivity_Profil"
+        android:id="@+id/mainActivity_profil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="profil"
         android:layout_alignParentRight="true"/>
 
     <Button
-        android:id="@+id/MainActivity_Panier"
+        android:id="@+id/mainActivity_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="panier"
-        android:layout_toLeftOf="@id/MainActivity_Profil"/>
+        android:layout_toLeftOf="@id/mainActivity_profil"/>
 
     <TextView
         android:id="@+id/MainActivity_infoSaisie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/activity_main_address_input_header"
-        android:layout_below="@+id/MainActivity_Panier"/>
+        android:layout_below="@+id/mainActivity_cart"/>
 
     <EditText
-        android:id="@+id/MainActivity_saisieAdresse"
+        android:id="@+id/mainActivity_address_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/activity_main_address_input_placeholder"
         android:layout_below="@+id/MainActivity_infoSaisie"/>
 
     <Button
-        android:id="@+id/MainActivity_Localisation"
+        android:id="@+id/mainActivity_position_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/activity_main_position_btn"
         android:layout_below="@+id/MainActivity_infoSaisie"
-        android:layout_toRightOf="@+id/MainActivity_saisieAdresse"/>
+        android:layout_toRightOf="@+id/mainActivity_address_input"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/activity_main_quick_connection"
-        android:layout_below="@+id/MainActivity_saisieAdresse"/>
+        android:layout_below="@+id/mainActivity_address_input"/>
 
     <EditText
-        android:id="@+id/MainActivity_keyword"
+        android:id="@+id/mainActivity_keyword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/activity_main_searchbar_placeholder"
-        android:layout_below="@+id/MainActivity_Localisation"/>
+        android:layout_below="@+id/mainActivity_position_btn"/>
 
     <Spinner
-        android:id="@+id/MainActivity_SpinnerCategorie"
+        android:id="@+id/mainActivity_spinner_categorie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/MainActivity_keyword"/>
+        android:layout_below="@+id/mainActivity_keyword"/>
 
     <ScrollView
-        android:id="@+id/MainActivity_ScrollRestaurant"
+        android:id="@+id/mainActivity_scroll_restaurant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/MainActivity_SpinnerCategorie">
+        android:layout_below="@+id/mainActivity_spinner_categorie">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,12 +98,18 @@
         </LinearLayout>
     </ScrollView>
 
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/MainActivity_ScrollRestaurant"
-        android:layout_marginTop="-262dp"
-        android:text="Button" />
+        android:layout_below="@+id/mainActivity_scroll_restaurant"
+        android:layout_marginTop="73dp"
+        android:text="Restaurant" />
 
+    <Button
+        android:id="@+id/mainActivity_connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="connection" />
 </RelativeLayout>
