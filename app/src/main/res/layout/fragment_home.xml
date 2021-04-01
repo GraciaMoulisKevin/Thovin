@@ -7,7 +7,7 @@
 
     <!-- header -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/fragment_home_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/activity_main_address_input_header"
+            android:id="@+id/fragment_home_address_input_header"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/activity_main_wrap_position"
+            android:id="@+id/fragment_home_position_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -35,7 +35,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_main_address_input_header">
+            app:layout_constraintTop_toBottomOf="@+id/fragment_home_address_input_header">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -69,7 +69,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/activity_main_position_btn"
+                    android:id="@+id/fragment_home_position_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/black"
@@ -80,7 +80,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/activity_main_quick_connection"
+            android:id="@+id/fragment_home_quick_connection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -92,18 +92,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_main_wrap_position" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_home_position_wrapper" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Spinner -->
     <Spinner
-        android:id="@+id/activity_main_categories_spinner"
+        android:id="@+id/fragment_home_category_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="16dp"
         android:autofillHints="Categories"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_home_header" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

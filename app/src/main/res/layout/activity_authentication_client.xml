@@ -67,7 +67,7 @@
             <!--    Mail input    -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/authenticationClient_sub_mail"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
@@ -104,14 +104,10 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/authenticationClient_sub_password"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:hint="@string/password"
-                        app:layout_constraintEnd_toStartOf="@+id/authenticationClient_sub_password_verification"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:hint="@string/password">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -130,12 +126,10 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/authenticationClient_sub_password_verification"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/password_verification"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:hint="@string/password_verification">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -207,14 +201,10 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/authenticationClient_name"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:hint="@string/name"
-                        app:layout_constraintEnd_toStartOf="@+id/authenticationClient_sub_password_verification"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:hint="@string/name">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -233,12 +223,10 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/authenticationClient_first_name"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/first_name"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:hint="@string/first_name">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -252,7 +240,7 @@
             <!--    Mail input    -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/authenticationClient_new_mail"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
@@ -289,14 +277,10 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/authenticationClient_new_password"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:hint="@string/password"
-                        app:layout_constraintEnd_toStartOf="@+id/authenticationClient_sub_password_verification"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:hint="@string/password">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -315,12 +299,10 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/authenticationClient_new_password_verification"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/password_verification"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:hint="@string/password_verification">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -334,7 +316,7 @@
             <!--    Address input    -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/authenticationClient_new_address"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
@@ -353,11 +335,11 @@
             <!--    Additionnal adress input    -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/authenticationClient_new_additional_address"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:hint="@string/additionnal_address"
+                android:hint="@string/additional_address"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/authenticationClient_new_address">
@@ -371,7 +353,7 @@
 
             <!--    City & Postal Code input    -->
             <LinearLayout
-                android:id="@+id/authenticationClient_new_city_information"
+                android:id="@+id/authenticationClient_new_city_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="36dp"
@@ -390,14 +372,10 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/authenticationClient_new_city"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:hint="@string/city"
-                        app:layout_constraintEnd_toStartOf="@+id/authenticationClient_sub_password_verification"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:hint="@string/city">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -416,12 +394,10 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/authenticationClient_new_postal_code"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/postal_code"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:hint="@string/postal_code">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -435,14 +411,14 @@
             <!--    Phone input    -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/authenticationClient_new_phone"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:hint="@string/phone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/authenticationClient_new_city_information">
+                app:layout_constraintTop_toBottomOf="@+id/authenticationClient_new_city_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -475,10 +451,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/cancel"
-                        android:backgroundTint="@color/dark_red"
-                        app:layout_constraintEnd_toStartOf="@+id/authenticationClient_sub_password_verification"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:backgroundTint="@color/dark_red" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -493,9 +466,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/register"
-                        android:backgroundTint="@color/main_green"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:backgroundTint="@color/main_green"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

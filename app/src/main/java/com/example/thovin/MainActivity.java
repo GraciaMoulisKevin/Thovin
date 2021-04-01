@@ -4,56 +4,58 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.example.thovin.databinding.ActivityMainBinding;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
+
+import org.json.JSONObject;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private ActivityMainBinding binding;
     private DrawerLayout drawerLayout;
     private MaterialToolbar toolbar;
     private NavigationView navigationView;
 
-
     // Fragment
     private Fragment fragmentHome;
-    private static final int FRAGMENT_HOME = 0;
     private Fragment fragmentAuthentication;
+    private Fragment fragmentAccount;
+    private Fragment fragmentAccountEditor;
+    private Fragment fragmentCart;
+
+    private static final int FRAGMENT_HOME = 0;
     private static final int FRAGMENT_AUTHENTICATION = 1;
+    private static final int FRAGMENT_ACCOUNT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         this.configureToolBar();
         this.configureDrawerLayout();
         this.configureNavigationView();
-
         this.showFirstFragment();
     }
 
     // --- Toolbar methods
+
+    /**
+     * Configure the Toolbar
+     */
     private void configureToolBar(){
-        this.toolbar = findViewById(R.id.activity_main_toolbar);
+        this.toolbar = binding.activityMainToolbar;
         setSupportActionBar(toolbar);
     }
 
@@ -68,17 +70,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.menu_cart_icon) {
-            // TODO: utiliser un fragment plutôt
-            Intent intent = new Intent(this, CartActivity.class);
-            startActivity(intent);
+            this.showCartFragment();
         }
         return true;
     }
 
 
     // --- DrawerLayout methods
+
+    /**
+     * Configure the DrawerLayout
+     */
     private void configureDrawerLayout() {
-        this.drawerLayout = findViewById(R.id.drawerLayout);
+        this.drawerLayout = binding.drawerLayout;
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         this.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -87,11 +91,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     // --- NavigationView methods
+
+    /**
+     * Configure the NavigationView
+     */
     private void configureNavigationView(){
-        this.navigationView = findViewById(R.id.activity_main_navigation_view);
+        this.navigationView = binding.activityMainNavigationView;
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    /**
+     * TODO: Try to use ViewBinding instead of R.id
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -101,7 +112,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this.showFragment(FRAGMENT_HOME);
                 break;
             case R.id.activity_main_drawer_user :
+                // TODO: if connected, open PROFIL
                 this.showFragment(FRAGMENT_AUTHENTICATION);
+                break;
+            case R.id.activity_main_drawer_user_account:
+                this.showFragment(FRAGMENT_ACCOUNT);
                 break;
             case R.id.activity_main_drawer_parameters:
                 // TODO
@@ -115,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /**
+     * Handle back button pressed when the drawer is open. On back pressed then close the menu (if it is open)
+     */
     @Override
     public void onBackPressed() {
         if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -124,22 +142,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+
     // --- Fragments methods
-    private void showFragment(int fragmentId) {
+
+    /**
+     * Show a specific fragment by is id
+     * @param fragmentId The fragment id to show
+     */
+    public void showFragment(int fragmentId) {
         switch (fragmentId) {
             case FRAGMENT_HOME:
                 this.showHomeFragment();
-                getSupportActionBar().setTitle(R.string.home);
                 break;
             case FRAGMENT_AUTHENTICATION:
                 this.showAuthenticationFragment();
-                getSupportActionBar().setTitle(R.string.connection);
+                break;
+            case FRAGMENT_ACCOUNT:
+                this.showAccountFragment();
                 break;
             default:
                 break;
         }
     }
 
+    /**
+     * Show the first fragment we want to display
+     */
     private void showFirstFragment() {
         Fragment visibleFragment = getSupportFragmentManager().findFragmentById(R.id.activity_main_frame_layout);
         if (visibleFragment == null) {
@@ -148,106 +176,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void showAuthenticationFragment() {
-        if (this.fragmentAuthentication == null) this.fragmentAuthentication = AuthenticationFragment.newInstance();
-        this.startTransactionFragment(this.fragmentAuthentication);
-    }
-
+    /**
+     * Show the Home fragment
+     */
     private void showHomeFragment() {
         if (this.fragmentHome == null) this.fragmentHome = HomeFragment.newInstance();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.home);
         this.startTransactionFragment(this.fragmentHome);
     }
 
+    /**
+     * Show the Authentication Fragment
+     */
+    private void showAuthenticationFragment() {
+        if (this.fragmentAuthentication == null) this.fragmentAuthentication = AuthenticationFragment.newInstance();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.connection);
+        this.startTransactionFragment(this.fragmentAuthentication);
+    }
+
+    /**
+     * Show the Account Fragment
+     */
+    private void showAccountFragment() {
+        if (this.fragmentAccount == null) this.fragmentAccount = AccountFragment.newInstance();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.fragment_account_header);
+        this.startTransactionFragment(this.fragmentAccount);
+    }
+
+    /**
+     * Show the Account Editor Fragment
+     */
+    public void showAccountEditorFragment(JSONObject jsonUserData) {
+        if (this.fragmentAccountEditor == null) this.fragmentAccountEditor = AccountEditorFragment.newInstance(jsonUserData);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.fragment_account_header);
+        this.startTransactionFragment(this.fragmentAccountEditor);
+    }
+
+    /**
+     * Show the Cart fragment
+     */
+    private void showCartFragment() {
+        if (this.fragmentCart == null) this.fragmentCart = CartFragment.newInstance();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.cart);
+        this.startTransactionFragment(this.fragmentCart);
+    }
+
+    /**
+     * Start transaction, replace the actual fragment by the one give and commit
+     * @param fragment The fragment
+     */
     private void startTransactionFragment(Fragment fragment) {
         if (!fragment.isVisible()) {
             getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_frame_layout, fragment).commit();
         }
     }
 }
-
-
-
-/* ARCHIVES
-    private Button profilBtn;
-    private TextInputEditText addressInput;
-    private Button positionBtn;
-    private Spinner categoriesSpinner;
-    private NestedScrollView categoriesContainer;
-    private Button connectionBtn;
-
-
-        addressInput = findViewById(R.id.activity_main_address_input);
-        positionBtn = findViewById(R.id.activity_main_position_btn);
-        categoriesSpinner = findViewById(R.id.activity_main_categories_spinner);
-        categoriesContainer = findViewById(R.id.activity_main_categories_container);
-
-        // Modif
-        positionBtn.setEnabled(false);
-
-        // Spinner
-        String[] categories = {"Catégorie", "Sushis", "Burger", "Saladerie", "Pizza"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-        this.categoriesSpinner.setAdapter(adapter);
-
-        // Listeners
-        this.categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        addressInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                positionBtn.setEnabled(s.toString().length() != 0);
-            }
-        });
-
-        positionBtn.setOnClickListener(v -> {
-            Snackbar.make(v, "Localisation en cours...", Snackbar.LENGTH_LONG).show();
-        });
-
-
-        profilBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ProfilActivity.class);
-            startActivity(intent);
-        });
-
-        connectionBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AuthenticationActivity.class);
-            startActivity(intent);
-        });
-
-    // --- Spinner Adapter methods
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position > 0) {
-            // On selecting a spinner item
-            String item = parent.getItemAtPosition(position).toString();
-
-            // Showing selected spinner item
-            Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO Auto-generated method stub
-    }
-
- */

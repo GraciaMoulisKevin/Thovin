@@ -11,10 +11,8 @@
         android:theme="@style/Theme.Thovin">
         <activity android:name=".AuthenticationDelivererActivity"></activity>
         <activity android:name=".AuthenticationClientActivity" />
-        <activity android:name=".AuthenticationActivity" />
-        <activity android:name=".ProfilEditorActivity" />
-        <activity android:name=".CartActivity" />
-        <activity android:name=".ProfilActivity" />
+<!--        <activity android:name=".ProfilEditorActivity" />-->
+<!--        <activity android:name=".ProfilActivity" />-->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
