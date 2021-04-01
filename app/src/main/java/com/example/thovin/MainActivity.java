@@ -1,126 +1,233 @@
 package com.example.thovin;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
+import android.view.Menu;
+import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.thovin.databinding.ActivityMainBinding;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 
-    private ImageView homePicture;
-    private Button cart;
-    private Button profil;
-    private EditText addressInput;
-    private Button position;
-    private EditText keywords;
-    private Spinner categories;
-    private ScrollView restaurants;
-    private Button connection;
+import org.json.JSONObject;
+
+import java.util.Objects;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ActivityMainBinding binding;
+    private DrawerLayout drawerLayout;
+    private MaterialToolbar toolbar;
+    private NavigationView navigationView;
+
+    // Fragment
+    private Fragment fragmentHome;
+    private Fragment fragmentAuthentication;
+    private Fragment fragmentAccount;
+    private Fragment fragmentAccountEditor;
+    private Fragment fragmentCart;
+
+    private static final int FRAGMENT_HOME = 0;
+    private static final int FRAGMENT_AUTHENTICATION = 1;
+    private static final int FRAGMENT_ACCOUNT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        // Lien entre classe / layout
-        homePicture = findViewById(R.id.mainActivity_home_picture);
-        cart = findViewById(R.id.mainActivity_cart);
-        profil = findViewById(R.id.mainActivity_profil);
-        addressInput = findViewById(R.id.mainActivity_address_input);
-        position = findViewById(R.id.mainActivity_position_btn);
-        keywords = findViewById(R.id.mainActivity_keyword);
-        categories = findViewById(R.id.mainActivity_spinner_categorie);
-        restaurants = findViewById(R.id.mainActivity_scroll_restaurant);
-        connection = findViewById(R.id.mainActivity_connection);
+        this.configureToolBar();
+        this.configureDrawerLayout();
+        this.configureNavigationView();
+        this.showFirstFragment();
+    }
 
-        // Modif
-        position.setEnabled(false);
+    // --- Toolbar methods
 
-        // Spinner
-        String[] typeRestaurant = {"Sushis","Burger","Saladerie","Pizza"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeRestaurant);
-        categories.setAdapter(adapter);
+    /**
+     * Configure the Toolbar
+     */
+    private void configureToolBar(){
+        this.toolbar = binding.activityMainToolbar;
+        setSupportActionBar(toolbar);
+    }
 
-        // Listeners
-        categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.top_app_bar, menu);
+        return true;
+    }
 
-            }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.menu_cart_icon) {
+            this.showCartFragment();
+        }
+        return true;
+    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
+    // --- DrawerLayout methods
 
-        addressInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    /**
+     * Configure the DrawerLayout
+     */
+    private void configureDrawerLayout() {
+        this.drawerLayout = binding.drawerLayout;
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        this.drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        this.drawerLayout.setFocusableInTouchMode(false);
+    }
 
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+    // --- NavigationView methods
 
-            }
+    /**
+     * Configure the NavigationView
+     */
+    private void configureNavigationView(){
+        this.navigationView = binding.activityMainNavigationView;
+        navigationView.setNavigationItemSelectedListener(this);
+    }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.toString().length() != 0){
-                    position.setEnabled(true);
-                }else{
-                    position.setEnabled(false);
-                }
-            }
-        });
+    /**
+     * TODO: Try to use ViewBinding instead of R.id
+     */
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
 
-        position.setOnClickListener(v -> {
-            // Refresh de "restaurants" avec champ de "saisieAdresse"
-        });
+        switch (id){
+            case R.id.activity_main_drawer_home :
+                this.showFragment(FRAGMENT_HOME);
+                break;
+            case R.id.activity_main_drawer_user :
+                // TODO: if connected, open PROFIL
+                this.showFragment(FRAGMENT_AUTHENTICATION);
+                break;
+            case R.id.activity_main_drawer_user_account:
+                this.showFragment(FRAGMENT_ACCOUNT);
+                break;
+            case R.id.activity_main_drawer_parameters:
+                // TODO
+                break;
+            default:
+                break;
+        }
 
-        keywords.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        this.drawerLayout.closeDrawer(GravityCompat.START);
 
-            }
+        return true;
+    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+    /**
+     * Handle back button pressed when the drawer is open. On back pressed then close the menu (if it is open)
+     */
+    @Override
+    public void onBackPressed() {
+        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                // Refresh de "restaurants" avec "s"
-            }
-        });
+    // --- Fragments methods
 
-        // Changement activités
-        cart.setOnClickListener(v -> {
-            Intent intent_panier = new Intent(this, CartActivity.class);
-            startActivity(intent_panier);
-        });
+    /**
+     * Show a specific fragment by is id
+     * @param fragmentId The fragment id to show
+     */
+    public void showFragment(int fragmentId) {
+        switch (fragmentId) {
+            case FRAGMENT_HOME:
+                this.showHomeFragment();
+                break;
+            case FRAGMENT_AUTHENTICATION:
+                this.showAuthenticationFragment();
+                break;
+            case FRAGMENT_ACCOUNT:
+                this.showAccountFragment();
+                break;
+            default:
+                break;
+        }
+    }
 
-        profil.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ProfilActivity.class);
-            startActivity(intent);
-        });
+    /**
+     * Show the first fragment we want to display
+     */
+    private void showFirstFragment() {
+        Fragment visibleFragment = getSupportFragmentManager().findFragmentById(R.id.activity_main_frame_layout);
+        if (visibleFragment == null) {
+            this.showFragment(FRAGMENT_HOME);
+            this.navigationView.getMenu().getItem(FRAGMENT_HOME).setChecked(true);
+        }
+    }
 
-        connection.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AuthenticationActivity.class);
-            startActivity(intent);
-        });
+    /**
+     * Show the Home fragment
+     */
+    private void showHomeFragment() {
+        if (this.fragmentHome == null) this.fragmentHome = HomeFragment.newInstance();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.home);
+        this.startTransactionFragment(this.fragmentHome);
+    }
 
+    /**
+     * Show the Authentication Fragment
+     */
+    private void showAuthenticationFragment() {
+        if (this.fragmentAuthentication == null) this.fragmentAuthentication = AuthenticationFragment.newInstance();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.connection);
+        this.startTransactionFragment(this.fragmentAuthentication);
+    }
+
+    /**
+     * Show the Account Fragment
+     */
+    private void showAccountFragment() {
+        if (this.fragmentAccount == null) this.fragmentAccount = AccountFragment.newInstance();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.fragment_account_header);
+        this.startTransactionFragment(this.fragmentAccount);
+    }
+
+    /**
+     * Show the Account Editor Fragment
+     */
+    public void showAccountEditorFragment(JSONObject jsonUserData) {
+        if (this.fragmentAccountEditor == null) this.fragmentAccountEditor = AccountEditorFragment.newInstance(jsonUserData);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.fragment_account_header);
+        this.startTransactionFragment(this.fragmentAccountEditor);
+    }
+
+    /**
+     * Show the Cart fragment
+     */
+    private void showCartFragment() {
+        if (this.fragmentCart == null) this.fragmentCart = CartFragment.newInstance();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.cart);
+        this.startTransactionFragment(this.fragmentCart);
+    }
+
+    /**
+     * Start transaction, replace the actual fragment by the one give and commit
+     * @param fragment The fragment
+     */
+    private void startTransactionFragment(Fragment fragment) {
+        if (!fragment.isVisible()) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_frame_layout, fragment).commit();
+        }
     }
 }
