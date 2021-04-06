@@ -44,7 +44,7 @@ public class AccountFragment extends Fragment {
         }
 
         this.rootView.findViewById(R.id.fragment_account_edit_btn).setOnClickListener(v -> {
-            ((MainActivity) Objects.requireNonNull(getActivity())).showAccountEditorFragment(jsonUserData);
+            ((MainActivity) Objects.requireNonNull(getActivity())).showFragment(MainActivity.FRAGMENT_ACCOUNT_EDITOR, jsonUserData);
         });
 
         return this.rootView;

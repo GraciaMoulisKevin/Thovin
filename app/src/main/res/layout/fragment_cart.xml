@@ -241,12 +241,12 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/authenticationClient_cancel_btn"
+                    android:id="@+id/fragment_authentication_client_cancel_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/dark_red"
                     android:text="@string/cancel"
-                    app:layout_constraintEnd_toStartOf="@+id/authenticationClient_sub_password_verification"
+                    app:layout_constraintEnd_toStartOf="@+id/fragment_authentication_client_sub_password_verification"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
@@ -259,7 +259,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/authenticationClient_register_btn"
+                    android:id="@+id/fragment_authentication_client_register_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/main_green"

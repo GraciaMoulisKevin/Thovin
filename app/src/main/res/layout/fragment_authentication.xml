@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/authentication_Logo"
+            android:id="@+id/fragment_authentication_Logo"
             android:layout_width="100sp"
             android:layout_height="100sp"
             android:layout_marginTop="36dp"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/authentication_app_name"
+            android:id="@+id/fragment_authentication_app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="114dp"
@@ -37,10 +37,10 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/authentication_Logo" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_Logo" />
 
         <TextView
-            android:id="@+id/authentication_text"
+            android:id="@+id/fragment_authentication_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
@@ -56,10 +56,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/authentication_app_name" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_app_name" />
 
         <Button
-            android:id="@+id/authentication_client_btn"
+            android:id="@+id/fragment_authentication_client_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="159dp"
@@ -71,10 +71,10 @@
             android:backgroundTint="@color/main_orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/authentication_text" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_text" />
 
         <Button
-            android:id="@+id/authentication_deliverer_btn"
+            android:id="@+id/fragment_authentication_deliverer_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="159dp"
@@ -86,10 +86,10 @@
             android:backgroundTint="@color/main_orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/authentication_client_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_btn" />
 
         <Button
-            android:id="@+id/authentication_restaurant_btn"
+            android:id="@+id/fragment_authentication_restaurant_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="159dp"
@@ -101,6 +101,6 @@
             android:backgroundTint="@color/main_orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/authentication_deliverer_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_deliverer_btn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

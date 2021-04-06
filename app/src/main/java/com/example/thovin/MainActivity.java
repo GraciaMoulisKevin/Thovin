@@ -29,13 +29,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Fragment
     private Fragment fragmentHome;
     private Fragment fragmentAuthentication;
+    private Fragment fragmentAuthenticationClient;
+    private Fragment fragmentAuthenticationDeliverer;
     private Fragment fragmentAccount;
     private Fragment fragmentAccountEditor;
     private Fragment fragmentCart;
 
-    private static final int FRAGMENT_HOME = 0;
-    private static final int FRAGMENT_AUTHENTICATION = 1;
-    private static final int FRAGMENT_ACCOUNT = 2;
+    public static final int FRAGMENT_HOME = 0;
+    public static final int FRAGMENT_AUTHENTICATION = 1;
+    public static final int FRAGMENT_AUTHENTICATION_CLIENT = 2;
+    public static final int FRAGMENT_AUTHENTICATION_DELIVERER = 3;
+    public static final int FRAGMENT_AUTHENTICATION_RESTAURANT = 4;
+    public static final int FRAGMENT_ACCOUNT = 5;
+    public static final int FRAGMENT_ACCOUNT_EDITOR = 6;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,9 +154,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Show a specific fragment by is id
-     * @param fragmentId The fragment id to show
+     * @param fragmentId
+     * @param jsonObjects
      */
-    public void showFragment(int fragmentId) {
+    public void showFragment(int fragmentId, JSONObject ...jsonObjects) {
         switch (fragmentId) {
             case FRAGMENT_HOME:
                 this.showHomeFragment();
@@ -157,8 +165,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case FRAGMENT_AUTHENTICATION:
                 this.showAuthenticationFragment();
                 break;
+            case FRAGMENT_AUTHENTICATION_CLIENT:
+                this.showAuthenticationClientFragment();
+                break;
+            case FRAGMENT_AUTHENTICATION_DELIVERER:
+                this.showAuthenticationDelivererFragment();
+                break;
+//            case FRAGMENT_AUTHENTICATION_RESTAURANT:
+//                this.showAuthenticationRestaurantFragment();
+//                break;
             case FRAGMENT_ACCOUNT:
                 this.showAccountFragment();
+                break;
+            case FRAGMENT_ACCOUNT_EDITOR:
+                if (jsonObjects[0] != null) this.showAccountEditorFragment(jsonObjects[0]);
                 break;
             default:
                 break;
@@ -192,6 +212,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (this.fragmentAuthentication == null) this.fragmentAuthentication = AuthenticationFragment.newInstance();
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.connection);
         this.startTransactionFragment(this.fragmentAuthentication);
+    }
+
+    /**
+     * Show the Authentication Client Fragment
+     */
+    private void showAuthenticationClientFragment() {
+        if (this.fragmentAuthenticationClient == null) this.fragmentAuthenticationClient = AuthenticationClientFragment.newInstance();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.connection);
+        this.startTransactionFragment(this.fragmentAuthenticationClient);
+    }
+
+    /**
+     * Show the Authentication Deliverer Fragment
+     */
+    private void showAuthenticationDelivererFragment() {
+        if (this.fragmentAuthenticationDeliverer == null) this.fragmentAuthenticationDeliverer = AuthenticationDelivererFragment.newInstance();
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.connection);
+        this.startTransactionFragment(this.fragmentAuthenticationDeliverer);
     }
 
     /**
