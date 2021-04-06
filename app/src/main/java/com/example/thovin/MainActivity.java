@@ -12,6 +12,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.thovin.databinding.ActivityMainBinding;
+import com.example.thovin.fragments.AccountEditorFragment;
+import com.example.thovin.fragments.AccountFragment;
+import com.example.thovin.fragments.AuthenticationClientFragment;
+import com.example.thovin.fragments.AuthenticationDelivererFragment;
+import com.example.thovin.fragments.AuthenticationFragment;
+import com.example.thovin.fragments.CartFragment;
+import com.example.thovin.fragments.HomeFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
