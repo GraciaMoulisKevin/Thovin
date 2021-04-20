@@ -17,7 +17,7 @@
         <item
             android:id="@+id/activity_main_drawer_user_account"
             android:icon="@drawable/ic_round_person_24"
-            android:title="@string/fragment_account_header" />
+            android:title="@string/fg_account_header" />
 
         <item
             android:id="@+id/activity_main_drawer_parameters"

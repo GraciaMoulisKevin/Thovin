@@ -7,7 +7,7 @@
 
     <!-- header -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragment_home_header"
+        android:id="@+id/fg_home_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -17,17 +17,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/fragment_home_address_input_header"
+            android:id="@+id/fg_home_address_input_header"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/activity_main_address_input_header"
+            android:text="@string/fg_home_address_input_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/fragment_home_position_wrapper"
+            android:id="@+id/fg_home_position_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -35,7 +35,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_home_address_input_header">
+            app:layout_constraintTop_toBottomOf="@+id/fg_home_address_input_header">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -48,11 +48,11 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/activity_main_address_input_placeholder"
+                    android:hint="@string/fg_home_address_input_placeholder"
                     app:layout_constraintStart_toStartOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/activity_main_address_input"
+                        android:id="@+id/fg_home_address_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -69,42 +69,42 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/fragment_home_position_btn"
+                    android:id="@+id/fg_home_position_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/black"
-                    android:text="@string/activity_main_position_btn"
-                    app:layout_constraintStart_toEndOf="@+id/activity_main_address_input"
+                    android:text="@string/fg_home_position_btn"
+                    app:layout_constraintStart_toEndOf="@+id/fg_home_address_input"
                     app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/fragment_home_quick_connection"
+            android:id="@+id/fg_home_quick_connection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/activity_main_quick_connection_tip"
+            android:text="@string/fg_quick_connection_tip"
             android:textColor="@color/burgundy"
             android:textSize="12sp"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_home_position_wrapper" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_home_position_wrapper" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Spinner -->
     <Spinner
-        android:id="@+id/fragment_home_category_spinner"
+        android:id="@+id/fg_home_category_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="16dp"
         android:autofillHints="Categories"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_home_header" />
+        app:layout_constraintTop_toBottomOf="@+id/fg_home_header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

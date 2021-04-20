@@ -14,11 +14,12 @@ import android.view.MenuItem;
 import com.example.thovin.databinding.ActivityMainBinding;
 import com.example.thovin.fragments.AccountEditorFragment;
 import com.example.thovin.fragments.AccountFragment;
-import com.example.thovin.fragments.AuthenticationClientFragment;
-import com.example.thovin.fragments.AuthenticationDelivererFragment;
-import com.example.thovin.fragments.AuthenticationFragment;
+import com.example.thovin.fragments.AuthClientFragment;
+import com.example.thovin.fragments.AuthDelivererFragment;
+import com.example.thovin.fragments.AuthFragment;
 import com.example.thovin.fragments.CartFragment;
 import com.example.thovin.fragments.HomeFragment;
+import com.example.thovin.models.AuthResponseModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -26,22 +27,15 @@ import org.json.JSONObject;
 
 import java.util.Objects;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ActivityMainBinding binding;
-    private DrawerLayout drawerLayout;
-    private MaterialToolbar toolbar;
-    private NavigationView navigationView;
-
-    // Fragment
-    private Fragment fragmentHome;
-    private Fragment fragmentAuthentication;
-    private Fragment fragmentAuthenticationClient;
-    private Fragment fragmentAuthenticationDeliverer;
-    private Fragment fragmentAccount;
-    private Fragment fragmentAccountEditor;
-    private Fragment fragmentCart;
-
+    // --- Global variables
+    public static final String BASE_URL = "http://192.168.1.13:29321/v1/";
     public static final int FRAGMENT_HOME = 0;
     public static final int FRAGMENT_AUTHENTICATION = 1;
     public static final int FRAGMENT_AUTHENTICATION_CLIENT = 2;
@@ -50,6 +44,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final int FRAGMENT_ACCOUNT = 5;
     public static final int FRAGMENT_ACCOUNT_EDITOR = 6;
 
+    // --- Retrofit
+    public static Retrofit retrofit;
+
+    // --- Views
+    private ActivityMainBinding binding;
+    private DrawerLayout drawerLayout;
+    private MaterialToolbar toolbar;
+    private NavigationView navigationView;
+
+    // --- Fragment
+    private Fragment fragmentHome;
+    private Fragment fragmentAuthentication;
+    private Fragment fragmentAuthenticationClient;
+    private Fragment fragmentAuthenticationDeliverer;
+    private Fragment fragmentAccount;
+    private Fragment fragmentAccountEditor;
+    private Fragment fragmentCart;
+
+    // --- User
+    public static AuthResponseModel user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +71,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        this.configureToolBar();
-        this.configureDrawerLayout();
-        this.configureNavigationView();
-        this.showFirstFragment();
+        // --- Configuration
+        retrofit = new HttpClient(BASE_URL, HttpClient.DEBUG_ON).getRetrofit();
+        configureToolBar();
+        configureDrawerLayout();
+        configureNavigationView();
+
+        // --- Start
+        showFirstFragment();
     }
+
+    // --- User methods
+    public static AuthResponseModel getUser() {
+        return user;
+    }
+    public static void setUser(AuthResponseModel val) { user = val; }
+
 
     // --- Toolbar methods
 
@@ -161,8 +186,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Show a specific fragment by is id
-     * @param fragmentId
-     * @param jsonObjects
+     * @param fragmentId The fragment Id
+     * @param jsonObjects Optional jsonObject for passing data
      */
     public void showFragment(int fragmentId, JSONObject ...jsonObjects) {
         switch (fragmentId) {
@@ -216,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Show the Authentication Fragment
      */
     private void showAuthenticationFragment() {
-        if (this.fragmentAuthentication == null) this.fragmentAuthentication = AuthenticationFragment.newInstance();
+        if (this.fragmentAuthentication == null) this.fragmentAuthentication = AuthFragment.newInstance();
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.connection);
         this.startTransactionFragment(this.fragmentAuthentication);
     }
@@ -225,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Show the Authentication Client Fragment
      */
     private void showAuthenticationClientFragment() {
-        if (this.fragmentAuthenticationClient == null) this.fragmentAuthenticationClient = AuthenticationClientFragment.newInstance();
+        if (this.fragmentAuthenticationClient == null) this.fragmentAuthenticationClient = AuthClientFragment.newInstance();
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.connection);
         this.startTransactionFragment(this.fragmentAuthenticationClient);
     }
@@ -234,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Show the Authentication Deliverer Fragment
      */
     private void showAuthenticationDelivererFragment() {
-        if (this.fragmentAuthenticationDeliverer == null) this.fragmentAuthenticationDeliverer = AuthenticationDelivererFragment.newInstance();
+        if (this.fragmentAuthenticationDeliverer == null) this.fragmentAuthenticationDeliverer = AuthDelivererFragment.newInstance();
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.connection);
         this.startTransactionFragment(this.fragmentAuthenticationDeliverer);
     }
@@ -244,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private void showAccountFragment() {
         if (this.fragmentAccount == null) this.fragmentAccount = AccountFragment.newInstance();
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.fragment_account_header);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.fg_account_header);
         this.startTransactionFragment(this.fragmentAccount);
     }
 
@@ -253,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     public void showAccountEditorFragment(JSONObject jsonUserData) {
         if (this.fragmentAccountEditor == null) this.fragmentAccountEditor = AccountEditorFragment.newInstance(jsonUserData);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.fragment_account_header);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.fg_account_header);
         this.startTransactionFragment(this.fragmentAccountEditor);
     }
 

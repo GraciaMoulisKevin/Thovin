@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AuthenticationClientFragment">
+    tools:context=".fragments.AuthClientFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
 
         <!--    Application Logo    -->
         <ImageView
-            android:id="@+id/fragment_authentication_client_Logo"
+            android:id="@+id/fg_auth_client_Logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="36dp"
@@ -27,7 +27,7 @@
 
         <!--    Application Name    -->
         <TextView
-            android:id="@+id/fragment_authentication_client_app_name"
+            android:id="@+id/fg_auth_client_app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -38,37 +38,38 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_Logo" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_Logo" />
 
         <!--    Text    -->
         <TextView
-            android:id="@+id/fragment_authentication_client_text"
+            android:id="@+id/fg_auth_client_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:gravity="center"
-            android:text="@string/activity_authentication_is_subscribe_text"
+            android:text="@string/auth_is_subscribe_text"
             android:textColor="@color/black"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_app_name" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_app_name" />
 
-        <!--    Mail input    -->
+        <!--    Email input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_authentication_client_sub_mail"
+            android:id="@+id/fg_auth_client_login_email_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:hint="@string/mail"
+            android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_text">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_text">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fg_auth_client_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"/>
@@ -76,65 +77,28 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--    Password inputs    -->
-        <LinearLayout
-            android:id="@+id/fragment_authentication_client_sub_password_layout"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fg_auth_client_login_password_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
+            android:hint="@string/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_sub_mail">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_login_email_layout">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fg_auth_client_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_authentication_client_sub_password"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/password">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_authentication_client_sub_password_verification"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/password_verification">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!--    Connection button    -->
         <Button
-            android:id="@+id/fragment_authentication_client_connection_btn"
+            android:id="@+id/fg_auth_client_login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -142,39 +106,39 @@
             android:backgroundTint="@color/main_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_sub_password_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_login_password_layout" />
 
         <!--    Text    -->
         <TextView
-            android:id="@+id/fragment_authentication_client_new_text1"
+            android:id="@+id/fg_auth_client_new_text1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:gravity="center"
-            android:text="@string/activity_authentication_is_new_client_text1"
+            android:text="@string/fg_auth_is_new_client_text"
             android:textColor="@color/black"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_connection_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_login_btn" />
 
         <TextView
-            android:id="@+id/fragment_authentication_client_new_text2"
+            android:id="@+id/fg_auth_client_new_text2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/activity_authentication_is_new_text2"
+            android:text="@string/auth_is_new_text2"
             android:textColor="@color/black"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_new_text1" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_new_text1" />
 
         <!--    Name & First Name input    -->
         <LinearLayout
-            android:id="@+id/fragment_authentication_client_full_name_layout"
+            android:id="@+id/fg_auth_client_full_name_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -182,7 +146,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_new_text2">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_new_text2">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -192,16 +156,17 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_authentication_client_name"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/name">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fg_auth_client_last_name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"/>
+                        android:layout_height="match_parent"
+                        android:text="Peplus"
+                        android:inputType="textPersonName" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -214,43 +179,46 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_authentication_client_first_name"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/first_name">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fg_auth_client_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"/>
+                        android:text="Jean"
+                        android:inputType="textPersonName"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </LinearLayout>
 
-        <!--    Mail input    -->
+        <!--    Email input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_authentication_client_new_mail"
+            android:id="@+id/fg_auth_client_email_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:hint="@string/mail"
+            android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_full_name_layout">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_full_name_layout">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fg_auth_client_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="jpp@test.com"
                 android:inputType="textEmailAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--    Passwords input    -->
         <LinearLayout
-            android:id="@+id/fragment_authentication_client_new_password_layout"
+            android:id="@+id/fg_auth_client_password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -258,7 +226,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_new_mail">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_email_layout">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -268,15 +236,16 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_authentication_client_new_password"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fg_auth_client_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="123"
                         android:inputType="textPassword"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -290,15 +259,16 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_authentication_client_new_password_verification"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password_verification">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fg_auth_client_check_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="123"
                         android:inputType="textPassword" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -307,7 +277,7 @@
 
         <!--    Address input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_authentication_client_new_address"
+            android:id="@+id/fg_auth_client_street_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -315,18 +285,20 @@
             android:hint="@string/address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_new_password_layout">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_password_layout">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fg_auth_client_street"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="1 rue des amandier"
                 android:inputType="textPostalAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--    Additionnal adress input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_authentication_client_new_additional_address"
+            android:id="@+id/fg_auth_client_additional_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -334,9 +306,10 @@
             android:hint="@string/additional_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_new_address">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_street_layout">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fg_auth_client_additional"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPostalAddress"/>
@@ -345,7 +318,7 @@
 
         <!--    City & Postal Code input    -->
         <LinearLayout
-            android:id="@+id/fragment_authentication_client_new_city_layout"
+            android:id="@+id/fg_auth_client_city_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -353,7 +326,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_new_additional_address">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_additional_layout">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -363,15 +336,16 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_authentication_client_new_city"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/city">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fg_auth_client_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="Montpellier"
                         android:inputType="text"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -385,24 +359,46 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_authentication_client_new_postal_code"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/postal_code">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fg_auth_client_zip"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="34000"
                         android:inputType="number"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </LinearLayout>
 
+        <!--    Country input    -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fg_auth_client_country_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:hint="@string/country"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_city_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fg_auth_client_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="France"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <!--    Phone input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_authentication_client_new_phone"
+            android:id="@+id/fg_auth_client_phone_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -410,18 +406,20 @@
             android:hint="@string/phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_new_city_layout">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_country_layout">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fg_auth_client_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="0123456789"
                 android:inputType="phone"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--    Validation buttons    -->
         <LinearLayout
-            android:id="@+id/fragment_authentication_client_buttons"
+            android:id="@+id/fg_auth_client_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -429,7 +427,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_authentication_client_new_phone">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_phone_layout">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -439,7 +437,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/fragment_authentication_client_cancel_btn"
+                    android:id="@+id/fg_auth_client_cancel_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/cancel"
@@ -454,7 +452,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/fragment_authentication_client_register_btn"
+                    android:id="@+id/fg_auth_client_register_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/register"
