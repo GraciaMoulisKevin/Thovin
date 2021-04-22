@@ -6,6 +6,8 @@
     <string name="cancel">Annuler</string>
     <string name="save">Sauvegarder</string>
     <string name="connection">Se connecter</string>
+    <string name="client_connection">Connexion client</string>
+    <string name="deliverer_connection">Connexion livreur</string>
     <string name="register">S\'inscrire</string>
     <string name="parameters">Paramètres</string>
     <string name="cart">Panier</string>
@@ -23,6 +25,9 @@
     <string name="search">Rechercher</string>
     <string name="more">Plus</string>
 
+    <string name="err_empty_field">Champ vide</string>
+    <string name="err_password_length">8 caractères min.</string>
+    <string name="err_password_not_equals">mot de passe différent</string>
     <string name="err_occurred">Oups... Une erreur est survenue, veuillez-réessayer</string>
     <string name="err_connection">Connexion impossible, vérifiez votre connexion internet</string>
     <string name="err_400">Valeurs manquantes ou mal formatés</string>
