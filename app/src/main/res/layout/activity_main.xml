@@ -1,115 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/mainActivity_home_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"/>
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:openDrawer="start">
 
-    <Button
-        android:id="@+id/mainActivity_profil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="profil"
-        android:layout_alignParentRight="true"/>
-
-    <Button
-        android:id="@+id/mainActivity_cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="panier"
-        android:layout_toLeftOf="@id/mainActivity_profil"/>
-
-    <TextView
-        android:id="@+id/MainActivity_infoSaisie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_main_address_input_header"
-        android:layout_below="@+id/mainActivity_cart"/>
-
-    <EditText
-        android:id="@+id/mainActivity_address_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/activity_main_address_input_placeholder"
-        android:layout_below="@+id/MainActivity_infoSaisie"/>
-
-    <Button
-        android:id="@+id/mainActivity_position_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_main_position_btn"
-        android:layout_below="@+id/MainActivity_infoSaisie"
-        android:layout_toRightOf="@+id/mainActivity_address_input"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_main_quick_connection"
-        android:layout_below="@+id/mainActivity_address_input"/>
-
-    <EditText
-        android:id="@+id/mainActivity_keyword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/activity_main_searchbar_placeholder"
-        android:layout_below="@+id/mainActivity_position_btn"/>
-
-    <Spinner
-        android:id="@+id/mainActivity_spinner_categorie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mainActivity_keyword"/>
-
-    <ScrollView
-        android:id="@+id/mainActivity_scroll_restaurant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mainActivity_spinner_categorie">
-
-        <LinearLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Toolbar -->
+            <com.google.android.material.appbar.AppBarLayout
+                style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Resto1 _ Ceci est dans une scrollView"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Resto2"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Resto3"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Resto4"/>
+                android:fitsSystemWindows="true">
 
-        </LinearLayout>
-    </ScrollView>
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/activity_main_toolbar"
+                    style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:elevation="0dp"
+                    app:layout_scrollFlags="scroll|enterAlways|snap"
+                    app:menu="@menu/top_app_bar"
+                    app:navigationIcon="@drawable/ic_round_menu_24"
+                    app:title="Homepage" />
 
+            </com.google.android.material.appbar.AppBarLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mainActivity_scroll_restaurant"
-        android:layout_marginTop="73dp"
-        android:text="Restaurant" />
+            <!-- Rest of the screen -->
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/activity_main_categories_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <Button
-        android:id="@+id/mainActivity_connection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="connection" />
-</RelativeLayout>
+                <FrameLayout
+                    android:id="@+id/activity_main_frame_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/activity_main_navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/header_navigation_drawer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/activity_main_menu_drawer" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
