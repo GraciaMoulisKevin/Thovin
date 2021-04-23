@@ -77,21 +77,21 @@ public class Utility {
 
     // ----------------- SNACKBARS -----------------
     // --- Success Snackbars
-    public static Snackbar getSuccSnackbar(Context context, View v, String message, int length) {
+    public static Snackbar getSuccessSnackbar(Context context, View v, String message, int length) {
         Snackbar snackbar = Snackbar.make(v, message, length);
         snackbar.setBackgroundTint(context.getColor(R.color.main_green));
         return snackbar;
     }
 
     // --- Warning Snackbars
-    public static Snackbar getWarnSnackbar(Context context, View v, String message, int length) {
+    public static Snackbar getWarningSnackbar(Context context, View v, String message, int length) {
         Snackbar snackbar = Snackbar.make(v, message, length);
         snackbar.setBackgroundTint(context.getColor(R.color.main_yellow));
         return snackbar;
     }
 
     // --- Error Snackbars
-    public static Snackbar getErrSnackbar(Context context, View v, String message, int length) {
+    public static Snackbar getErrorSnackbar(Context context, View v, String message, int length) {
         Snackbar snackbar = Snackbar.make(v, message, length);
         snackbar.setBackgroundTint(context.getColor(R.color.dark_red));
         return snackbar;

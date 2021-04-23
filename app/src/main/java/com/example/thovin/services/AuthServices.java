@@ -2,7 +2,7 @@ package com.example.thovin.services;
 
 import com.example.thovin.ui.auth.LoginPOJO;
 import com.example.thovin.ui.auth.RegisterPOJO;
-import com.example.thovin.models.AuthResponseModel;
+import com.example.thovin.models.AuthResult;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -11,11 +11,8 @@ import retrofit2.http.PUT;
 
 public interface AuthServices {
     @POST("auth")
-    Call<AuthResponseModel> login(@Body LoginPOJO body);
+    Call<AuthResult> login(@Body LoginPOJO body);
 
     @PUT("auth")
-    Call<AuthResponseModel> register(@Body RegisterPOJO body);
-
-//    @PUT("auth")
-//    Call<UserModel> getUserRegister();
+    Call<AuthResult> register(@Body RegisterPOJO body);
 }

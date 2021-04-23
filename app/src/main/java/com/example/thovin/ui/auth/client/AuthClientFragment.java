@@ -6,11 +6,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +26,7 @@ import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.models.AddressModel;
 import com.example.thovin.models.ErrResponseModel;
-import com.example.thovin.models.AuthResponseModel;
+import com.example.thovin.models.AuthResult;
 import com.example.thovin.services.AuthServices;
 import com.example.thovin.ui.auth.LoginPOJO;
 import com.example.thovin.ui.auth.RegisterPOJO;
@@ -34,7 +39,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,12 +46,13 @@ import retrofit2.Response;
 
 public class AuthClientFragment extends Fragment {
 
-    // --- Root view
-    private View rootView;
-    private Context context;
+    public static String LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL";
 
-    // --- APIServices
-    private AuthServices authServices;
+    // --- Root view
+    private Context context;
+    private View rootView;
+    private UserViewModel userViewModel;
+    private SavedStateHandle savedStateHandle;
 
     // --- Fields
     private TextInputLayout login_email;
@@ -82,16 +87,56 @@ public class AuthClientFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_auth_client, container, false);
         context = getContext();
 
-        // --- Configuration
-        authServices = MainActivity.retrofit.create(AuthServices.class);
         return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.getUser().observe(getViewLifecycleOwner(), result -> {
+            if (result != null && result.success) {
+                if (result.success) {
+                    savedStateHandle.set(LOGIN_SUCCESSFUL, true);
+                    Navigation.findNavController(rootView).navigate(R.id.nav_home);
+                } else {
+                    handleLoginError(result);
+                }
+            }
+        });
+
+        savedStateHandle = Navigation.findNavController(view)
+                .getPreviousBackStackEntry()
+                .getSavedStateHandle();
+        savedStateHandle.set(LOGIN_SUCCESSFUL, false);
+
         configureTextInputLayout();
         configureButtons();
+    }
+
+
+    private LoginPOJO getLoginPOJO() {
+        String email = login_email.getEditText().getText().toString();
+        String password = login_password.getEditText().getText().toString();
+        return new LoginPOJO(email, password);
+    }
+
+    private RegisterPOJO getRegisterPOJO() {
+        String firstName = register_firstName.getEditText().getText().toString();
+        String lastName = register_lastName.getEditText().getText().toString();
+        String email = register_email.getEditText().getText().toString();
+        String password = register_password.getEditText().getText().toString();
+        String phone = register_phone.getEditText().getText().toString();
+
+        AddressModel address = new AddressModel();
+        address.setStreet(register_street.getEditText().getText().toString());
+        address.setAdditional(register_additional.getEditText().getText().toString());
+        address.setCity(register_city.getEditText().getText().toString());
+        address.setCountry(register_country.getEditText().getText().toString());
+        address.setZip(register_zip.getEditText().getText().toString());
+
+        return new RegisterPOJO(firstName, lastName, email, password, phone, address);
     }
 
 
@@ -195,124 +240,20 @@ public class AuthClientFragment extends Fragment {
     }
 
     private void configureButtons() {
-        configureLoginButton();
-        configureRegisterButton();
-    }
-
-    private void configureLoginButton() {
+        // --- Login button
         Button login_btn = rootView.findViewById(R.id.fg_auth_client_login_btn);
         login_btn.setOnClickListener(v -> {
-
             boolean isOk = checkLoginInputs();
-            if (isOk) {
 
-                LoginPOJO body = getLoginPOJO();
-
-                // --- Try to login
-                Call<AuthResponseModel> authResponse = authServices.login(body);
-                authResponse.enqueue(new Callback<AuthResponseModel>() {
-
-                    @Override
-                    public void onResponse(Call<AuthResponseModel> call, Response<AuthResponseModel> response) {
-
-                        if (response.isSuccessful()) {
-                            AuthResponseModel authResponse = response.body();
-                            Utility.getSuccSnackbar(context, v, "Bonjour " + authResponse.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
-
-                            MainActivity.user = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-                            MainActivity.user.setUser(authResponse);
-                            //((MainActivity) Objects.requireNonNull(getActivity())).showFragment(MainActivity.FRAGMENT_HOME);
-                        } else handleLoginErrResponse(response, v);
-                    }
-
-                    @Override
-                    public void onFailure(Call<AuthResponseModel> call, Throwable t) {
-                        Utility.getWarnSnackbar(context, v, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
-                    }
-                });
-            }
+            if (isOk) login();
         });
-    }
 
-    private void configureRegisterButton() {
-        Button register_btn = rootView.findViewById(R.id.fg_auth_client_register_btn);
-        register_btn.setOnClickListener(v -> {
-            boolean isOk = checkRegisterInputs();
-            if (isOk) {
-
-                RegisterPOJO body = getRegisterPOJO();
-
-                // --- Try to register
-                Call<AuthResponseModel> user = authServices.register(body);
-                user.enqueue(new Callback<AuthResponseModel>() {
-                    @Override
-                    public void onResponse(Call<AuthResponseModel> call, Response<AuthResponseModel> response) {
-
-                        if (response.isSuccessful()) {
-                            AuthResponseModel authResponse = response.body();
-                            Utility.getSuccSnackbar(context, v, "Bienvenue " + authResponse.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
-
-                            MainActivity.user = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-                            MainActivity.user.setUser(authResponse);
-                        } else {
-                            handleRegisterErrResponse(response, v);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<AuthResponseModel> call, Throwable t) {
-                        Utility.getWarnSnackbar(context, v, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
-    }
-
-
-    private void handleLoginErrResponse(Response<AuthResponseModel> response, View v) {
-        try {
-            switch (response.code()) {
-                case 400:
-                    Gson gson = new Gson();
-                    ErrResponseModel err = gson.fromJson(response.errorBody().string(), ErrResponseModel.class);
-                    Utility.getErrSnackbar(context, v, getActivity().getString(R.string.err_400), Snackbar.LENGTH_LONG).show();
-                    break;
-                case 404:
-                    Utility.getErrSnackbar(context, v, getActivity().getString(R.string.err_404), Snackbar.LENGTH_LONG).show();
-                    break;
-                default:
-                    Utility.getErrSnackbar(context, v, getActivity().getString(R.string.err_occurred), Snackbar.LENGTH_LONG).show();
-                    break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void handleRegisterErrResponse(Response<AuthResponseModel> response, View v) {
-        try {
-            switch (response.code()) {
-                case 400:
-                    Gson gson = new Gson();
-                    ErrResponseModel err = gson.fromJson(response.errorBody().string(), ErrResponseModel.class);
-
-                    HashMap<String, TextInputLayout> fields = new HashMap<>();
-                    fields.put("register_email", register_email);
-                    fields.put("register_zip", register_zip);
-                    fields.put("register_phone", register_phone);
-                    Utility.setErrorOnFields(context, fields, err.getFields(), getString(R.string.err_400), 1);
-
-                    break;
-                case 409:
-                    Utility.setErrorOnField(context, register_email, getString(R.string.err_409));
-                    break;
-                default:
-                    Utility.getErrSnackbar(context, v, getActivity().getString(R.string.err_occurred), Snackbar.LENGTH_LONG).show();
-                    break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        // --- Register button
+//        Button register_btn = rootView.findViewById(R.id.fg_auth_client_register_btn);
+//        register_btn.setOnClickListener(v -> {
+//            boolean isOk = checkRegisterInputs();
+//            if (isOk) register();
+//        });
     }
 
 
@@ -361,26 +302,117 @@ public class AuthClientFragment extends Fragment {
     }
 
 
-    private LoginPOJO getLoginPOJO() {
-        String email = login_email.getEditText().getText().toString();
-        String password = login_password.getEditText().getText().toString();
-        return new LoginPOJO(email, password);
+    /**
+     * Login
+     */
+    private void login() {
+        LoginPOJO loginPOJO = getLoginPOJO();
+        userViewModel.login(loginPOJO);
     }
 
-    private RegisterPOJO getRegisterPOJO() {
-        String firstName = register_firstName.getEditText().getText().toString();
-        String lastName = register_lastName.getEditText().getText().toString();
-        String email = register_email.getEditText().getText().toString();
-        String password = register_password.getEditText().getText().toString();
-        String phone = register_phone.getEditText().getText().toString();
+//    /**
+//     * Login
+//     */
+//    private void login() {
+//
+//        LoginPOJO loginPOJO = getLoginPOJO();
+//
+//        Call<AuthResponseModel> authResponse = authServices.login(loginPOJO);
+//        authResponse.enqueue(new Callback<AuthResponseModel>() {
+//
+//            @Override
+//            public void onResponse(Call<AuthResponseModel> call, Response<AuthResponseModel> response) {
+//
+//                if (response.isSuccessful()) {
+//                    AuthResponseModel authResponse = response.body();
+//                    Utility.getSuccSnackbar(context, rootView, "Bonjour " + authResponse.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
+//
+//                    MainActivity.user = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+//                    MainActivity.user.setUser(authResponse);
+//                } else handleLoginErrResponse(response, rootView);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AuthResponseModel> call, Throwable t) {
+//                Utility.getWarnSnackbar(context, rootView, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
+//            }
+//        });
+//    }
 
-        AddressModel address = new AddressModel();
-        address.setStreet(register_street.getEditText().getText().toString());
-        address.setAdditional(register_additional.getEditText().getText().toString());
-        address.setCity(register_city.getEditText().getText().toString());
-        address.setCountry(register_country.getEditText().getText().toString());
-        address.setZip(register_zip.getEditText().getText().toString());
+//    /**
+//     * Register
+//     */
+//    private void register() {
+//        RegisterPOJO registerPOJO = getRegisterPOJO();
+//
+//        Call<AuthResult> user = authServices.register(registerPOJO);
+//        user.enqueue(new Callback<AuthResult>() {
+//            @Override
+//            public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
+//
+//                if (response.isSuccessful()) {
+//                    AuthResult authResponse = response.body();
+//                    Utility.getSuccessSnackbar(context, rootView, "Bienvenue " + authResponse.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
+//
+////                    MainActivity.user = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+////                    MainActivity.user.setUser(authResponse);
+//                } else {
+//                    handleRegisterErrResponse(response, rootView);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AuthResult> call, Throwable t) {
+//                Utility.getWarningSnackbar(context, rootView, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
+//            }
+//        });
+//    }
 
-        return new RegisterPOJO(firstName, lastName, email, password, phone, address);
+
+    private void handleLoginError(AuthResult result) {
+        Log.i("DEBUG_THOMINOU", result.resCode + "");
+        if (result.resCode == -1)
+            Utility.getWarningSnackbar(context, rootView, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
+        else {
+            String message;
+            switch (result.resCode) {
+                case 400:
+                    message = getActivity().getString(R.string.err_400);
+                    break;
+                case 404:
+                    message = getActivity().getString(R.string.err_404);
+                    break;
+                default:
+                    message = getActivity().getString(R.string.err_occurred);
+                    break;
+            }
+            Utility.getErrorSnackbar(context, rootView, message, Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    private void handleRegisterErrResponse(Response<AuthResult> response, View v) {
+        try {
+            switch (response.code()) {
+                case 400:
+                    Gson gson = new Gson();
+                    ErrResponseModel err = gson.fromJson(response.errorBody().string(), ErrResponseModel.class);
+
+                    HashMap<String, TextInputLayout> fields = new HashMap<>();
+                    fields.put("register_email", register_email);
+                    fields.put("register_zip", register_zip);
+                    fields.put("register_phone", register_phone);
+                    Utility.setErrorOnFields(context, fields, err.getFields(), getString(R.string.err_400), 1);
+
+                    break;
+                case 409:
+                    Utility.setErrorOnField(context, register_email, getString(R.string.err_409));
+                    break;
+                default:
+                    Utility.getErrorSnackbar(context, v, getActivity().getString(R.string.err_occurred), Snackbar.LENGTH_LONG).show();
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,22 +1,29 @@
 package com.example.thovin.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.ui.AppBarConfiguration;
 
-import com.example.thovin.MainActivity;
 import com.example.thovin.R;
+import com.example.thovin.Utility;
+import com.example.thovin.repositories.AuthRepository;
 import com.example.thovin.ui.auth.UserViewModel;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,9 +31,10 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private View rootView;
-    private UserViewModel user;
+    private UserViewModel userViewModel;
 
-    public HomeFragment() {}
+    public HomeFragment() {
+    }
 
     public static HomeFragment newInstance() {
         return (new HomeFragment());
@@ -36,20 +44,24 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        configureCategorySpinner();
-        user = MainActivity.user;
-
         return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        TextView test_user = rootView.findViewById(R.id.test_user);
+        super.onViewCreated(view, savedInstanceState);
 
-        if (user == null) test_user.setText("disconnected");
-        else user.getUser().observe(getViewLifecycleOwner(), val -> {
-            test_user.setText(val.getUser().getFullName());
+
+        configureCategorySpinner();
+
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        if (userViewModel.getUser().getValue() == null)
+            Utility.getWarningSnackbar(getContext(), view, "You're disconnected", Snackbar.LENGTH_LONG).show();
+        else
+            userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+                Utility.getSuccessSnackbar(getContext(), view, "Welcome " + user.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
         });
+
     }
 
     // --- Spinner Adapter methods

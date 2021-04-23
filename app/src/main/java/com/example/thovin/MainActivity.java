@@ -3,7 +3,7 @@ package com.example.thovin;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -15,28 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.thovin.databinding.ActivityMainBinding;
-import com.example.thovin.ui.account.AccountEditorFragment;
-import com.example.thovin.ui.account.AccountFragment;
-import com.example.thovin.ui.auth.client.AuthClientFragment;
-import com.example.thovin.ui.auth.AuthDelivererFragment;
-import com.example.thovin.ui.auth.AuthFragment;
 import com.example.thovin.ui.auth.UserViewModel;
-import com.example.thovin.ui.cart.CartFragment;
-import com.example.thovin.ui.home.HomeFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
-
-import org.json.JSONObject;
 
 import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
-
-    // --- Global variables
-    public static final String BASE_URL = "http://192.168.1.13:29321/v1/";
-
-    // --- Retrofit
-    public static Retrofit retrofit;
 
     // --- Views
     private ActivityMainBinding binding;
@@ -47,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
 
     // --- User
-    public static UserViewModel user;
+    // public static UserViewModel user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +40,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // --- Configuration
-        retrofit = new HttpClient(BASE_URL, HttpClient.DEBUG_ON).getRetrofit();
         configureNavigationUi();
     }
-
 
     /**
      * Configure the Toolbar

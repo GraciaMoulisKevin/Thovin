@@ -107,12 +107,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fg_home_header" />
 
-    <TextView
-        android:id="@+id/test_user"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fg_home_category_spinner" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

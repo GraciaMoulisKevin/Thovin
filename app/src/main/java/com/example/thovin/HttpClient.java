@@ -7,21 +7,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpClient {
 
+    private static final String BASE_URL = "http://192.168.1.13:29321/v1/";
     public static final boolean DEBUG_OFF = false;
     public static final boolean DEBUG_ON = true;
 
-    private final String BASE_URL;
     private Retrofit retrofit;
     private final Boolean debug;
 
-    public HttpClient(String BASE_URL) {
-        this.BASE_URL = BASE_URL;
+    public HttpClient() {
         this.debug = true;
         initHttpClient();
     }
 
-    public HttpClient(String BASE_URL, Boolean debug) {
-        this.BASE_URL = BASE_URL;
+    public HttpClient(Boolean debug) {
         this.debug = debug;
         initHttpClient();
     }

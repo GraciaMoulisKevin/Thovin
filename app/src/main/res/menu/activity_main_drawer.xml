@@ -10,7 +10,7 @@
             android:checked="true" />
 
         <item
-            android:id="@+id/nav_auth"
+            android:id="@+id/nav_user_account"
             android:icon="@drawable/ic_round_person_24"
             android:title="@string/connection" />
 
