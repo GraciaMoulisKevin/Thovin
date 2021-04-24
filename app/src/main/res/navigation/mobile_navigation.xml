@@ -50,13 +50,13 @@
 
     <fragment
         android:id="@+id/nav_auth_client"
-        android:name="com.example.thovin.ui.auth.client.AuthClientFragment"
+        android:name="com.example.thovin.ui.auth.AuthClientFragment"
         android:label="@string/client_connection"
         tools:layout="@layout/fragment_auth_client" />
 
     <fragment
         android:id="@+id/nav_auth_deliverer"
-        android:name="com.example.thovin.ui.auth.deliverer.AuthDelivererFragment"
+        android:name="com.example.thovin.ui.auth.AuthDelivererFragment"
         android:label="@string/deliverer_connection"
         tools:layout="@layout/fragment_auth_deliverer" />
 

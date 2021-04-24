@@ -48,32 +48,18 @@ public class Utility {
                     else Utility.setErrorOnField(context, fields.get("register_password"), errMessage);
                     break;
                 case "address.zip":
-                    Utility.setErrorOnField(context, fields.get("register_zip"), errMessage);
+                    if (fields.get("register_zip") != null)
+                        Utility.setErrorOnField(context, fields.get("register_zip"), errMessage);
                     break;
                 case "phone":
                     Utility.setErrorOnField(context, fields.get("register_phone"), errMessage);
+                    break;
+                default:
                     break;
             }
         }
     }
 
-
-//    public static void setSuccessOnField(Context context, TextInputLayout field) {
-//        ColorStateList colorState = context.getColorStateList(R.color.main_green);
-//
-//        // --- Remove error
-//        field.setError(null);
-//
-//        // --- Box and hint
-//        field.setBoxStrokeColorStateList(colorState);
-//        field.setHintTextColor(colorState);
-//
-//        // --- Icon
-//        field.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
-//        Drawable icon = context.getDrawable(R.drawable.ic_baseline_check_circle_24).mutate();
-//        icon.setColorFilter(context.getColor(R.color.main_green), PorterDuff.Mode.SRC_ATOP);
-//        field.setEndIconDrawable(icon);
-//    }
 
     // ----------------- SNACKBARS -----------------
     // --- Success Snackbars
@@ -97,3 +83,38 @@ public class Utility {
         return snackbar;
     }
 }
+
+
+
+// --- ARCHIVED
+//    public static void setSuccessOnField(Context context, TextInputLayout field) {
+//        ColorStateList colorState = context.getColorStateList(R.color.main_green);
+//
+//        // --- Remove error
+//        field.setError(null);
+//
+//        // --- Box and hint
+//        field.setBoxStrokeColorStateList(colorState);
+//        field.setHintTextColor(colorState);
+//
+//        // --- Icon
+//        field.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+//        Drawable icon = context.getDrawable(R.drawable.ic_baseline_check_circle_24).mutate();
+//        icon.setColorFilter(context.getColor(R.color.main_green), PorterDuff.Mode.SRC_ATOP);
+//        field.setEndIconDrawable(icon);
+//    }//    public static void setSuccessOnField(Context context, TextInputLayout field) {
+////        ColorStateList colorState = context.getColorStateList(R.color.main_green);
+////
+////        // --- Remove error
+////        field.setError(null);
+////
+////        // --- Box and hint
+////        field.setBoxStrokeColorStateList(colorState);
+////        field.setHintTextColor(colorState);
+////
+////        // --- Icon
+////        field.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+////        Drawable icon = context.getDrawable(R.drawable.ic_baseline_check_circle_24).mutate();
+////        icon.setColorFilter(context.getColor(R.color.main_green), PorterDuff.Mode.SRC_ATOP);
+////        field.setEndIconDrawable(icon);
+////    }

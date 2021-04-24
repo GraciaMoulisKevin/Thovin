@@ -27,12 +27,17 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private AppBarConfiguration appBarConfiguration;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // --- Instantiate httpClient
+        HttpClient httpClient = new HttpClient();
+
+        // --- Configure the fragment navigation
         configureNavigationUi();
     }
 

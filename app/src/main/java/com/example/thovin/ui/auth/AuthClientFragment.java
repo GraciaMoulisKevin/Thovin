@@ -1,4 +1,4 @@
-package com.example.thovin.ui.auth.client;
+package com.example.thovin.ui.auth;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,32 +13,22 @@ import androidx.navigation.Navigation;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.example.thovin.MainActivity;
 import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.models.AddressModel;
-import com.example.thovin.models.ErrResponseModel;
 import com.example.thovin.models.AuthResult;
-import com.example.thovin.ui.auth.LoginPOJO;
-import com.example.thovin.ui.auth.RegisterPOJO;
-import com.example.thovin.ui.auth.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
-import retrofit2.Response;
 
 public class AuthClientFragment extends Fragment {
 
@@ -113,10 +103,8 @@ public class AuthClientFragment extends Fragment {
                     savedStateHandle.set(LOGIN_SUCCESSFUL, true);
                     Navigation.findNavController(rootView).navigate(R.id.nav_home);
                 } else if (result.type == 0){
-                    Log.i("DEBUG", "LOGIN ERROR");
                     handleLoginError(result);
                 } else {
-                    Log.i("DEBUG", "REGISTER ERROR");
                     handleRegisterError(result);
                 }
             }
@@ -127,13 +115,20 @@ public class AuthClientFragment extends Fragment {
         configureButtons();
     }
 
-
+    /**
+     * Get a login POJO by looking at each text input layout needed
+     * @return the login POJO
+     */
     private LoginPOJO getLoginPOJO() {
         String email = login_email.getEditText().getText().toString();
         String password = login_password.getEditText().getText().toString();
         return new LoginPOJO(email, password);
     }
 
+    /**
+     * Get a register POJO by looking at each text input layout needed
+     * @return the register POJO
+     */
     private RegisterPOJO getRegisterPOJO() {
         String firstName = register_firstName.getEditText().getText().toString();
         String lastName = register_lastName.getEditText().getText().toString();
@@ -148,10 +143,12 @@ public class AuthClientFragment extends Fragment {
         address.setCountry(register_country.getEditText().getText().toString());
         address.setZip(register_zip.getEditText().getText().toString());
 
-        return new RegisterPOJO(firstName, lastName, email, password, phone, address);
+        return new RegisterPOJO(RegisterPOJO.TYPE_CLIENT, firstName, lastName, email, password, phone, address);
     }
 
-
+    /**
+     * Configure all text input layout
+     */
     private void configureTextInputLayout() {
 
         // --- Text fields
@@ -251,6 +248,9 @@ public class AuthClientFragment extends Fragment {
         });
     }
 
+    /**
+     * Configure all buttons
+     */
     private void configureButtons() {
         // --- Login button
         Button login_btn = rootView.findViewById(R.id.fg_auth_client_login_btn);
@@ -267,7 +267,10 @@ public class AuthClientFragment extends Fragment {
         });
     }
 
-
+    /**
+     * Check all login inputs
+     * @return Return true if no error found, else false
+     */
     private boolean checkLoginInputs() {
         ArrayList<TextInputLayout> fields = new ArrayList<>(Arrays.asList(
                 login_email,
@@ -276,6 +279,10 @@ public class AuthClientFragment extends Fragment {
         return checkFields(fields);
     }
 
+    /**
+     * Check all register inputs
+     * @return Return true if no error found, else false
+     */
     private boolean checkRegisterInputs() {
         ArrayList<TextInputLayout> fields = new ArrayList<>(Arrays.asList(
                 register_lastName,
@@ -292,6 +299,11 @@ public class AuthClientFragment extends Fragment {
         return checkFields(fields);
     }
 
+    /**
+     * Check all given fields for error or missing value
+     * @param fields The fields to check
+     * @return Return true if no error found, else false
+     */
     private boolean checkFields(ArrayList<TextInputLayout> fields) {
         boolean isOk = true;
 
@@ -329,50 +341,57 @@ public class AuthClientFragment extends Fragment {
         userViewModel.register(registerPOJO);
     }
 
-
+    /**
+     * Handle error on login
+     * @param result The authentication result
+     */
     private void handleLoginError(AuthResult result) {
         if (result.resCode == -1)
-            Utility.getWarningSnackbar(context, rootView, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
+            Utility.getWarningSnackbar(context, rootView, getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
         else {
             String message;
             switch (result.resCode) {
                 case 400:
-                    message = getActivity().getString(R.string.err_400);
+                    message = getString(R.string.err_400);
                     break;
                 case 404:
-                    message = getActivity().getString(R.string.err_404);
+                    message = getString(R.string.err_404);
                     break;
                 default:
-                    message = getActivity().getString(R.string.err_occurred);
+                    message = getString(R.string.err_occurred);
                     break;
             }
             Utility.getErrorSnackbar(context, rootView, message, Snackbar.LENGTH_LONG).show();
         }
     }
 
+    /**
+     * Handle error on registration
+     * @param result The authentication result
+     */
     private void handleRegisterError(AuthResult result) {
         if (result.resCode == -1)
-            Utility.getWarningSnackbar(context, rootView, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
+            Utility.getWarningSnackbar(context, rootView, getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
 
         else {
             String message;
             switch (result.resCode) {
                 case 400:
-                    message = getActivity().getString(R.string.err_400);
+                    message = getString(R.string.err_400);
 
                     HashMap<String, TextInputLayout> fields = new HashMap<>();
                     fields.put("register_email", register_email);
                     fields.put("register_zip", register_zip);
                     fields.put("register_phone", register_phone);
 
-                    Utility.setErrorOnFields(context, fields, result.getFields(), getActivity().getString(R.string.err_400), 1);
+                    Utility.setErrorOnFields(context, fields, result.getFields(), message, 1);
 
                     break;
                 case 409:
-                    message = getActivity().getString(R.string.err_409);
+                    message = getString(R.string.err_409);
                     break;
                 default:
-                    message = getActivity().getString(R.string.err_occurred);
+                    message = getString(R.string.err_occurred);
                     break;
             }
             Utility.getErrorSnackbar(context, rootView, message, Snackbar.LENGTH_LONG).show();

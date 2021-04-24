@@ -20,7 +20,6 @@ import com.google.android.material.snackbar.Snackbar;
 public class AuthFragment extends Fragment {
 
     private View rootView;
-    private UserViewModel userViewModel;
 
     public AuthFragment() {
     }

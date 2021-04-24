@@ -8,46 +8,53 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpClient {
 
     private static final String BASE_URL = "http://192.168.1.13:29321/v1/";
-    public static final boolean DEBUG_OFF = false;
-    public static final boolean DEBUG_ON = true;
+    public static final boolean DEBUG = true;
 
     private Retrofit retrofit;
-    private final Boolean debug;
+
+    private static final HttpClient instance = new HttpClient();
 
     public HttpClient() {
-        this.debug = true;
         initHttpClient();
     }
 
-    public HttpClient(Boolean debug) {
-        this.debug = debug;
-        initHttpClient();
+    public static HttpClient getInstance() {
+        return instance;
     }
 
     public Retrofit getRetrofit() {
         return retrofit;
     }
 
+    /**
+     * Initialise our http client (Retrofit)
+     */
     public void initHttpClient() {
+        OkHttpClient client = getOkHttpClient().build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .client(getOkHttpClient().build())
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
+    /**
+     * Create an OkHttpClient
+     * @return the http client
+     */
+    public OkHttpClient.Builder getOkHttpClient() {
+        OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
+        if (DEBUG) okHttpClient.addInterceptor(getLoggingInterceptor());
+        return okHttpClient;
+    }
+
+    /**
+     * Return the logging interceptor, useful for debugging
+     * @return the interceptor
+     */
     public HttpLoggingInterceptor getLoggingInterceptor() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return interceptor;
     }
-
-
-    public OkHttpClient.Builder getOkHttpClient() {
-        OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
-        if (debug) return okHttpClient.addInterceptor(getLoggingInterceptor());
-        else return okHttpClient;
-    }
-
-
 }
