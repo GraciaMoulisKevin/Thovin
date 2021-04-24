@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.thovin.HttpClient;
-import com.example.thovin.models.AuthResult;
+import com.example.thovin.results.AuthResult;
 import com.example.thovin.services.AuthServices;
 import com.google.gson.Gson;
 
@@ -16,6 +16,9 @@ import retrofit2.Response;
 
 public class UserViewModel extends ViewModel {
 
+    private final static int LOGIN = 0;
+    private final static int REGISTER = 1;
+
     private final AuthServices authServices = HttpClient.getInstance().getRetrofit().create(AuthServices.class);
 
     private MutableLiveData<AuthResult> user = new MutableLiveData<>();
@@ -24,6 +27,10 @@ public class UserViewModel extends ViewModel {
 
     public MutableLiveData<AuthResult> getUser() {
         return user;
+    }
+
+    public void setUserValue(AuthResult userValue) {
+        user.setValue(userValue);
     }
 
     public MutableLiveData<Boolean> getIsLoading() {
@@ -63,7 +70,7 @@ public class UserViewModel extends ViewModel {
                     }
                 }
 
-                result.setType(0);
+                result.setType(LOGIN);
                 result.setResCode(response.code());
                 user.setValue(result);
             }
@@ -104,7 +111,7 @@ public class UserViewModel extends ViewModel {
                 }
 
                 result.setResCode(response.code());
-                result.setType(1);
+                result.setType(REGISTER);
                 user.setValue(result);
             }
 
@@ -114,5 +121,12 @@ public class UserViewModel extends ViewModel {
                 user.setValue(new AuthResult(1, -1));
             }
         });
+    }
+
+    /**
+     * Logout
+     */
+    public void logout() {
+        setUserValue(null);
     }
 }

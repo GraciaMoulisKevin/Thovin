@@ -22,7 +22,8 @@ import android.widget.RelativeLayout;
 import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.models.AddressModel;
-import com.example.thovin.models.AuthResult;
+import com.example.thovin.models.UserModel;
+import com.example.thovin.results.AuthResult;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -89,12 +90,14 @@ public class AuthClientFragment extends Fragment {
 
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.logout();
 
-        // --- Loader
+        // --- Progress Spinner
         userViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             if (isLoading) progressSpinner.setVisibility(View.VISIBLE);
             else progressSpinner.setVisibility(View.INVISIBLE);
         });
+
 
         // --- User
         userViewModel.getUser().observe(getViewLifecycleOwner(), result -> {
@@ -109,7 +112,6 @@ public class AuthClientFragment extends Fragment {
                 }
             }
         });
-
 
         configureTextInputLayout();
         configureButtons();
@@ -353,6 +355,11 @@ public class AuthClientFragment extends Fragment {
             switch (result.resCode) {
                 case 400:
                     message = getString(R.string.err_400);
+
+                    HashMap<String, TextInputLayout> fields = new HashMap<>();
+                    fields.put("login_email", login_email);
+
+                    Utility.setErrorOnFields(context, fields, result.getFields(), message, Utility.TYPE_LOGIN);
                     break;
                 case 404:
                     message = getString(R.string.err_404);
@@ -384,7 +391,7 @@ public class AuthClientFragment extends Fragment {
                     fields.put("register_zip", register_zip);
                     fields.put("register_phone", register_phone);
 
-                    Utility.setErrorOnFields(context, fields, result.getFields(), message, 1);
+                    Utility.setErrorOnFields(context, fields, result.getFields(), message, Utility.TYPE_REGISTER);
 
                     break;
                 case 409:

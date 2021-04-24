@@ -21,7 +21,8 @@ import android.widget.RelativeLayout;
 
 import com.example.thovin.R;
 import com.example.thovin.Utility;
-import com.example.thovin.models.AuthResult;
+import com.example.thovin.models.AddressModel;
+import com.example.thovin.results.AuthResult;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -48,6 +49,11 @@ public class AuthDelivererFragment extends Fragment {
     private TextInputLayout register_email;
     private TextInputLayout register_password;
     private TextInputLayout register_check_password;
+    private TextInputLayout register_street;
+    private TextInputLayout register_additional;
+    private TextInputLayout register_city;
+    private TextInputLayout register_country;
+    private TextInputLayout register_zip;
     private TextInputLayout register_phone;
 
     public AuthDelivererFragment() { }
@@ -82,6 +88,7 @@ public class AuthDelivererFragment extends Fragment {
 
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.logout();
 
         // --- Loader
         userViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
@@ -129,7 +136,14 @@ public class AuthDelivererFragment extends Fragment {
         String password = register_password.getEditText().getText().toString();
         String phone = register_phone.getEditText().getText().toString();
 
-        return new RegisterPOJO(RegisterPOJO.TYPE_DELIVERER, firstName, lastName, email, password, phone);
+        AddressModel address = new AddressModel();
+        address.setStreet(register_street.getEditText().getText().toString());
+        address.setAdditional(register_additional.getEditText().getText().toString());
+        address.setCity(register_city.getEditText().getText().toString());
+        address.setCountry(register_country.getEditText().getText().toString());
+        address.setZip(register_zip.getEditText().getText().toString());
+
+        return new RegisterPOJO(RegisterPOJO.TYPE_DELIVERER, firstName, lastName, email, password, phone, address);
     }
 
     /**
@@ -142,6 +156,11 @@ public class AuthDelivererFragment extends Fragment {
         register_lastName = rootView.findViewById(R.id.fg_auth_deliverer_last_name);
         register_firstName = rootView.findViewById(R.id.fg_auth_deliverer_first_name);
         register_email = rootView.findViewById(R.id.fg_auth_deliverer_email);
+        register_street = rootView.findViewById(R.id.fg_auth_deliverer_street);
+        register_additional = rootView.findViewById(R.id.fg_auth_deliverer_additional);
+        register_city = rootView.findViewById(R.id.fg_auth_deliverer_city);
+        register_country = rootView.findViewById(R.id.fg_auth_deliverer_country);
+        register_zip = rootView.findViewById(R.id.fg_auth_deliverer_zip);
         register_phone = rootView.findViewById(R.id.fg_auth_deliverer_phone);
 
         ArrayList<TextInputLayout> textFields = new ArrayList<>(Arrays.asList(
@@ -149,6 +168,10 @@ public class AuthDelivererFragment extends Fragment {
                 register_lastName,
                 register_firstName,
                 register_email,
+                register_street,
+                register_city,
+                register_country,
+                register_zip,
                 register_phone));
 
         for (TextInputLayout field : textFields) {
@@ -267,6 +290,10 @@ public class AuthDelivererFragment extends Fragment {
                 register_email,
                 register_password,
                 register_check_password,
+                register_street,
+                register_city,
+                register_country,
+                register_zip,
                 register_phone));
 
         return checkFields(fields);
@@ -325,6 +352,11 @@ public class AuthDelivererFragment extends Fragment {
             switch (result.resCode) {
                 case 400:
                     message = getString(R.string.err_400);
+
+                    HashMap<String, TextInputLayout> fields = new HashMap<>();
+                    fields.put("login_email", login_email);
+
+                    Utility.setErrorOnFields(context, fields, result.getFields(), message, Utility.TYPE_LOGIN);
                     break;
                 case 404:
                     message = getString(R.string.err_404);
@@ -355,8 +387,7 @@ public class AuthDelivererFragment extends Fragment {
                     fields.put("register_email", register_email);
                     fields.put("register_phone", register_phone);
 
-                    Utility.setErrorOnFields(context, fields, result.getFields(), message, 1);
-
+                    Utility.setErrorOnFields(context, fields, result.getFields(), message, Utility.TYPE_REGISTER);
                     break;
                 case 409:
                     message = getString(R.string.err_409);

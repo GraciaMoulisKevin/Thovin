@@ -6,6 +6,8 @@ public class UserModel {
 
     @SerializedName("_id")
     public Object id;
+    public Boolean admin;
+    public String type;
     @SerializedName("first_name")
     public String firstName;
     @SerializedName("last_name")
@@ -13,7 +15,13 @@ public class UserModel {
     public String email;
     public String phone;
     public AddressModel address;
-    public Boolean admin;
+
+    // --- Additional Restaurant value
+    @SerializedName("restaurant_name")
+    public String restaurantName;
+    public ProductModel[] products;
+    public MenuModel[] menus;
+
 
     // --- GETTERS AND SETTERS
     public Object getId() {
@@ -22,6 +30,22 @@ public class UserModel {
 
     public void setId(Object id) {
         this.id = id;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getFirstName() {
@@ -64,15 +88,31 @@ public class UserModel {
         this.address = address;
     }
 
-    public Boolean getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
-
     public String getFullName() {
         return getFirstName() + " " + getLastName();
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+    public ProductModel[] getProducts() {
+        return products;
+    }
+
+    public void setProducts(ProductModel[] products) {
+        this.products = products;
+    }
+
+    public MenuModel[] getMenus() {
+        return menus;
+    }
+
+    public void setMenus(MenuModel[] menus) {
+        this.menus = menus;
     }
 }

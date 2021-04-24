@@ -16,6 +16,9 @@ import java.util.HashMap;
 
 public class Utility {
 
+    public final static int TYPE_LOGIN = 0;
+    public final static int TYPE_REGISTER = 1;
+
     // ----------------- TEXT INPUT -----------------
     // --- Error fields
     public static void setErrorOnField(Context context, TextInputLayout field, String errMessage) {
@@ -40,11 +43,11 @@ public class Utility {
         for (String field : errFields) {
             switch (field) {
                 case "email":
-                    if (type == 0) Utility.setErrorOnField(context, fields.get("login_email"), errMessage);
+                    if (type == TYPE_LOGIN) Utility.setErrorOnField(context, fields.get("login_email"), errMessage);
                     else Utility.setErrorOnField(context, fields.get("register_email"), errMessage);
                     break;
                 case "password":
-                    if (type == 0) Utility.setErrorOnField(context, fields.get("login_password"), errMessage);
+                    if (type == TYPE_LOGIN) Utility.setErrorOnField(context, fields.get("login_password"), errMessage);
                     else Utility.setErrorOnField(context, fields.get("register_password"), errMessage);
                     break;
                 case "address.zip":
