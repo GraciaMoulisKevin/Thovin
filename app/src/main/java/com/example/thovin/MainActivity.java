@@ -1,126 +1,138 @@
 package com.example.thovin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.example.thovin.databinding.ActivityMainBinding;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView homePicture;
-    private Button panier;
-    private Button profil;
-    private EditText saisieAdresse;
-    private Button localisation;
-    private EditText keywords;
-    private Spinner categories;
-    private ScrollView restaurants;
+    // --- Views
+    private ActivityMainBinding binding;
+    private DrawerLayout drawerLayout;
+    private MaterialToolbar toolbar;
+    private NavController navController;
+    private NavigationView navigationView;
+    private AppBarConfiguration appBarConfiguration;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        // Lien entre classe / layout
-        homePicture = (ImageView) findViewById(R.id.MainActivity_HomePicture);
-        panier = (Button) findViewById(R.id.MainActivity_Panier);
-        profil = (Button) findViewById(R.id.MainActivity_Profil);
-        saisieAdresse = (EditText) findViewById(R.id.MainActivity_saisieAdresse);
-        localisation = (Button) findViewById(R.id.MainActivity_Localisation);
-        keywords = (EditText) findViewById(R.id.MainActivity_keyword);
-        categories = (Spinner) findViewById(R.id.MainActivity_SpinnerCategorie);
-        restaurants = (ScrollView) findViewById(R.id.MainActivity_ScrollRestaurant);
+        // --- Instantiate httpClient
+        HttpClient httpClient = new HttpClient();
 
-        // Modif
-        localisation.setEnabled(false);
+        // --- Configure the fragment navigation
+        configureNavigationUi();
+    }
 
-        // Spinner
-        String[] typeRestaurant = {"tmp1","tmp2","tmp3","tmp4"};
-        ArrayAdapter<String> adpater = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeRestaurant);
-        categories.setAdapter(adpater);
+    /**
+     * Configure the Toolbar
+     */
+    private void configureToolBar() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
 
-        // Listeners
-        categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    /**
+     * Configure the Drawer
+     */
+    private void configureDrawer() {
 
-            }
+        drawerLayout = binding.drawerLayout;
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+                .setOpenableLayout(drawerLayout)
+                .build();
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+//        appBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.nav_home,
+//                R.id.nav_auth,
+//                R.id.nav_parameters)
+//                .setOpenableLayout(drawerLayout)
+//                .build();
 
-            }
-        });
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
+//        drawerLayout.setFocusableInTouchMode(false);
+    }
 
-        saisieAdresse.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    /**
+     * Configure the navigation ui of the application (toolbar, drawer, navbar...)
+     */
+    private void configureNavigationUi() {
+        // --- NavController
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
+        navigationView = binding.navView;
 
-            }
+        // --- Toolbar
+        configureToolBar();
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+        // --- Drawer
+        configureDrawer();
 
-            }
+        // --- Navigation UI
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.toString().length() != 0){
-                    localisation.setEnabled(true);
-                }else{
-                    localisation.setEnabled(false);
-                }
-            }
-        });
+    /**
+     * Handle navigation while a top bar item is selected
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
+    }
 
-        localisation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Refresh de "restaurants" avec champ de "saisieAdresse"
-            }
-        });
+    /**
+     * Handle menu creation
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.client_top_bar, menu);
+        return true;
+    }
 
-        keywords.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    /**
+     * Handle navigation between fragment
+     * @return
+     */
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
+    }
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // Refresh de "restaurants" avec "s"
-            }
-        });
-
-        // Changement activités
-        panier.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_panier = new Intent(MainActivity.this, Panier.class);
-                startActivity(intent_panier);
-            }
-        });
-        profil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_profil = new Intent(MainActivity.this, Profil.class);
-                startActivity(intent_profil);
-            }
-        });
+    /**
+     * Handle back button pressed when the drawer is open. On back pressed then close the menu (if it is open)
+     */
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        else super.onBackPressed();
     }
 }
