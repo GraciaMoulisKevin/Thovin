@@ -3,7 +3,6 @@ package com.example.thovin;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -15,11 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.thovin.databinding.ActivityMainBinding;
-import com.example.thovin.ui.auth.UserViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
-
-import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private NavigationView navigationView;
     private AppBarConfiguration appBarConfiguration;
-
-    // --- User
-    // public static UserViewModel user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.client_menu, menu);
         return true;
     }
 

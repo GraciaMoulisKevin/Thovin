@@ -2,6 +2,7 @@ package com.example.thovin.models;
 
 public class AuthResult {
 
+    public int type;
     public boolean success;
 
     // --- On success
@@ -18,12 +19,19 @@ public class AuthResult {
     public AuthResult() {
     }
 
-    public AuthResult(int resCode) {
+    public AuthResult(int type) { this.type = type; }
+
+    public AuthResult(int type, int resCode) {
+        this.type = type;
         this.resCode = resCode;
     }
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public int getResCode() {

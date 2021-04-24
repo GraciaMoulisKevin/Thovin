@@ -58,7 +58,7 @@
 
         <!--    Email input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fg_auth_deliverer_login_email_layout"
+            android:id="@+id/fg_auth_deliverer_login_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,10 +66,11 @@
             android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_text">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_text"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fg_auth_deliverer_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"/>
@@ -78,7 +79,7 @@
 
         <!--    Password inputs    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fg_auth_deliverer_login_password_layout"
+            android:id="@+id/fg_auth_deliverer_login_password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,10 +87,11 @@
             android:hint="@string/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_login_email_layout">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_login_email"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fg_auth_deliverer_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"/>
@@ -106,7 +108,7 @@
             android:backgroundTint="@color/main_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_login_password_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_login_password" />
 
         <!--    Text    -->
         <TextView
@@ -148,49 +150,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_new_text2">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:id="@+id/fg_auth_deliverer_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="0.5"
+                android:hint="@string/name"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperTextEnabled="true" >
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fg_auth_deliverer_last_name"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/name">
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:id="@+id/fg_auth_deliverer_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="0.5"
+                android:hint="@string/first_name"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperTextEnabled="true">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fg_auth_deliverer_first_name"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/first_name">
+                    android:inputType="textPersonName"
+                    android:text="Jean"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <!--    Email input    -->
@@ -203,7 +201,9 @@
             android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_full_name_layout">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_full_name_layout"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -217,62 +217,54 @@
             android:id="@+id/fg_auth_deliverer_password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="16dp"
             android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_email">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:id="@+id/fg_auth_deliverer_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="0.5"
+                android:hint="@string/password"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="true"
+                app:helperTextEnabled="true" >
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fg_auth_deliverer_password"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:text="0123456789"/>
 
-                    android:hint="@string/password"
-                    app:layout_constraintEnd_toStartOf="@+id/authenticationDeliverer_sub_password_verification"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:id="@+id/fg_auth_deliverer_check_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="0.5"
+                android:hint="@string/password_verification"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="true"
+                app:helperTextEnabled="true" >
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fg_auth_deliverer_check_password"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password_verification"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:inputType="textPassword"
+                    android:text="0123456789"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
         </LinearLayout>
 
         <!--    Phone input    -->
@@ -285,7 +277,9 @@
             android:hint="@string/phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_password_layout">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_password_layout"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

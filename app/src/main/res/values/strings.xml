@@ -38,8 +38,8 @@
     <string name="content_description_cart_bar">Accéder à votre panier</string>
     <string name="content_description_search_bar">Rechercher un restaurant, catégories etc...</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
+    <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
 
     <!-- MainActivity -->
     <string name="fg_home_address_input_header">Entrez votre adresse pour trouver les restaurants à proximité :</string>
@@ -61,7 +61,7 @@
     <string name="fg_auth_text">Je souhaite me connecter en tant que :</string>
     <string name="fg_auth_client_btn">Client Homosapiens</string>
     <string name="fg_auth_deliverer_btn">Livreur de compétition</string>
-    <string name="fg_auth_restaurant_btn">Restaurateur aguérris</string>
+    <string name="fg_auth_restaurant_btn">Restaurateur aguerris</string>
 
     <!-- AuthentificationClientActivity -->
     <string name="auth_is_subscribe_text">Déjà inscrit ?</string>
@@ -71,6 +71,5 @@
     <string name="auth_is_new_text2">Inscris toi</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -6,11 +6,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextUtils;
@@ -20,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.example.thovin.MainActivity;
 import com.example.thovin.R;
@@ -27,7 +26,6 @@ import com.example.thovin.Utility;
 import com.example.thovin.models.AddressModel;
 import com.example.thovin.models.ErrResponseModel;
 import com.example.thovin.models.AuthResult;
-import com.example.thovin.services.AuthServices;
 import com.example.thovin.ui.auth.LoginPOJO;
 import com.example.thovin.ui.auth.RegisterPOJO;
 import com.example.thovin.ui.auth.UserViewModel;
@@ -40,8 +38,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AuthClientFragment extends Fragment {
@@ -85,6 +81,7 @@ public class AuthClientFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_auth_client, container, false);
+
         context = getContext();
 
         return rootView;
@@ -94,22 +91,37 @@ public class AuthClientFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        userViewModel.getUser().observe(getViewLifecycleOwner(), result -> {
-            if (result != null && result.success) {
-                if (result.success) {
-                    savedStateHandle.set(LOGIN_SUCCESSFUL, true);
-                    Navigation.findNavController(rootView).navigate(R.id.nav_home);
-                } else {
-                    handleLoginError(result);
-                }
-            }
-        });
-
+        RelativeLayout progressSpinner = getActivity().findViewById(R.id.progress_spinner);
         savedStateHandle = Navigation.findNavController(view)
                 .getPreviousBackStackEntry()
                 .getSavedStateHandle();
         savedStateHandle.set(LOGIN_SUCCESSFUL, false);
+
+
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
+        // --- Loader
+        userViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) progressSpinner.setVisibility(View.VISIBLE);
+            else progressSpinner.setVisibility(View.INVISIBLE);
+        });
+
+        // --- User
+        userViewModel.getUser().observe(getViewLifecycleOwner(), result -> {
+            if (result != null) {
+                if (result.success) {
+                    savedStateHandle.set(LOGIN_SUCCESSFUL, true);
+                    Navigation.findNavController(rootView).navigate(R.id.nav_home);
+                } else if (result.type == 0){
+                    Log.i("DEBUG", "LOGIN ERROR");
+                    handleLoginError(result);
+                } else {
+                    Log.i("DEBUG", "REGISTER ERROR");
+                    handleRegisterError(result);
+                }
+            }
+        });
+
 
         configureTextInputLayout();
         configureButtons();
@@ -244,16 +256,15 @@ public class AuthClientFragment extends Fragment {
         Button login_btn = rootView.findViewById(R.id.fg_auth_client_login_btn);
         login_btn.setOnClickListener(v -> {
             boolean isOk = checkLoginInputs();
-
             if (isOk) login();
         });
 
-//        // --- Register button
-//        Button register_btn = rootView.findViewById(R.id.fg_auth_client_register_btn);
-//        register_btn.setOnClickListener(v -> {
-//            boolean isOk = checkRegisterInputs();
-//            if (isOk) register();
-//        });
+        // --- Register button
+        Button register_btn = rootView.findViewById(R.id.fg_auth_client_register_btn);
+        register_btn.setOnClickListener(v -> {
+            boolean isOk = checkRegisterInputs();
+            if (isOk) register();
+        });
     }
 
 
@@ -310,67 +321,16 @@ public class AuthClientFragment extends Fragment {
         userViewModel.login(loginPOJO);
     }
 
-//    /**
-//     * Login
-//     */
-//    private void login() {
-//
-//        LoginPOJO loginPOJO = getLoginPOJO();
-//
-//        Call<AuthResponseModel> authResponse = authServices.login(loginPOJO);
-//        authResponse.enqueue(new Callback<AuthResponseModel>() {
-//
-//            @Override
-//            public void onResponse(Call<AuthResponseModel> call, Response<AuthResponseModel> response) {
-//
-//                if (response.isSuccessful()) {
-//                    AuthResponseModel authResponse = response.body();
-//                    Utility.getSuccSnackbar(context, rootView, "Bonjour " + authResponse.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
-//
-//                    MainActivity.user = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-//                    MainActivity.user.setUser(authResponse);
-//                } else handleLoginErrResponse(response, rootView);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<AuthResponseModel> call, Throwable t) {
-//                Utility.getWarnSnackbar(context, rootView, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
-//            }
-//        });
-//    }
-
-//    /**
-//     * Register
-//     */
-//    private void register() {
-//        RegisterPOJO registerPOJO = getRegisterPOJO();
-//
-//        Call<AuthResult> user = authServices.register(registerPOJO);
-//        user.enqueue(new Callback<AuthResult>() {
-//            @Override
-//            public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
-//
-//                if (response.isSuccessful()) {
-//                    AuthResult authResponse = response.body();
-//                    Utility.getSuccessSnackbar(context, rootView, "Bienvenue " + authResponse.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
-//
-////                    MainActivity.user = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-////                    MainActivity.user.setUser(authResponse);
-//                } else {
-//                    handleRegisterErrResponse(response, rootView);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<AuthResult> call, Throwable t) {
-//                Utility.getWarningSnackbar(context, rootView, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
-//            }
-//        });
-//    }
+    /**
+     * Register
+     */
+    private void register() {
+        RegisterPOJO registerPOJO = getRegisterPOJO();
+        userViewModel.register(registerPOJO);
+    }
 
 
     private void handleLoginError(AuthResult result) {
-        Log.i("DEBUG_THOMINOU", result.resCode + "");
         if (result.resCode == -1)
             Utility.getWarningSnackbar(context, rootView, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
         else {
@@ -390,29 +350,32 @@ public class AuthClientFragment extends Fragment {
         }
     }
 
-    private void handleRegisterErrResponse(Response<AuthResult> response, View v) {
-        try {
-            switch (response.code()) {
+    private void handleRegisterError(AuthResult result) {
+        if (result.resCode == -1)
+            Utility.getWarningSnackbar(context, rootView, getActivity().getString(R.string.err_connection), Snackbar.LENGTH_LONG).show();
+
+        else {
+            String message;
+            switch (result.resCode) {
                 case 400:
-                    Gson gson = new Gson();
-                    ErrResponseModel err = gson.fromJson(response.errorBody().string(), ErrResponseModel.class);
+                    message = getActivity().getString(R.string.err_400);
 
                     HashMap<String, TextInputLayout> fields = new HashMap<>();
                     fields.put("register_email", register_email);
                     fields.put("register_zip", register_zip);
                     fields.put("register_phone", register_phone);
-                    Utility.setErrorOnFields(context, fields, err.getFields(), getString(R.string.err_400), 1);
+
+                    Utility.setErrorOnFields(context, fields, result.getFields(), getActivity().getString(R.string.err_400), 1);
 
                     break;
                 case 409:
-                    Utility.setErrorOnField(context, register_email, getString(R.string.err_409));
+                    message = getActivity().getString(R.string.err_409);
                     break;
                 default:
-                    Utility.getErrorSnackbar(context, v, getActivity().getString(R.string.err_occurred), Snackbar.LENGTH_LONG).show();
+                    message = getActivity().getString(R.string.err_occurred);
                     break;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            Utility.getErrorSnackbar(context, rootView, message, Snackbar.LENGTH_LONG).show();
         }
     }
 }

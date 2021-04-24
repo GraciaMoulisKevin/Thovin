@@ -11,18 +11,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.thovin.R;
 import com.example.thovin.Utility;
-import com.example.thovin.repositories.AuthRepository;
 import com.example.thovin.ui.auth.UserViewModel;
-import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
@@ -37,7 +31,7 @@ public class HomeFragment extends Fragment {
     }
 
     public static HomeFragment newInstance() {
-        return (new HomeFragment());
+        return new HomeFragment();
     }
 
     @Override
@@ -50,7 +44,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         configureCategorySpinner();
 
