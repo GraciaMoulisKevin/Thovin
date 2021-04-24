@@ -1,4 +1,4 @@
-package com.example.thovin;
+package com.example.thovin.ui.cart;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.thovin.R;
 
 public class CartFragment extends Fragment {
 

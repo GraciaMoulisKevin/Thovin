@@ -6,58 +6,75 @@
     <string name="cancel">Annuler</string>
     <string name="save">Sauvegarder</string>
     <string name="connection">Se connecter</string>
+    <string name="client_connection">Connexion client</string>
+    <string name="deliverer_connection">Connexion livreur</string>
     <string name="register">S\'inscrire</string>
     <string name="parameters">Paramètres</string>
     <string name="cart">Panier</string>
     <string name="name">Nom</string>
     <string name="first_name">Prenom</string>
-    <string name="mail">Email</string>
+    <string name="email">Email</string>
     <string name="password">Mot de passe</string>
     <string name="password_verification">Retaper le mot de passe</string>
     <string name="address">Adresse</string>
     <string name="additional_address">Complément d\'adresse</string>
     <string name="city">Ville</string>
+    <string name="country">Pays</string>
     <string name="postal_code">Code Postal</string>
     <string name="phone">Téléphone</string>
     <string name="search">Rechercher</string>
-    <string name="more">plus</string>
+    <string name="more">Plus</string>
+    <string name="required">Requis</string>
+    <string name="restaurant_name">Nom du restaurant</string>
+    <string name="restaurant_connection">Connexion restaurateur</string>
+
+    <string name="err_empty_field">Champ vide</string>
+    <string name="err_password_length">8 caractères min.</string>
+    <string name="err_password_not_equals">mot de passe différent</string>
+    <string name="err_occurred">Oups… Une erreur est survenue, veuillez-réessayer</string>
+    <string name="err_connection">Connexion impossible, vérifiez votre connexion internet</string>
+    <string name="err_400">Valeurs manquantes ou mal formatés</string>
+    <string name="err_404">Email ou mot de passe incorrect</string>
+    <string name="err_409">Email déjà utilisé</string>
 
     <string name="content_description_more">Voir plus</string>
     <string name="content_description_cart_bar">Accéder à votre panier</string>
-    <string name="content_description_search_bar">Rechercher un restaurant, catégories etc...</string>
+    <string name="content_description_search_bar">Rechercher un restaurant, catégories etc…</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
+    <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
 
     <!-- MainActivity -->
-    <string name="activity_main_address_input_header">Entrez votre adresse pour trouver les restaurants à proximité :</string>
-    <string name="activity_main_quick_connection_tip">Tip: Connecter-vous pour retrouver vos adresses récentes</string>
-    <string name="activity_main_address_input_placeholder">Saisissez votre adresse</string>
-    <string name="activity_main_position_btn">Me localiser</string>
-    <string name="activity_main_searchbar_placeholder">Un mot clé pour trouver ton précieux</string>
+    <string name="fg_home_address_input_header">Entrez votre adresse pour trouver les restaurants à proximité :</string>
+    <string name="fg_quick_connection_tip">Tip: Connecter-vous pour retrouver vos adresses récentes</string>
+    <string name="fg_home_address_input_placeholder">Saisissez votre adresse</string>
+    <string name="fg_home_position_btn">Me localiser</string>
+    <string name="fg_home_searchbar_placeholder">Un mot clé pour trouver ton précieux</string>
 
     <!-- AccountFragment -->
-    <string name="fragment_account_header">Mon compte</string>
-    <string name="fragment_account_editor_new_password_input">Nouveau mot de passe</string>
+    <string name="fg_account_header">Mon compte</string>
+    <string name="fg_account_editor_new_password_input">Nouveau mot de passe</string>
+    <string name="fg_account_modify_btn">Modifier mes informations et/ou mot de passe</string>
 
     <!-- CartFragment -->
-    <string name="fragment_cart_header">Votre panier</string>
-    <string name="fragment_cart_delete_all">Tout annuler</string>
+    <string name="fg_cart_header">Votre panier</string>
+    <string name="fg_cart_delete_all">Tout annuler</string>
 
     <!-- AuthenticationFragment -->
-    <string name="fragment_authentication_text">Je souhaite me connecter en tant que :</string>
-    <string name="fragment_authentication_client_btn">Client Homosapiens</string>
-    <string name="fragment_authentication_deliverer_btn">Livreur de compétition</string>
-    <string name="fragment_authentication_restaurant_btn">Restaurateur aguérris</string>
+    <string name="fg_auth_text">Je souhaite me connecter en tant que :</string>
+    <string name="fg_auth_client_btn">Client Homosapiens</string>
+    <string name="fg_auth_deliverer_btn">Livreur de compétition</string>
+    <string name="fg_auth_restaurant_btn">Restaurateur aguerris</string>
 
     <!-- AuthentificationClientActivity -->
-    <string name="activity_authentication_is_subscribe_text">Déjà inscrit ?</string>
-    <string name="activity_authentication_is_new_client_text1">Nouveau client ?</string>
-    <string name="activity_authentication_is_new_deliverer_text1">Nouveau livreur ?</string>
-    <string name="activity_authentication_is_new_restaurant_text1">Nouveau restaurant ?</string>
-    <string name="activity_authentication_is_new_text2">Inscris toi</string>
-    <string name="fragment_account_modify_btn">Modifier mes informations et/ou mot de passe</string>
+    <string name="auth_is_subscribe_text">Déjà inscrit ?</string>
+    <string name="fg_auth_is_new_client_text">Nouveau client ?</string>
+    <string name="fg_auth_is_new_deliverer_text">Nouveau livreur ?</string>
+    <string name="fg_auth_is_new_restaurant_text">Nouveau restaurant ?</string>
+    <string name="auth_is_new_text2">Inscris toi</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

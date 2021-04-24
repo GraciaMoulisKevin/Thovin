@@ -1,11 +1,14 @@
 package com.example.thovin;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,27 +18,16 @@ import com.example.thovin.databinding.ActivityMainBinding;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
-import org.json.JSONObject;
+public class MainActivity extends AppCompatActivity {
 
-import java.util.Objects;
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    // --- Views
     private ActivityMainBinding binding;
     private DrawerLayout drawerLayout;
     private MaterialToolbar toolbar;
+    private NavController navController;
     private NavigationView navigationView;
+    private AppBarConfiguration appBarConfiguration;
 
-    // Fragment
-    private Fragment fragmentHome;
-    private Fragment fragmentAuthentication;
-    private Fragment fragmentAccount;
-    private Fragment fragmentAccountEditor;
-    private Fragment fragmentCart;
-
-    private static final int FRAGMENT_HOME = 0;
-    private static final int FRAGMENT_AUTHENTICATION = 1;
-    private static final int FRAGMENT_ACCOUNT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,91 +35,95 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        this.configureToolBar();
-        this.configureDrawerLayout();
-        this.configureNavigationView();
-        this.showFirstFragment();
-    }
+        // --- Instantiate httpClient
+        HttpClient httpClient = new HttpClient();
 
-    // --- Toolbar methods
+        // --- Configure the fragment navigation
+        configureNavigationUi();
+    }
 
     /**
      * Configure the Toolbar
      */
-    private void configureToolBar(){
-        this.toolbar = binding.activityMainToolbar;
+    private void configureToolBar() {
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
+    /**
+     * Configure the Drawer
+     */
+    private void configureDrawer() {
+
+        drawerLayout = binding.drawerLayout;
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+                .setOpenableLayout(drawerLayout)
+                .build();
+
+//        appBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.nav_home,
+//                R.id.nav_auth,
+//                R.id.nav_parameters)
+//                .setOpenableLayout(drawerLayout)
+//                .build();
+
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
+//        drawerLayout.setFocusableInTouchMode(false);
+    }
+
+    /**
+     * Configure the navigation ui of the application (toolbar, drawer, navbar...)
+     */
+    private void configureNavigationUi() {
+        // --- NavController
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
+        navigationView = binding.navView;
+
+        // --- Toolbar
+        configureToolBar();
+
+        // --- Drawer
+        configureDrawer();
+
+        // --- Navigation UI
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    /**
+     * Handle navigation while a top bar item is selected
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Handle menu creation
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.top_app_bar, menu);
+        getMenuInflater().inflate(R.menu.client_top_bar, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        super.onOptionsItemSelected(item);
-        if (item.getItemId() == R.id.menu_cart_icon) {
-            this.showCartFragment();
-        }
-        return true;
-    }
-
-
-    // --- DrawerLayout methods
-
     /**
-     * Configure the DrawerLayout
-     */
-    private void configureDrawerLayout() {
-        this.drawerLayout = binding.drawerLayout;
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        this.drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        this.drawerLayout.setFocusableInTouchMode(false);
-    }
-
-
-    // --- NavigationView methods
-
-    /**
-     * Configure the NavigationView
-     */
-    private void configureNavigationView(){
-        this.navigationView = binding.activityMainNavigationView;
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    /**
-     * TODO: Try to use ViewBinding instead of R.id
+     * Handle navigation between fragment
+     * @return
      */
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id){
-            case R.id.activity_main_drawer_home :
-                this.showFragment(FRAGMENT_HOME);
-                break;
-            case R.id.activity_main_drawer_user :
-                // TODO: if connected, open PROFIL
-                this.showFragment(FRAGMENT_AUTHENTICATION);
-                break;
-            case R.id.activity_main_drawer_user_account:
-                this.showFragment(FRAGMENT_ACCOUNT);
-                break;
-            case R.id.activity_main_drawer_parameters:
-                // TODO
-                break;
-            default:
-                break;
-        }
-
-        this.drawerLayout.closeDrawer(GravityCompat.START);
-
-        return true;
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 
     /**
@@ -135,99 +131,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public void onBackPressed() {
-        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            this.drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-
-    // --- Fragments methods
-
-    /**
-     * Show a specific fragment by is id
-     * @param fragmentId The fragment id to show
-     */
-    public void showFragment(int fragmentId) {
-        switch (fragmentId) {
-            case FRAGMENT_HOME:
-                this.showHomeFragment();
-                break;
-            case FRAGMENT_AUTHENTICATION:
-                this.showAuthenticationFragment();
-                break;
-            case FRAGMENT_ACCOUNT:
-                this.showAccountFragment();
-                break;
-            default:
-                break;
-        }
-    }
-
-    /**
-     * Show the first fragment we want to display
-     */
-    private void showFirstFragment() {
-        Fragment visibleFragment = getSupportFragmentManager().findFragmentById(R.id.activity_main_frame_layout);
-        if (visibleFragment == null) {
-            this.showFragment(FRAGMENT_HOME);
-            this.navigationView.getMenu().getItem(FRAGMENT_HOME).setChecked(true);
-        }
-    }
-
-    /**
-     * Show the Home fragment
-     */
-    private void showHomeFragment() {
-        if (this.fragmentHome == null) this.fragmentHome = HomeFragment.newInstance();
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.home);
-        this.startTransactionFragment(this.fragmentHome);
-    }
-
-    /**
-     * Show the Authentication Fragment
-     */
-    private void showAuthenticationFragment() {
-        if (this.fragmentAuthentication == null) this.fragmentAuthentication = AuthenticationFragment.newInstance();
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.connection);
-        this.startTransactionFragment(this.fragmentAuthentication);
-    }
-
-    /**
-     * Show the Account Fragment
-     */
-    private void showAccountFragment() {
-        if (this.fragmentAccount == null) this.fragmentAccount = AccountFragment.newInstance();
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.fragment_account_header);
-        this.startTransactionFragment(this.fragmentAccount);
-    }
-
-    /**
-     * Show the Account Editor Fragment
-     */
-    public void showAccountEditorFragment(JSONObject jsonUserData) {
-        if (this.fragmentAccountEditor == null) this.fragmentAccountEditor = AccountEditorFragment.newInstance(jsonUserData);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.fragment_account_header);
-        this.startTransactionFragment(this.fragmentAccountEditor);
-    }
-
-    /**
-     * Show the Cart fragment
-     */
-    private void showCartFragment() {
-        if (this.fragmentCart == null) this.fragmentCart = CartFragment.newInstance();
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.cart);
-        this.startTransactionFragment(this.fragmentCart);
-    }
-
-    /**
-     * Start transaction, replace the actual fragment by the one give and commit
-     * @param fragment The fragment
-     */
-    private void startTransactionFragment(Fragment fragment) {
-        if (!fragment.isVisible()) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_frame_layout, fragment).commit();
-        }
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        else super.onBackPressed();
     }
 }

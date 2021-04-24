@@ -4,23 +4,18 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/activity_main_drawer_home"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_round_home_24"
             android:title="@string/home"
             android:checked="true" />
 
         <item
-            android:id="@+id/activity_main_drawer_user"
+            android:id="@+id/nav_user_account"
             android:icon="@drawable/ic_round_person_24"
             android:title="@string/connection" />
 
         <item
-            android:id="@+id/activity_main_drawer_user_account"
-            android:icon="@drawable/ic_round_person_24"
-            android:title="@string/fragment_account_header" />
-
-        <item
-            android:id="@+id/activity_main_drawer_parameters"
+            android:id="@+id/nav_parameters"
             android:icon="@drawable/ic_round_build_24"
             android:title="@string/parameters" />
     </group>

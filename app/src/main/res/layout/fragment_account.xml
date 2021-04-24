@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccountFragment">
+    tools:context=".ui.account.AccountFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
 
         <!--    Name & First name    -->
         <LinearLayout
-            android:id="@+id/fragment_account_full_name_layout"
+            android:id="@+id/fg_account_full_name_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="36dp"
@@ -32,7 +32,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_account_name"
+                    android:id="@+id/fg_account_last_name"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_account_first_name"
+                    android:id="@+id/fg_account_first_name"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,17 +69,17 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!--    Mail   -->
+        <!--    Email   -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_account_mail"
+            android:id="@+id/fg_account_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:hint="@string/mail"
+            android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_account_full_name_layout">
+            app:layout_constraintTop_toBottomOf="@id/fg_account_full_name_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -90,7 +90,7 @@
 
         <!--    Address   -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_account_address"
+            android:id="@+id/fg_account_street"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
             android:hint="@string/address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_account_mail">
+            app:layout_constraintTop_toBottomOf="@id/fg_account_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -108,7 +108,7 @@
 
         <!--    Additional Address   -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_account_additional_address"
+            android:id="@+id/fg_account_additional"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
             android:hint="@string/additional_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_account_address">
+            app:layout_constraintTop_toBottomOf="@id/fg_account_street">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -126,7 +126,7 @@
 
         <!--    City & Postal Code    -->
         <LinearLayout
-            android:id="@+id/fragment_account_city_layout"
+            android:id="@+id/fg_account_city_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="36dp"
@@ -134,7 +134,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_account_additional_address">
+            app:layout_constraintTop_toBottomOf="@+id/fg_account_additional">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -144,7 +144,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_account_city"
+                    android:id="@+id/fg_account_city"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_account_postal_code"
+                    android:id="@+id/fg_account_zip"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
 
         <!--    Phones    -->
         <LinearLayout
-            android:id="@+id/fragment_account_phone_layout"
+            android:id="@+id/fg_account_phone_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="36dp"
@@ -191,7 +191,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_account_city_layout">
+            app:layout_constraintTop_toBottomOf="@+id/fg_account_city_layout">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -201,7 +201,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fragment_account_phone"
+                    android:id="@+id/fg_account_phone"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -225,18 +225,18 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/fragment_account_edit_btn"
+            android:id="@+id/fg_account_edit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:padding="10sp"
-            android:text="@string/fragment_account_modify_btn"
+            android:text="@string/fg_account_modify_btn"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:icon="@drawable/ic_round_border_color_24"
             app:iconGravity="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_account_phone_layout" />
+            app:layout_constraintTop_toBottomOf="@id/fg_account_phone_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

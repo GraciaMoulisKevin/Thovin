@@ -1,4 +1,4 @@
-package com.example.thovin;
+package com.example.thovin.ui.account;
 
 import android.os.Bundle;
 
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.thovin.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -70,13 +71,13 @@ public class AccountEditorFragment extends Fragment {
     }
 
     private void configureTextInputLayout() {
-        name = this.rootView.findViewById(R.id.fragment_account_editor_name);
-        firstName = this.rootView.findViewById(R.id.fragment_account_editor_first_name);
-        mail = this.rootView.findViewById(R.id.fragment_account_editor_mail);
-        address = this.rootView.findViewById(R.id.fragment_account_editor_address);
-        additionalAddress = this.rootView.findViewById(R.id.fragment_account_editor_additional_address);
-        city = this.rootView.findViewById(R.id.fragment_account_editor_city);
-        postalCode = this.rootView.findViewById(R.id.fragment_account_editor_postal_code);
-        phone = this.rootView.findViewById(R.id.fragment_account_editor_phone);
+        name = this.rootView.findViewById(R.id.fg_account_editor_name);
+        firstName = this.rootView.findViewById(R.id.fg_account_editor_first_name);
+        mail = this.rootView.findViewById(R.id.fg_account_editor_email);
+        address = this.rootView.findViewById(R.id.fg_account_editor_address);
+        additionalAddress = this.rootView.findViewById(R.id.fg_account_editor_additional_address);
+        city = this.rootView.findViewById(R.id.fg_account_editor_city);
+        postalCode = this.rootView.findViewById(R.id.fg_account_editor_postal_code);
+        phone = this.rootView.findViewById(R.id.fg_account_editor_phone);
     }
 }
