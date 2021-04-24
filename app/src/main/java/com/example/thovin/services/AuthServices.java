@@ -1,7 +1,7 @@
 package com.example.thovin.services;
 
-import com.example.thovin.ui.auth.LoginPOJO;
-import com.example.thovin.ui.auth.RegisterPOJO;
+import com.example.thovin.POJO.auth.LoginPOJO;
+import com.example.thovin.POJO.auth.RegisterPOJO;
 import com.example.thovin.results.AuthResult;
 
 import retrofit2.Call;

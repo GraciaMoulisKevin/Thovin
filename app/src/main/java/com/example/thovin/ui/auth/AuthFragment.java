@@ -1,7 +1,6 @@
 package com.example.thovin.ui.auth;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +8,9 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.thovin.MainActivity;
 import com.example.thovin.R;
-import com.example.thovin.Utility;
-import com.google.android.material.snackbar.Snackbar;
 
 public class AuthFragment extends Fragment {
 
@@ -47,8 +42,7 @@ public class AuthFragment extends Fragment {
         navToDelivererAuth.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_auth_to_nav_auth_deliverer));
 
         // --- Navigate to restaurant authentication
-        rootView.findViewById(R.id.fg_auth_restaurant_btn).setOnClickListener(v -> {
-            Snackbar.make(v, "Connection restaurateur!", Snackbar.LENGTH_LONG).show();
-        });
+        Button navToRestaurantAuth = rootView.findViewById(R.id.fg_auth_restaurant_btn);
+        navToRestaurantAuth.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_auth_to_nav_auth_restaurant));
     }
 }

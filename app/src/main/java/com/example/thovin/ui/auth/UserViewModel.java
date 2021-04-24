@@ -1,9 +1,13 @@
 package com.example.thovin.ui.auth;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.thovin.HttpClient;
+import com.example.thovin.POJO.auth.LoginPOJO;
+import com.example.thovin.POJO.auth.RegisterPOJO;
 import com.example.thovin.results.AuthResult;
 import com.example.thovin.services.AuthServices;
 import com.google.gson.Gson;

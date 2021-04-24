@@ -1,4 +1,4 @@
-package com.example.thovin.ui.auth;
+package com.example.thovin.POJO.auth;
 
 public class LoginPOJO {
 

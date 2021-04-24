@@ -56,4 +56,7 @@
     <string name="fg_auth_is_new_deliverer_text">New deliverer?</string>
     <string name="fg_auth_is_new_restaurant_text">New restaurant ?</string>
     <string name="auth_is_new_text2">Sign up</string>
+    <string name="restaurant_name">Restaurant name</string>
+    <string name="restaurant_connection">Restaurant connection</string>
+    <string name="required">Required</string>
 </resources>

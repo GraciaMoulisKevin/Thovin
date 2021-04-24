@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.example.thovin.POJO.auth.LoginPOJO;
+import com.example.thovin.POJO.auth.RegisterPOJO;
 import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.models.AddressModel;
@@ -41,20 +43,20 @@ public class AuthDelivererFragment extends Fragment {
     private SavedStateHandle savedStateHandle;
 
     // --- Fields
-    private TextInputLayout login_email;
-    private TextInputLayout login_password;
+    private TextInputLayout loginEmail;
+    private TextInputLayout loginPassword;
 
-    private TextInputLayout register_lastName;
-    private TextInputLayout register_firstName;
-    private TextInputLayout register_email;
-    private TextInputLayout register_password;
-    private TextInputLayout register_check_password;
-    private TextInputLayout register_street;
-    private TextInputLayout register_additional;
-    private TextInputLayout register_city;
-    private TextInputLayout register_country;
-    private TextInputLayout register_zip;
-    private TextInputLayout register_phone;
+    private TextInputLayout registerLastName;
+    private TextInputLayout registerFirstName;
+    private TextInputLayout registerEmail;
+    private TextInputLayout registerPassword;
+    private TextInputLayout registerCheckPassword;
+    private TextInputLayout registerStreet;
+    private TextInputLayout registerAdditional;
+    private TextInputLayout registerCity;
+    private TextInputLayout registerCountry;
+    private TextInputLayout registerZip;
+    private TextInputLayout registerPhone;
 
     public AuthDelivererFragment() { }
 
@@ -70,9 +72,7 @@ public class AuthDelivererFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_auth_deliverer, container, false);
-
         context = getContext();
-
         return rootView;
     }
 
@@ -101,7 +101,7 @@ public class AuthDelivererFragment extends Fragment {
             if (result != null) {
                 if (result.success) {
                     savedStateHandle.set(LOGIN_SUCCESSFUL, true);
-                    Navigation.findNavController(rootView).navigate(R.id.nav_home);
+                    Navigation.findNavController(rootView).navigate(R.id.nav_home_deliverer);
                 } else if (result.type == 0){
                     handleLoginError(result);
                 } else {
@@ -120,8 +120,8 @@ public class AuthDelivererFragment extends Fragment {
      * @return the login POJO
      */
     private LoginPOJO getLoginPOJO() {
-        String email = login_email.getEditText().getText().toString();
-        String password = login_password.getEditText().getText().toString();
+        String email = loginEmail.getEditText().getText().toString();
+        String password = loginPassword.getEditText().getText().toString();
         return new LoginPOJO(email, password);
     }
 
@@ -130,20 +130,20 @@ public class AuthDelivererFragment extends Fragment {
      * @return the register POJO
      */
     private RegisterPOJO getRegisterPOJO() {
-        String firstName = register_firstName.getEditText().getText().toString();
-        String lastName = register_lastName.getEditText().getText().toString();
-        String email = register_email.getEditText().getText().toString();
-        String password = register_password.getEditText().getText().toString();
-        String phone = register_phone.getEditText().getText().toString();
+        String firstName = registerFirstName.getEditText().getText().toString();
+        String lastName = registerLastName.getEditText().getText().toString();
+        String email = registerEmail.getEditText().getText().toString();
+        String password = registerPassword.getEditText().getText().toString();
+        String phone = registerPhone.getEditText().getText().toString();
 
         AddressModel address = new AddressModel();
-        address.setStreet(register_street.getEditText().getText().toString());
-        address.setAdditional(register_additional.getEditText().getText().toString());
-        address.setCity(register_city.getEditText().getText().toString());
-        address.setCountry(register_country.getEditText().getText().toString());
-        address.setZip(register_zip.getEditText().getText().toString());
+        address.setStreet(registerStreet.getEditText().getText().toString());
+        address.setAdditional(registerAdditional.getEditText().getText().toString());
+        address.setCity(registerCity.getEditText().getText().toString());
+        address.setCountry(registerCountry.getEditText().getText().toString());
+        address.setZip(registerZip.getEditText().getText().toString());
 
-        return new RegisterPOJO(RegisterPOJO.TYPE_DELIVERER, firstName, lastName, email, password, phone, address);
+        return new RegisterPOJO(firstName, lastName, email, password, phone, address, RegisterPOJO.TYPE_DELIVERER);
     }
 
     /**
@@ -152,27 +152,27 @@ public class AuthDelivererFragment extends Fragment {
     private void configureTextInputLayout() {
 
         // --- Text fields
-        login_email = rootView.findViewById(R.id.fg_auth_deliverer_login_email);
-        register_lastName = rootView.findViewById(R.id.fg_auth_deliverer_last_name);
-        register_firstName = rootView.findViewById(R.id.fg_auth_deliverer_first_name);
-        register_email = rootView.findViewById(R.id.fg_auth_deliverer_email);
-        register_street = rootView.findViewById(R.id.fg_auth_deliverer_street);
-        register_additional = rootView.findViewById(R.id.fg_auth_deliverer_additional);
-        register_city = rootView.findViewById(R.id.fg_auth_deliverer_city);
-        register_country = rootView.findViewById(R.id.fg_auth_deliverer_country);
-        register_zip = rootView.findViewById(R.id.fg_auth_deliverer_zip);
-        register_phone = rootView.findViewById(R.id.fg_auth_deliverer_phone);
+        loginEmail = rootView.findViewById(R.id.fg_auth_deliverer_login_email);
+        registerLastName = rootView.findViewById(R.id.fg_auth_deliverer_last_name);
+        registerFirstName = rootView.findViewById(R.id.fg_auth_deliverer_first_name);
+        registerEmail = rootView.findViewById(R.id.fg_auth_deliverer_email);
+        registerStreet = rootView.findViewById(R.id.fg_auth_deliverer_street);
+        registerAdditional = rootView.findViewById(R.id.fg_auth_deliverer_additional);
+        registerCity = rootView.findViewById(R.id.fg_auth_deliverer_city);
+        registerCountry = rootView.findViewById(R.id.fg_auth_deliverer_country);
+        registerZip = rootView.findViewById(R.id.fg_auth_deliverer_zip);
+        registerPhone = rootView.findViewById(R.id.fg_auth_deliverer_phone);
 
         ArrayList<TextInputLayout> textFields = new ArrayList<>(Arrays.asList(
-                login_email,
-                register_lastName,
-                register_firstName,
-                register_email,
-                register_street,
-                register_city,
-                register_country,
-                register_zip,
-                register_phone));
+                loginEmail,
+                registerLastName,
+                registerFirstName,
+                registerEmail,
+                registerStreet,
+                registerCity,
+                registerCountry,
+                registerZip,
+                registerPhone));
 
         for (TextInputLayout field : textFields) {
             field.getEditText().addTextChangedListener(new TextWatcher() {
@@ -196,11 +196,11 @@ public class AuthDelivererFragment extends Fragment {
 
 
         // --- Password fields
-        login_password = rootView.findViewById(R.id.fg_auth_deliverer_login_password);
-        register_password = rootView.findViewById(R.id.fg_auth_deliverer_password);
+        loginPassword = rootView.findViewById(R.id.fg_auth_deliverer_login_password);
+        registerPassword = rootView.findViewById(R.id.fg_auth_deliverer_password);
         ArrayList<TextInputLayout> passwordFields = new ArrayList<>(Arrays.asList(
-                login_password,
-                register_password));
+                loginPassword,
+                registerPassword));
 
         for (TextInputLayout field : passwordFields) {
             field.getEditText().addTextChangedListener(new TextWatcher() {
@@ -226,8 +226,8 @@ public class AuthDelivererFragment extends Fragment {
 
 
         // --- Check Password field
-        register_check_password = rootView.findViewById(R.id.fg_auth_deliverer_check_password);
-        register_check_password.getEditText().addTextChangedListener(new TextWatcher() {
+        registerCheckPassword = rootView.findViewById(R.id.fg_auth_deliverer_check_password);
+        registerCheckPassword.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -239,11 +239,11 @@ public class AuthDelivererFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 0)
-                    Utility.setErrorOnField(context, register_check_password, getString(R.string.err_empty_field));
-                else if (!s.toString().equals(register_password.getEditText().getText().toString()))
-                    Utility.setErrorOnField(context, register_check_password, getString(R.string.err_password_not_equals));
+                    Utility.setErrorOnField(context, registerCheckPassword, getString(R.string.err_empty_field));
+                else if (!s.toString().equals(registerPassword.getEditText().getText().toString()))
+                    Utility.setErrorOnField(context, registerCheckPassword, getString(R.string.err_password_not_equals));
                 else
-                    register_check_password.setError(null);
+                    registerCheckPassword.setError(null);
             }
         });
     }
@@ -273,8 +273,8 @@ public class AuthDelivererFragment extends Fragment {
      */
     private boolean checkLoginInputs() {
         ArrayList<TextInputLayout> fields = new ArrayList<>(Arrays.asList(
-                login_email,
-                login_password));
+                loginEmail,
+                loginPassword));
 
         return checkFields(fields);
     }
@@ -285,16 +285,16 @@ public class AuthDelivererFragment extends Fragment {
      */
     private boolean checkRegisterInputs() {
         ArrayList<TextInputLayout> fields = new ArrayList<>(Arrays.asList(
-                register_lastName,
-                register_firstName,
-                register_email,
-                register_password,
-                register_check_password,
-                register_street,
-                register_city,
-                register_country,
-                register_zip,
-                register_phone));
+                registerLastName,
+                registerFirstName,
+                registerEmail,
+                registerPassword,
+                registerCheckPassword,
+                registerStreet,
+                registerCity,
+                registerCountry,
+                registerZip,
+                registerPhone));
 
         return checkFields(fields);
     }
@@ -354,7 +354,7 @@ public class AuthDelivererFragment extends Fragment {
                     message = getString(R.string.err_400);
 
                     HashMap<String, TextInputLayout> fields = new HashMap<>();
-                    fields.put("login_email", login_email);
+                    fields.put("login_email", loginEmail);
 
                     Utility.setErrorOnFields(context, fields, result.getFields(), message, Utility.TYPE_LOGIN);
                     break;
@@ -384,8 +384,8 @@ public class AuthDelivererFragment extends Fragment {
                     message = getString(R.string.err_400);
 
                     HashMap<String, TextInputLayout> fields = new HashMap<>();
-                    fields.put("register_email", register_email);
-                    fields.put("register_phone", register_phone);
+                    fields.put("register_email", registerEmail);
+                    fields.put("register_phone", registerPhone);
 
                     Utility.setErrorOnFields(context, fields, result.getFields(), message, Utility.TYPE_REGISTER);
                     break;

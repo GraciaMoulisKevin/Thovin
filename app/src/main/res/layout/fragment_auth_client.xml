@@ -67,7 +67,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_text"
+            app:startIconDrawable="@drawable/ic_round_alternate_email_24"
             app:endIconMode="clear_text"
+            app:helperTextEnabled="true"
+            app:helperText="@string/required"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -86,16 +89,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/password"
-            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_login_email"
+            app:startIconDrawable="@drawable/ic_round_vpn_key_24"
+            app:endIconMode="password_toggle"
+            app:helperTextEnabled="true"
+            app:helperText="@string/required"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="testpasswordd"
+                android:text="testpassword"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -161,9 +167,11 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="0.5"
                 android:hint="@string/name"
+                app:startIconDrawable="@drawable/ic_round_person_24"
                 app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true" >
+                app:helperTextEnabled="true"
+                app:helperText="@string/required"
+                app:errorEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -181,14 +189,14 @@
                 android:layout_weight="0.5"
                 android:hint="@string/first_name"
                 app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true">
+                app:helperTextEnabled="true"
+                app:helperText="@string/required"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Jean"/>
+                    android:inputType="textPersonName" />
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -205,15 +213,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_full_name_layout"
+            app:startIconDrawable="@drawable/ic_round_alternate_email_24"
             app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            app:helperTextEnabled="true" >
+            app:helperTextEnabled="true"
+            app:helperText="@string/required"
+            app:errorEnabled="true" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:text="jpp@test.com"/>
+                android:inputType="textEmailAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -238,15 +247,16 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="0.5"
                 android:hint="@string/password"
+                app:startIconDrawable="@drawable/ic_round_vpn_key_24"
                 app:endIconMode="password_toggle"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true" >
+                app:helperTextEnabled="true"
+                app:helperText="@string/required"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:text="0123456789"/>
+                    android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -259,14 +269,14 @@
                 android:layout_weight="0.5"
                 android:hint="@string/password_verification"
                 app:endIconMode="password_toggle"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true" >
+                app:helperTextEnabled="true"
+                app:helperText="@string/required"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:text="0123456789"/>
+                    android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -284,19 +294,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_password_layout"
+            app:startIconDrawable="@drawable/ic_round_my_location_24"
             app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            app:helperTextEnabled="true" >
+            app:helperTextEnabled="true"
+            app:helperText="@string/required"
+            app:errorEnabled="true" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:text="1 rue des amandier"/>
+                android:inputType="textPostalAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--    Additionnal adress input    -->
+        <!--    Additional address input    -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fg_auth_client_additional"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -308,8 +319,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_street"
             app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            app:helperTextEnabled="true" >
+            app:helperTextEnabled="true"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -339,15 +350,16 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="0.5"
                 android:hint="@string/city"
+                app:startIconDrawable="@drawable/ic_round_location_city_24"
                 app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true" >
+                app:helperTextEnabled="true"
+                app:helperText="@string/required"
+                app:errorEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:text="Montpellier"/>
+                    android:inputType="text"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -361,14 +373,14 @@
                 android:layout_weight="0.5"
                 android:hint="@string/postal_code"
                 app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true" >
+                app:helperTextEnabled="true"
+                app:helperText="@string/required"
+                app:errorEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="34000"/>
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -385,14 +397,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_city_layout"
             app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            app:helperTextEnabled="true" >
+            app:helperTextEnabled="true"
+            app:helperText="@string/required"
+            app:errorEnabled="true" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:text="France"/>
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -407,15 +419,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_country"
+            app:startIconDrawable="@drawable/ic_round_local_phone_24"
             app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            app:helperTextEnabled="true" >
+            app:helperTextEnabled="true"
+            app:helperText="@string/required"
+            app:errorEnabled="true" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:text="0600000000"/>
+                android:inputType="phone"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

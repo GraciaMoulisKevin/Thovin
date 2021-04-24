@@ -22,7 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="0dp"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:menu="@menu/client_menu"
+            app:menu="@menu/client_top_bar"
             app:navigationIcon="@drawable/ic_round_menu_24"
             app:title="Homepage" />
 

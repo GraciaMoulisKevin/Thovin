@@ -8,26 +8,26 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical">
 
         <!--    Application Logo    -->
         <ImageView
-            android:id="@+id/fg_auth_deliverer_Logo"
+            android:id="@+id/fg_auth_restaurant_Logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="36dp"
-            android:src="@drawable/app_logo"
             android:contentDescription="Application Logo"
+            android:src="@drawable/app_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!--    Application Name    -->
         <TextView
-            android:id="@+id/fg_auth_deliverer_app_name"
+            android:id="@+id/fg_auth_restaurant_app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -38,11 +38,11 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_Logo" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_Logo" />
 
         <!--    Text    -->
         <TextView
-            android:id="@+id/fg_auth_deliverer_text"
+            android:id="@+id/fg_auth_restaurant_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -54,11 +54,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_app_name" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_app_name" />
 
         <!--    Email input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fg_auth_deliverer_login_email"
+            android:id="@+id/fg_auth_restaurant_login_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
             android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_text"
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_text"
             app:startIconDrawable="@drawable/ic_round_alternate_email_24"
             app:endIconMode="clear_text"
             app:helperTextEnabled="true"
@@ -76,14 +76,14 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="test@test.com"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                android:text="test@test.com" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--    Password inputs    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fg_auth_deliverer_login_password"
+            android:id="@+id/fg_auth_restaurant_login_password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,8 +91,9 @@
             android:hint="@string/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_login_email"
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_login_email"
             app:startIconDrawable="@drawable/ic_round_vpn_key_24"
+            app:endIconMode="password_toggle"
             app:helperTextEnabled="true"
             app:helperText="@string/required"
             app:errorEnabled="true">
@@ -100,40 +101,40 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="testpassword"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:text="testpassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--    Connection button    -->
         <Button
-            android:id="@+id/fg_auth_deliverer_login_btn"
+            android:id="@+id/fg_auth_restaurant_login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="@string/connection"
             android:backgroundTint="@color/main_green"
+            android:text="@string/connection"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_login_password" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_login_password" />
 
         <!--    Text    -->
         <TextView
-            android:id="@+id/fg_auth_deliverer_new_text1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/fg_auth_restaurant_new_text1"
+            android:layout_width="369dp"
+            android:layout_height="69dp"
             android:layout_marginTop="36dp"
             android:gravity="center"
-            android:text="@string/fg_auth_is_new_deliverer_text"
+            android:text="@string/fg_auth_is_new_restaurant_text"
             android:textColor="@color/black"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_login_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_login_btn" />
 
         <TextView
-            android:id="@+id/fg_auth_deliverer_new_text2"
+            android:id="@+id/fg_auth_restaurant_new_text2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -143,11 +144,11 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_new_text1" />
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_new_text1" />
 
         <!--    Name & First Name input    -->
         <LinearLayout
-            android:id="@+id/fg_auth_deliverer_full_name_layout"
+            android:id="@+id/fg_auth_restaurant_full_name_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -155,11 +156,11 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_new_text2">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_new_text2">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fg_auth_restaurant_last_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:id="@+id/fg_auth_deliverer_last_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -170,18 +171,18 @@
                 app:endIconMode="clear_text"
                 app:helperTextEnabled="true"
                 app:helperText="@string/required"
-                app:errorEnabled="true">
+                app:errorEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPersonName"/>
+                    android:inputType="textPersonName" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fg_auth_restaurant_first_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:id="@+id/fg_auth_deliverer_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -190,7 +191,7 @@
                 app:endIconMode="clear_text"
                 app:helperTextEnabled="true"
                 app:helperText="@string/required"
-                app:errorEnabled="true">
+                app:errorEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -202,7 +203,7 @@
 
         <!--    Email input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fg_auth_deliverer_email"
+            android:id="@+id/fg_auth_restaurant_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -210,7 +211,7 @@
             android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_full_name_layout"
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_full_name_layout"
             app:startIconDrawable="@drawable/ic_round_alternate_email_24"
             app:endIconMode="clear_text"
             app:helperTextEnabled="true"
@@ -220,13 +221,13 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--    Passwords input    -->
         <LinearLayout
-            android:id="@+id/fg_auth_deliverer_password_layout"
+            android:id="@+id/fg_auth_restaurant_password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -234,11 +235,11 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_email">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_email">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fg_auth_restaurant_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:id="@+id/fg_auth_deliverer_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -249,7 +250,7 @@
                 app:endIconMode="password_toggle"
                 app:helperTextEnabled="true"
                 app:helperText="@string/required"
-                app:errorEnabled="true" >
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -259,8 +260,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fg_auth_restaurant_check_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:id="@+id/fg_auth_deliverer_check_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -269,7 +270,7 @@
                 app:endIconMode="password_toggle"
                 app:helperTextEnabled="true"
                 app:helperText="@string/required"
-                app:errorEnabled="true" >
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -280,17 +281,41 @@
 
         </LinearLayout>
 
+        <!--    Restaurant name input    -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fg_auth_restaurant_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/restaurant_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_password_layout"
+            app:startIconDrawable="@drawable/ic_round_store_24"
+            app:endIconMode="clear_text"
+            app:helperTextEnabled="true"
+            app:helperText="@string/required"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <!--    Address input    -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fg_auth_restaurant_street"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:id="@+id/fg_auth_deliverer_street"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_password_layout"
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_name"
             app:startIconDrawable="@drawable/ic_round_my_location_24"
             app:endIconMode="clear_text"
             app:helperTextEnabled="true"
@@ -304,9 +329,10 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--    Additional address input    -->
+
+        <!--    Additionnal adress input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fg_auth_deliverer_additional"
+            android:id="@+id/fg_auth_restaurant_additional"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -314,10 +340,10 @@
             android:hint="@string/additional_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_street"
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_street"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:helperTextEnabled="true" >
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -328,7 +354,7 @@
 
         <!--    City & Postal Code input    -->
         <LinearLayout
-            android:id="@+id/fg_auth_deliverer_city_layout"
+            android:id="@+id/fg_auth_restaurant_city_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -336,12 +362,12 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_additional">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_additional">
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fg_auth_restaurant_city"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:id="@+id/fg_auth_deliverer_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -362,8 +388,8 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fg_auth_restaurant_zip"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:id="@+id/fg_auth_deliverer_zip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -372,7 +398,7 @@
                 app:endIconMode="clear_text"
                 app:helperTextEnabled="true"
                 app:helperText="@string/required"
-                app:errorEnabled="true" >
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -384,7 +410,7 @@
 
         <!--    Country input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fg_auth_deliverer_country"
+            android:id="@+id/fg_auth_restaurant_country"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -392,11 +418,11 @@
             android:hint="@string/country"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_city_layout"
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_city_layout"
             app:endIconMode="clear_text"
             app:helperTextEnabled="true"
             app:helperText="@string/required"
-            app:errorEnabled="true">
+            app:errorEnabled="true" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -407,7 +433,7 @@
 
         <!--    Phone input    -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fg_auth_deliverer_phone"
+            android:id="@+id/fg_auth_restaurant_phone"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -415,7 +441,7 @@
             android:hint="@string/phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_country"
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_country"
             app:startIconDrawable="@drawable/ic_round_local_phone_24"
             app:endIconMode="clear_text"
             app:helperTextEnabled="true"
@@ -425,13 +451,13 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"/>
+                android:inputType="phone" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--    Validation buttons    -->
         <LinearLayout
-            android:id="@+id/fg_auth_deliverer_buttons"
+            android:id="@+id/fg_auth_restaurant_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -439,10 +465,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fg_auth_deliverer_phone">
+            app:layout_constraintTop_toBottomOf="@+id/fg_auth_restaurant_phone">
 
             <Button
-                android:id="@+id/fg_auth_deliverer_cancel_btn"
+                android:id="@+id/fg_auth_restaurant_cancel_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -451,7 +477,7 @@
                 android:text="@string/cancel" />
 
             <Button
-                android:id="@+id/fg_auth_deliverer_register_btn"
+                android:id="@+id/fg_auth_restaurant_register_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
