@@ -1,6 +1,7 @@
 package com.example.thovin.ui.auth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 import com.example.thovin.POJO.auth.LoginPOJO;
 import com.example.thovin.POJO.auth.RegisterPOJO;
 import com.example.thovin.R;
+import com.example.thovin.RestaurantActivity;
 import com.example.thovin.Utility;
 import com.example.thovin.models.AddressModel;
 import com.example.thovin.results.AuthResult;
@@ -93,9 +95,9 @@ public class AuthRestaurantFragment extends Fragment {
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), result -> {
             if (result != null) {
                 if (result.success) {
-//                    Intent intent = new Intent(getActivity(), DelivererActivity.class);
-//                    startActivity(intent);
-//                    getActivity().finish();
+                    Intent intent = new Intent(getActivity(), RestaurantActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
                 } else if (result.type == 0){
                     handleLoginError(result);
                 } else {
