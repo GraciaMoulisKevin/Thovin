@@ -55,39 +55,39 @@ public class UserViewModel extends ViewModel {
 
         setIsLoading(true);
 
-//        authServices.login(loginPOJO).enqueue(new Callback<AuthResult>() {
-//            @Override
-//            public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
-//                setIsLoading(false);
-//
-//                AuthResult result = new AuthResult();
-//
-//                if (response.isSuccessful()) {
-//                    result = response.body();
-//                    result.setSuccess(true);
-//                } else {
-//                    try {
-//                        Gson gson = new Gson();
-//                        result = gson.fromJson(response.errorBody().string(), AuthResult.class);
-//                        result.setSuccess(false);
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                result.setType(AuthResult.LOGIN);
-//                result.setResCode(response.code());
-//                setCurrentUser(result);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<AuthResult> call, Throwable t) {
-//                setIsLoading(false);
-//                setCurrentUser(new AuthResult(0, -1));
-//            }
-//        });
-        setCurrentUser(getMockUser());
+        authServices.login(loginPOJO).enqueue(new Callback<AuthResult>() {
+            @Override
+            public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
+                setIsLoading(false);
+
+                AuthResult result = new AuthResult();
+
+                if (response.isSuccessful()) {
+                    result = response.body();
+                    result.setSuccess(true);
+                } else {
+                    try {
+                        Gson gson = new Gson();
+                        result = gson.fromJson(response.errorBody().string(), AuthResult.class);
+                        result.setSuccess(false);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                result.setType(AuthResult.LOGIN);
+                result.setResCode(response.code());
+                setCurrentUser(result);
+            }
+
+            @Override
+            public void onFailure(Call<AuthResult> call, Throwable t) {
+                setIsLoading(false);
+                setCurrentUser(new AuthResult(0, -1));
+            }
+        });
+//        setCurrentUser(getMockUser());
     }
 
     /**
@@ -138,30 +138,30 @@ public class UserViewModel extends ViewModel {
     }
 
 
-    public AuthResult getMockUser() {
-        UserModel user = new UserModel();
-        user.setAdmin(false);
-        user.setLastName("boop");
-        user.setFirstName("boop");
-        user.setEmail("boop@gmail.com");
-        user.setPhone("0600000000");
-        user.setType("client");
-
-        AddressModel address = new AddressModel();
-        address.setStreet("1 rue des amandiers");
-        address.setAdditional("");
-        address.setCity("Montpellier");
-        address.setZip("34000");
-        address.setCountry("France");
-        user.setAddress(address);
-
-        AuthResult result = new AuthResult();
-        result.resCode = 200;
-        result.success = true;
-        result.setUser(user);
-        result.setType(AuthResult.LOGIN);
-
-        setIsLoading(false);
-        return result;
-    }
+//    public AuthResult getMockUser() {
+//        UserModel user = new UserModel();
+//        user.setAdmin(false);
+//        user.setLastName("boop");
+//        user.setFirstName("boop");
+//        user.setEmail("boop@gmail.com");
+//        user.setPhone("0600000000");
+//        user.setType("client");
+//
+//        AddressModel address = new AddressModel();
+//        address.setStreet("1 rue des amandiers");
+//        address.setAdditional("");
+//        address.setCity("Montpellier");
+//        address.setZip("34000");
+//        address.setCountry("France");
+//        user.setAddress(address);
+//
+//        AuthResult result = new AuthResult();
+//        result.resCode = 200;
+//        result.success = true;
+//        result.setUser(user);
+//        result.setType(AuthResult.LOGIN);
+//
+//        setIsLoading(false);
+//        return result;
+//    }
 }

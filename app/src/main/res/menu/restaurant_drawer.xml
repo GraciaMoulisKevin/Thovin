@@ -20,6 +20,20 @@
             android:title="@string/parameters" />
     </group>
 
+    <group android:id="@+id/products"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_products"
+            android:icon="@drawable/ic_baseline_lunch_dining_24"
+            android:title="@string/our_products"/>
+
+        <item
+            android:id="@+id/nav_menus"
+            android:icon="@drawable/ic_round_fastfood_24"
+            android:title="@string/our_menus"/>
+    </group>
+
     <group android:id="@+id/options_group"
         android:checkableBehavior="single">
 

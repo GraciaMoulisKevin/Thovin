@@ -78,6 +78,8 @@
     <string name="history">Historique</string>
     <string name="logout">Déconnexion</string>
     <string name="exit">Quitter</string>
+    <string name="our_products">Nos produits</string>
+    <string name="our_menus">Nos menus</string>
 
 
 </resources>
