@@ -42,7 +42,7 @@
     <string name="fg_home_address_input_placeholder">Enter your address</string>
     <string name="fg_home_position_btn">Locate me</string>
     <string name="fg_home_searchbar_placeholder">A key word to find your precious</string>
-    <string name="fg_account_header">My account</string>
+    <string name="my_account">My account</string>
     <string name="fg_account_editor_new_password_input">New password</string>
     <string name="fg_account_modify_btn">Change my information and/or password</string>
     <string name="fg_cart_header">Your cart</string>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@+id/nav_auth">
+
+    <!-- Authentication -->
+    <fragment
+        android:id="@+id/nav_auth"
+        android:name="com.example.thovin.ui.auth.AuthFragment"
+        android:label="@string/connection"
+        tools:layout="@layout/fragment_auth" >
+        <action
+            android:id="@+id/action_nav_auth_to_nav_auth_client"
+            app:destination="@id/nav_auth_client"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
+        <action
+            android:id="@+id/action_nav_auth_to_nav_auth_deliverer"
+            app:destination="@id/nav_auth_deliverer"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_nav_auth_to_nav_auth_restaurant"
+            app:destination="@id/nav_auth_restaurant"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+    <!-- Authentication client -->
+    <fragment
+        android:id="@+id/nav_auth_client"
+        android:name="com.example.thovin.ui.auth.AuthClientFragment"
+        android:label="@string/client_connection"
+        tools:layout="@layout/fragment_auth_client" />
+
+    <!-- Authentication deliverer -->
+    <fragment
+        android:id="@+id/nav_auth_deliverer"
+        android:name="com.example.thovin.ui.auth.AuthDelivererFragment"
+        android:label="@string/deliverer_connection"
+        tools:layout="@layout/fragment_auth_deliverer" />
+
+    <!-- Authentication restaurant -->
+    <fragment
+        android:id="@+id/nav_auth_restaurant"
+        android:name="com.example.thovin.ui.auth.AuthRestaurantFragment"
+        android:label="@string/restaurant_connection"
+        tools:layout="@layout/fragment_auth_restaurant"/>
+</navigation>

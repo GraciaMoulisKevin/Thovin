@@ -52,7 +52,7 @@
     <string name="fg_home_searchbar_placeholder">Un mot clé pour trouver ton précieux</string>
 
     <!-- AccountFragment -->
-    <string name="fg_account_header">Mon compte</string>
+    <string name="my_account">Mon compte</string>
     <string name="fg_account_editor_new_password_input">Nouveau mot de passe</string>
     <string name="fg_account_modify_btn">Modifier mes informations et/ou mot de passe</string>
 
@@ -75,6 +75,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="history">Historique</string>
+    <string name="logout">Déconnexion</string>
+    <string name="exit">Quitter</string>
 
 
 </resources>

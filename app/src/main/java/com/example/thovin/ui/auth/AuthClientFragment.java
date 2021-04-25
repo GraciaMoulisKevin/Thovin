@@ -1,14 +1,14 @@
 package com.example.thovin.ui.auth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
+import androidx.lifecycle.ViewModelStore;
 
 import android.text.Editable;
 import android.text.TextUtils;
@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.example.thovin.ClientActivity;
 import com.example.thovin.POJO.auth.LoginPOJO;
 import com.example.thovin.POJO.auth.RegisterPOJO;
 import com.example.thovin.R;
@@ -34,13 +35,10 @@ import java.util.HashMap;
 
 public class AuthClientFragment extends Fragment {
 
-    public static String LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL";
-
     // --- Root view
     private Context context;
     private View rootView;
     private UserViewModel userViewModel;
-    private SavedStateHandle savedStateHandle;
 
     // --- Fields
     private TextInputLayout loginEmail;
@@ -81,29 +79,20 @@ public class AuthClientFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RelativeLayout progressSpinner = getActivity().findViewById(R.id.progress_spinner);
-        savedStateHandle = Navigation.findNavController(view)
-                .getPreviousBackStackEntry()
-                .getSavedStateHandle();
-        savedStateHandle.set(LOGIN_SUCCESSFUL, false);
-
-
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        userViewModel.logout();
 
         // --- Progress Spinner
         userViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            if (isLoading) progressSpinner.setVisibility(View.VISIBLE);
-            else progressSpinner.setVisibility(View.INVISIBLE);
+            Utility.toggleSpinner(getActivity(), isLoading);
         });
 
-
         // --- User
-        userViewModel.getUser().observe(getViewLifecycleOwner(), result -> {
+        userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), result -> {
             if (result != null) {
                 if (result.success) {
-                    savedStateHandle.set(LOGIN_SUCCESSFUL, true);
-                    Navigation.findNavController(rootView).navigate(R.id.nav_home);
+                    Intent intent = new Intent(getActivity(), ClientActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
                 } else if (result.type == 0){
                     handleLoginError(result);
                 } else {

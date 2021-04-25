@@ -4,9 +4,8 @@ import com.example.thovin.models.UserModel;
 
 public class AuthResult {
 
-    public final static String TYPE_CLIENT = "client";
-    public final static String TYPE_DELIVERER = "deliverer";
-    public final static String TYPE_RESTAURANT = "restaurant";
+    public final static int LOGIN = 0;
+    public final static int REGISTER = 1;
 
     public int type;
     public boolean success;
