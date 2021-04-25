@@ -1,7 +1,7 @@
 package com.example.thovin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -11,115 +11,71 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.thovin.databinding.ActivityMainBinding;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     // --- Views
-    private ActivityMainBinding binding;
     private DrawerLayout drawerLayout;
+    private AppBarConfiguration appBarConfiguration;
     private MaterialToolbar toolbar;
     private NavController navController;
     private NavigationView navigationView;
-    private AppBarConfiguration appBarConfiguration;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        // --- Instantiate httpClient
-        HttpClient httpClient = new HttpClient();
+        setContentView(R.layout.activity_main);
 
         // --- Configure the fragment navigation
         configureNavigationUi();
     }
 
     /**
-     * Configure the Toolbar
-     */
-    private void configureToolBar() {
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-
-    /**
-     * Configure the Drawer
-     */
-    private void configureDrawer() {
-
-        drawerLayout = binding.drawerLayout;
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
-                .setOpenableLayout(drawerLayout)
-                .build();
-
-//        appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.nav_home,
-//                R.id.nav_auth,
-//                R.id.nav_parameters)
-//                .setOpenableLayout(drawerLayout)
-//                .build();
-
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
-//        drawerLayout.setFocusableInTouchMode(false);
-    }
-
-    /**
      * Configure the navigation ui of the application (toolbar, drawer, navbar...)
      */
-    private void configureNavigationUi() {
+    public void configureNavigationUi() {
+        // --- Toolbar
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         // --- NavController
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
-        navigationView = binding.navView;
+        navigationView = findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
-        // --- Toolbar
-        configureToolBar();
-
-        // --- Drawer
-        configureDrawer();
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+                .setOpenableLayout(drawerLayout)
+                .build();
 
         // --- Navigation UI
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
-    /**
-     * Handle navigation while a top bar item is selected
-     * @param item
-     * @return
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getTitle().toString().equals(getString(R.string.exit))) {
+            this.finish();
+            return true;
+        }
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Handle menu creation
-     * @param menu
-     * @return
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.client_top_bar, menu);
+        getMenuInflater().inflate(R.menu.main_app_top_bar, menu);
         return true;
     }
 
-    /**
-     * Handle navigation between fragment
-     * @return
-     */
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

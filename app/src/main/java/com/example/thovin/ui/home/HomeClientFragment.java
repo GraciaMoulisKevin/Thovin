@@ -1,6 +1,7 @@
 package com.example.thovin.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,31 +12,36 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavBackStackEntry;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.ui.auth.UserViewModel;
+import com.example.thovin.ui.auth.UserViewModelRepository;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeClientFragment extends Fragment {
 
     private View rootView;
     private UserViewModel userViewModel;
 
-    public HomeFragment() {
+    public HomeClientFragment() {
     }
 
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
+    public static HomeClientFragment newInstance() {
+        return new HomeClientFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        rootView = inflater.inflate(R.layout.fragment_home_client, container, false);
 
         return rootView;
     }
@@ -47,13 +53,14 @@ public class HomeFragment extends Fragment {
         configureCategorySpinner();
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        if (userViewModel.getUser().getValue() == null)
+        if (userViewModel.getCurrentUser().getValue() == null) {
             Utility.getWarningSnackbar(getContext(), view, "You're disconnected", Snackbar.LENGTH_LONG).show();
+            getActivity().finish();
+        }
         else
-            userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+            userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
                 Utility.getSuccessSnackbar(getContext(), view, "Welcome " + user.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
         });
-
     }
 
     // --- Spinner Adapter methods

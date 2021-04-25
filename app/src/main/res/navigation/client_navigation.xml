@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/deliverer_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.thovin.ui.home.HomeClientFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home_client" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_account"
+            app:destination="@id/nav_account" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_cart"
+            app:destination="@id/nav_cart" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_account"
+        android:name="com.example.thovin.ui.account.AccountFragment"
+        android:label="@string/my_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.example.thovin.ui.cart.CartFragment"
+        android:label="@string/cart"
+        tools:layout="@layout/fragment_cart" />
+</navigation>

@@ -22,12 +22,12 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="0dp"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:menu="@menu/client_top_bar"
+            app:menu="@menu/main_app_top_bar"
             app:navigationIcon="@drawable/ic_round_menu_24"
-            app:title="Homepage" />
+            app:title="@string/connection" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/activity_main_content" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,6 +6,9 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -84,6 +87,13 @@ public class Utility {
         Snackbar snackbar = Snackbar.make(v, message, length);
         snackbar.setBackgroundTint(context.getColor(R.color.dark_red));
         return snackbar;
+    }
+
+    // ----------------- PROGRESS SPINNER -----------------
+    public static void toggleSpinner(FragmentActivity activity, Boolean isLoading) {
+        RelativeLayout pSpinner = activity.findViewById(R.id.progress_spinner);
+        if (isLoading) pSpinner.setVisibility(View.VISIBLE);
+        else pSpinner.setVisibility(View.INVISIBLE);
     }
 }
 

@@ -34,15 +34,15 @@ public class AuthFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // --- Navigate to client authentication
-        Button navToClientAuth = rootView.findViewById(R.id.fg_auth_client_btn);
+        Button navToClientAuth = rootView.findViewById(R.id.nav_to_client_connection);
         navToClientAuth.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_auth_to_nav_auth_client));
 
         // --- Navigate to deliverer authentication
-        Button navToDelivererAuth = rootView.findViewById(R.id.fg_auth_deliverer_btn);
+        Button navToDelivererAuth = rootView.findViewById(R.id.nav_to_deliverer_connection);
         navToDelivererAuth.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_auth_to_nav_auth_deliverer));
 
         // --- Navigate to restaurant authentication
-        Button navToRestaurantAuth = rootView.findViewById(R.id.fg_auth_restaurant_btn);
+        Button navToRestaurantAuth = rootView.findViewById(R.id.nav_to_restaurant_connection);
         navToRestaurantAuth.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_auth_to_nav_auth_restaurant));
     }
 }
