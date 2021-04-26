@@ -10,43 +10,55 @@ public class HttpClient {
 
     private static final String BASE_URL = "http://192.168.1.13:29321/v1/";
     public static final boolean DEBUG = true;
-    private static final HttpClient instance = new HttpClient();
 
+    private static HttpClient INSTANCE;
     private static Retrofit retrofit;
+
+    // --- Services
+    private static AuthServices authServices;
 
     private HttpClient() {
         initHttpClient();
     }
 
     public static HttpClient getInstance() {
-        return instance;
+        if (INSTANCE == null) INSTANCE = new HttpClient();
+        return INSTANCE;
     }
 
     public Retrofit getRetrofit() {
         return retrofit;
     }
 
+    public AuthServices getAuthServices() {
+        if (authServices == null) authServices = retrofit.create(AuthServices.class);
+        return authServices;
+    }
+
     /**
      * Initialise our http client (Retrofit)
      */
     public void initHttpClient() {
-        if (DEBUG) {
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
-        } else {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
-        }
+        if (DEBUG) okHttpBuilder.addInterceptor(getInterceptor()).build();
+
+        OkHttpClient client = okHttpBuilder.build();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+    }
+
+    /**
+     * Return the logging interceptor, useful for debugging
+     * @return the interceptor
+     */
+    public HttpLoggingInterceptor getInterceptor() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return interceptor;
     }
 }

@@ -73,13 +73,15 @@
     <string name="fg_auth_is_new_restaurant_text">Nouveau restaurant ?</string>
     <string name="auth_is_new_text2">Inscris toi</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="history">Historique</string>
     <string name="logout">Déconnexion</string>
     <string name="exit">Quitter</string>
     <string name="our_products">Nos produits</string>
     <string name="our_menus">Nos menus</string>
+    <string name="connection_success">Connexion réussie</string>
+    <string name="description">Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="header_restaurant">Restaurants</string>
+    <string name="category">catégorie</string>
 
 
 </resources>

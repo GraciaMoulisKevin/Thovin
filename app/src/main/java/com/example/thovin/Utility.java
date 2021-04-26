@@ -2,16 +2,12 @@ package com.example.thovin;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -25,7 +21,7 @@ public class Utility {
     // ----------------- TEXT INPUT -----------------
     // --- Error fields
     public static void setErrorOnField(Context context, TextInputLayout field, String errMessage) {
-        ColorStateList colorState = context.getColorStateList(R.color.dark_red);
+        ColorStateList colorState = context.getColorStateList(R.color.red_500);
 
         // --- Error
         field.setError(errMessage);
@@ -85,7 +81,7 @@ public class Utility {
     // --- Error Snackbars
     public static Snackbar getErrorSnackbar(Context context, View v, String message, int length) {
         Snackbar snackbar = Snackbar.make(v, message, length);
-        snackbar.setBackgroundTint(context.getColor(R.color.dark_red));
+        snackbar.setBackgroundTint(context.getColor(R.color.red_500));
         return snackbar;
     }
 

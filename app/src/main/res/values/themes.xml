@@ -2,17 +2,36 @@
     <!-- Base application theme. -->
     <style name="Theme.Thovin" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/main_orange</item>
-        <item name="colorPrimaryVariant">@color/dark_red</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/orange_500</item>
+        <item name="colorPrimaryVariant">@color/red_500</item>
+        <item name="colorOnPrimary">@color/gray_100</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/light_purple</item>
-        <item name="colorSecondaryVariant">@color/burgundy</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/orange_500</item>
+        <item name="colorSecondaryVariant">@color/red_500</item>
+        <item name="colorOnSecondary">@color/gray_900</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
         <!-- Customize your theme here. -->
         <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
     </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/medium_spacing</item>
+    </style>
+
+    <style name="Widget.App.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Card</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Card" parent="">
+        <item name="colorPrimary">@color/gray_100</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/gray_900</item>
+    </style>
+
 </resources>

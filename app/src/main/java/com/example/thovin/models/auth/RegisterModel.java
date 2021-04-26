@@ -1,9 +1,9 @@
-package com.example.thovin.POJO.auth;
+package com.example.thovin.models.auth;
 
-import com.example.thovin.models.AddressModel;
+import com.example.thovin.models.user.AddressModel;
 import com.google.gson.annotations.SerializedName;
 
-public class RegisterPOJO {
+public class RegisterModel {
     public static String TYPE_CLIENT = "client";
     public static String TYPE_DELIVERER = "deliverer";
     public static String TYPE_RESTAURANT = "restaurant";
@@ -20,7 +20,7 @@ public class RegisterPOJO {
     private final AddressModel address;
     private final String type;
 
-    public RegisterPOJO(String firstName, String lastName, String email, String password, String phone, AddressModel address, String type) {
+    public RegisterModel(String firstName, String lastName, String email, String password, String phone, AddressModel address, String type) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -31,7 +31,7 @@ public class RegisterPOJO {
         this.type = type;
     }
 
-    public RegisterPOJO(String firstName, String lastName, String email, String password, String phone, String restaurantName, AddressModel address, String type) {
+    public RegisterModel(String firstName, String lastName, String email, String password, String phone, String restaurantName, AddressModel address, String type) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

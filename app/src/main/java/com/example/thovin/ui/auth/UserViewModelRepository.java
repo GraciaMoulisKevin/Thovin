@@ -2,17 +2,18 @@ package com.example.thovin.ui.auth;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.thovin.results.AuthResult;
+import com.example.thovin.models.auth.AuthResult;
 
 public class UserViewModelRepository {
 
     private static MutableLiveData<AuthResult> currentUser = new MutableLiveData<>();
 
-    private static final UserViewModelRepository INSTANCE = new UserViewModelRepository();
+    private static UserViewModelRepository INSTANCE;
 
     private UserViewModelRepository() { }
 
     public static UserViewModelRepository getInstance() {
+        if (INSTANCE == null) INSTANCE = new UserViewModelRepository();
         return INSTANCE;
     }
 

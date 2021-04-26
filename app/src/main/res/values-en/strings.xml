@@ -59,4 +59,13 @@
     <string name="restaurant_name">Restaurant name</string>
     <string name="restaurant_connection">Restaurant connection</string>
     <string name="required">Required</string>
+    <string name="history">History</string>
+    <string name="logout">Logout</string>
+    <string name="exit">Exit</string>
+    <string name="our_products">Our products</string>
+    <string name="our_menus">Our menus</string>
+    <string name="connection_success">Successfully connected</string>
+    <string name="description">Mock description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="header_restaurant">Restaurants</string>
+    <string name="category">category</string>
 </resources>

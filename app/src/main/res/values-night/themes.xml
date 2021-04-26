@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.Thovin" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/main_orange</item>
-        <item name="colorPrimaryVariant">@color/dark_red</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/orange_500</item>
+        <item name="colorPrimaryVariant">@color/red_500</item>
+        <item name="colorOnPrimary">@color/gray_900</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/light_purple</item>
-        <item name="colorSecondaryVariant">@color/burgundy</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/light_purple_500</item>
+        <item name="colorSecondaryVariant">@color/red_700</item>
+        <item name="colorOnSecondary">@color/gray_900</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

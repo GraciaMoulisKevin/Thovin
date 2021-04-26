@@ -17,15 +17,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 
-import com.example.thovin.POJO.auth.LoginPOJO;
-import com.example.thovin.POJO.auth.RegisterPOJO;
+import com.example.thovin.models.auth.LoginModel;
+import com.example.thovin.models.auth.RegisterModel;
 import com.example.thovin.R;
 import com.example.thovin.RestaurantActivity;
 import com.example.thovin.Utility;
-import com.example.thovin.models.AddressModel;
-import com.example.thovin.results.AuthResult;
+import com.example.thovin.models.user.AddressModel;
+import com.example.thovin.models.auth.AuthResult;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -115,17 +114,17 @@ public class AuthRestaurantFragment extends Fragment {
      * Get a login POJO by looking at each text input layout needed
      * @return the login POJO
      */
-    private LoginPOJO getLoginPOJO() {
+    private LoginModel getLoginPOJO() {
         String email = loginEmail.getEditText().getText().toString();
         String password = loginPassword.getEditText().getText().toString();
-        return new LoginPOJO(email, password);
+        return new LoginModel(email, password);
     }
 
     /**
      * Get a register POJO by looking at each text input layout needed
      * @return the register POJO
      */
-    private RegisterPOJO getRegisterPOJO() {
+    private RegisterModel getRegisterPOJO() {
         String firstName = registerFirstName.getEditText().getText().toString();
         String lastName = registerLastName.getEditText().getText().toString();
         String email = registerEmail.getEditText().getText().toString();
@@ -140,7 +139,7 @@ public class AuthRestaurantFragment extends Fragment {
         address.setCountry(registerCountry.getEditText().getText().toString());
         address.setZip(registerZip.getEditText().getText().toString());
 
-        return new RegisterPOJO(firstName, lastName, email, password, phone, restaurantName, address, RegisterPOJO.TYPE_RESTAURANT);
+        return new RegisterModel(firstName, lastName, email, password, phone, restaurantName, address, RegisterModel.TYPE_RESTAURANT);
     }
 
     /**
@@ -328,16 +327,16 @@ public class AuthRestaurantFragment extends Fragment {
      * Login
      */
     private void login() {
-        LoginPOJO loginPOJO = getLoginPOJO();
-        userViewModel.login(loginPOJO);
+        LoginModel loginModel = getLoginPOJO();
+        userViewModel.login(loginModel);
     }
 
     /**
      * Register
      */
     private void register() {
-        RegisterPOJO registerPOJO = getRegisterPOJO();
-        userViewModel.register(registerPOJO);
+        RegisterModel registerModel = getRegisterPOJO();
+        userViewModel.register(registerModel);
     }
 
     /**

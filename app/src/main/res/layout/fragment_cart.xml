@@ -19,7 +19,7 @@
             android:text="@string/fg_cart_header"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/gray_900"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -113,7 +113,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/dark_red"
+                        android:backgroundTint="@color/red_500"
                         app:icon="@drawable/ic_round_delete_24"
                         app:iconGravity="textStart" />
                 </LinearLayout>
@@ -211,7 +211,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/dark_red"
+                        android:backgroundTint="@color/red_500"
                         app:icon="@drawable/ic_round_delete_24"
                         app:iconGravity="textStart" />
                 </LinearLayout>
@@ -244,7 +244,7 @@
                     android:id="@+id/fg_auth_client_cancel_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/dark_red"
+                    android:backgroundTint="@color/red_500"
                     android:text="@string/cancel"
                     app:layout_constraintEnd_toStartOf="@+id/fg_auth_client_login_password_verification"
                     app:layout_constraintStart_toStartOf="parent"
