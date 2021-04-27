@@ -2,6 +2,8 @@ package com.example.thovin;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -90,6 +92,86 @@ public class Utility {
         RelativeLayout pSpinner = activity.findViewById(R.id.progress_spinner);
         if (isLoading) pSpinner.setVisibility(View.VISIBLE);
         else pSpinner.setVisibility(View.INVISIBLE);
+    }
+
+    // ----------------- AUTH TEXTLISTENER -----------------
+    public static void addTextChangedListenerLogin(Context context, TextInputLayout t){
+        t.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0)
+                    setErrorOnField(context, t, context.getString(R.string.err_empty_field));
+                else if (s.length() < 8)
+                    setErrorOnField(context, t, context.getString(R.string.err_password_length));
+                else
+                    t.setError(null);
+            }
+        });
+    }
+
+    public static void addTextChangedListenerRegister(Context context, TextInputLayout t, TextInputLayout t_check){
+        t.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    setErrorOnField(context, t, context.getString(R.string.err_empty_field));
+                    if (t_check.getEditText().getText().toString().equals(s.toString()))
+                        t_check.setError(null);
+                    else
+                        setErrorOnField(context, t_check, context.getString(R.string.err_password_not_equals));
+                } else if (s.length() < 8) {
+                    setErrorOnField(context, t, context.getString(R.string.err_password_length));
+                    if (t_check.getEditText().getText().toString().equals(s.toString()))
+                        t_check.setError(null);
+                    else
+                        setErrorOnField(context, t_check, context.getString(R.string.err_password_not_equals));
+                } else {
+                    t.setError(null);
+                    if (t_check.getEditText().getText().toString().equals(s.toString()))
+                        t_check.setError(null);
+                    else
+                        setErrorOnField(context, t_check, context.getString(R.string.err_password_not_equals));
+                }
+            }
+        });
+    }
+
+    public static void addTextChangedListenerRegisterCheck(Context context, TextInputLayout t, TextInputLayout t_check){
+        t.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0)
+                    setErrorOnField(context, t, context.getString(R.string.err_empty_field));
+                else if (!s.toString().equals(t_check.getEditText().getText().toString()))
+                    setErrorOnField(context, t, context.getString(R.string.err_password_not_equals));
+                else
+                    t.setError(null);
+            }
+        });
     }
 }
 

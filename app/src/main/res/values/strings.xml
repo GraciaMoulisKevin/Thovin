@@ -36,6 +36,7 @@
     <string name="err_400">Valeurs manquantes ou mal formatés</string>
     <string name="err_404">Email ou mot de passe incorrect</string>
     <string name="err_409">Email déjà utilisé</string>
+    <string name="err_password_incorrect">Format du mot de passe incorrect</string>
 
     <string name="content_description_more">Voir plus</string>
     <string name="content_description_cart_bar">Accéder à votre panier</string>

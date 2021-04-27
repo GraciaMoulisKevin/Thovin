@@ -186,54 +186,11 @@ public class AuthClientFragment extends Fragment {
         // --- Password fields
         loginPassword = rootView.findViewById(R.id.fg_auth_client_login_password);
         registerPassword = rootView.findViewById(R.id.fg_auth_client_password);
-        ArrayList<TextInputLayout> passwordFields = new ArrayList<>(Arrays.asList(
-                loginPassword,
-                registerPassword));
-
-        for (TextInputLayout field : passwordFields) {
-            field.getEditText().addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if (s.length() == 0)
-                        Utility.setErrorOnField(context, field, getString(R.string.err_empty_field));
-                    else if (s.length() < 8)
-                        Utility.setErrorOnField(context, field, getString(R.string.err_password_length));
-                    else
-                        field.setError(null);
-                }
-            });
-        }
-
-
-        // --- Check Password field
         registerCheckPassword = rootView.findViewById(R.id.fg_auth_client_check_password);
-        registerCheckPassword.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() == 0)
-                    Utility.setErrorOnField(context, registerCheckPassword, getString(R.string.err_empty_field));
-                else if (!s.toString().equals(registerPassword.getEditText().getText().toString()))
-                    Utility.setErrorOnField(context, registerCheckPassword, getString(R.string.err_password_not_equals));
-                else
-                    registerCheckPassword.setError(null);
-            }
-        });
+        Utility.addTextChangedListenerLogin(context, loginPassword);
+        Utility.addTextChangedListenerRegister(context, registerPassword, registerCheckPassword);
+        Utility.addTextChangedListenerRegisterCheck(context, registerCheckPassword, registerPassword);
     }
 
     /**
