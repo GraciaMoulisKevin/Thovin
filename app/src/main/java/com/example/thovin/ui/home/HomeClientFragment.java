@@ -1,29 +1,26 @@
 package com.example.thovin.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavBackStackEntry;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thovin.R;
 import com.example.thovin.Utility;
+import com.example.thovin.models.user.UserModel;
 import com.example.thovin.ui.auth.UserViewModel;
-import com.example.thovin.ui.auth.UserViewModelRepository;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +28,7 @@ public class HomeClientFragment extends Fragment {
 
     private View rootView;
     private UserViewModel userViewModel;
+    private Boolean firstStart = true;
 
     public HomeClientFragment() {
     }
@@ -50,38 +48,47 @@ public class HomeClientFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        configureCategorySpinner();
-
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        if (userViewModel.getCurrentUser().getValue() == null) {
-            Utility.getWarningSnackbar(getContext(), view, "You're disconnected", Snackbar.LENGTH_LONG).show();
-            getActivity().finish();
+        if (userViewModel.getCurrentUser().getValue() == null) getActivity().finish();
+        else if (firstStart) {
+            userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> Utility.getSuccessSnackbar(getContext(), view, getString(R.string.connection_success) + " " + user.getUser().getFullName(), Snackbar.LENGTH_LONG).show());
+            firstStart = false;
         }
-        else
-            userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
-                Utility.getSuccessSnackbar(getContext(), view, "Welcome " + user.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
-        });
+
+        configureCategorySpinner();
+        configureRecyclerView();
+
     }
 
-    // --- Spinner Adapter methods
+    public void configureRecyclerView() {
+        ArrayList<UserModel> restaurants = userViewModel.getRestaurants();
+
+        RecyclerView recyclerView = rootView.findViewById(R.id.restaurant_recycler_view);
+
+        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(getContext(), restaurants);
+        recyclerView.setAdapter(restaurantAdapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    }
+
+
     private void configureCategorySpinner() {
         // Mock category until API not complete
         List<String> categories = Arrays.asList("Catégorie", "Sushis", "Burger", "Saladerie", "Pizza");
 
+        Spinner categorySpinner = rootView.findViewById(R.id.category_spinner);
+
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, categories);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner categorySpinner = rootView.findViewById(R.id.fg_home_category_spinner);
         categorySpinner.setAdapter(categoryAdapter);
+
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
-                    // On selecting a spinner item
                     String item = parent.getItemAtPosition(position).toString();
-
-                    // Showing selected spinner item
-                    Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_SHORT).show();
+                    Snackbar.make(rootView, "Selected: " + item, Snackbar.LENGTH_SHORT).show();
                 }
             }
 

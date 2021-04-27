@@ -23,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
     // --- Views
     private DrawerLayout drawerLayout;
     private AppBarConfiguration appBarConfiguration;
-    private MaterialToolbar toolbar;
-    private NavController navController;
-    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void configureNavigationUi() {
         // --- Toolbar
-        toolbar = findViewById(R.id.toolbar);
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // --- NavController
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        navController = navHostFragment.getNavController();
-        navigationView = findViewById(R.id.nav_view);
+        NavController navController = navHostFragment.getNavController();
+        NavigationView navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())

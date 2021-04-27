@@ -1,5 +1,7 @@
-package com.example.thovin.models;
+package com.example.thovin.models.cart;
 
+import com.example.thovin.models.restaurant.MenuModel;
+import com.example.thovin.models.user.UserModel;
 import com.google.gson.annotations.SerializedName;
 
 public class CartModel {

@@ -1,11 +1,11 @@
-package com.example.thovin.POJO.auth;
+package com.example.thovin.models.auth;
 
-public class LoginPOJO {
+public class LoginModel {
 
     private final String email;
     private final String password;
 
-    public LoginPOJO(String email, String password) {
+    public LoginModel(String email, String password) {
         this.email = email;
         this.password = password;
     }

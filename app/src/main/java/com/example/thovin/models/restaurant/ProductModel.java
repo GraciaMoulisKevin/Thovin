@@ -1,4 +1,4 @@
-package com.example.thovin.models;
+package com.example.thovin.models.restaurant;
 
 import com.google.gson.annotations.SerializedName;
 

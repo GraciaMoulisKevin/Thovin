@@ -1,5 +1,7 @@
-package com.example.thovin.models;
+package com.example.thovin.models.user;
 
+import com.example.thovin.models.restaurant.MenuModel;
+import com.example.thovin.models.restaurant.ProductModel;
 import com.google.gson.annotations.SerializedName;
 
 public class UserModel {
@@ -88,6 +90,12 @@ public class UserModel {
         this.address = address;
     }
 
+    public String getFullAddress() {
+        return address.street + ", "
+                + address.additional + ", "
+                + address.zip + " " + address.city + ", "
+                + address.country;
+    }
     public String getFullName() {
         return getFirstName() + " " + getLastName();
     }
