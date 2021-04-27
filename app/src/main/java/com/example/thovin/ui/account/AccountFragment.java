@@ -108,10 +108,12 @@ public class AccountFragment extends Fragment {
         if (onEdition) {
             for (TextInputLayout field : fields) {
                 field.setEnabled(true);
+                field.setEndIconMode(TextInputLayout.END_ICON_CLEAR_TEXT);
             }
         } else {
             for (TextInputLayout field : fields) {
                 field.setEnabled(false);
+                field.setEndIconMode(TextInputLayout.END_ICON_NONE);
             }
         }
     }

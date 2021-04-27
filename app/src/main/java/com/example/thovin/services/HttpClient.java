@@ -9,10 +9,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpClient {
 
     // On personal mobile (use personal IP address)
-    private static final String BASE_URL = "http://192.168.1.13:29321/v1/";
+    // private static final String BASE_URL = "http://192.168.1.13:29321/v1/";
 
     // On emulator
-    // private static final String BASE_URL = "http://10.0.2.2:29321/v1/";
+    private static final String BASE_URL = "http://10.0.2.2:29321/v1/";
     public static final boolean DEBUG = true;
 
     private static HttpClient INSTANCE;
