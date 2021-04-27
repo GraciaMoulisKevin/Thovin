@@ -24,6 +24,7 @@ import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.models.user.AddressModel;
 import com.example.thovin.models.auth.AuthResult;
+import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -91,7 +92,7 @@ public class AuthClientFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), ClientActivity.class);
                     startActivity(intent);
                     getActivity().finish();
-                } else if (result.type == 0){
+                } else if (result.type == 0) {
                     handleLoginError(result);
                 } else {
                     handleRegisterError(result);
@@ -105,6 +106,7 @@ public class AuthClientFragment extends Fragment {
 
     /**
      * Get a login POJO by looking at each text input layout needed
+     *
      * @return the login POJO
      */
     private LoginModel getLoginPOJO() {
@@ -115,6 +117,7 @@ public class AuthClientFragment extends Fragment {
 
     /**
      * Get a register POJO by looking at each text input layout needed
+     *
      * @return the register POJO
      */
     private RegisterModel getRegisterPOJO() {
@@ -257,6 +260,7 @@ public class AuthClientFragment extends Fragment {
 
     /**
      * Check all login inputs
+     *
      * @return Return true if no error found, else false
      */
     private boolean checkLoginInputs() {
@@ -269,6 +273,7 @@ public class AuthClientFragment extends Fragment {
 
     /**
      * Check all register inputs
+     *
      * @return Return true if no error found, else false
      */
     private boolean checkRegisterInputs() {
@@ -289,6 +294,7 @@ public class AuthClientFragment extends Fragment {
 
     /**
      * Check all given fields for error or missing value
+     *
      * @param fields The fields to check
      * @return Return true if no error found, else false
      */
@@ -331,6 +337,7 @@ public class AuthClientFragment extends Fragment {
 
     /**
      * Handle error on login
+     *
      * @param result The authentication result
      */
     private void handleLoginError(AuthResult result) {
@@ -360,6 +367,7 @@ public class AuthClientFragment extends Fragment {
 
     /**
      * Handle error on registration
+     *
      * @param result The authentication result
      */
     private void handleRegisterError(AuthResult result) {

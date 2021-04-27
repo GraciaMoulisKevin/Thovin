@@ -15,7 +15,7 @@ import android.widget.Button;
 import com.example.thovin.R;
 import com.example.thovin.models.user.AddressModel;
 import com.example.thovin.models.user.UserModel;
-import com.example.thovin.ui.auth.UserViewModel;
+import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;

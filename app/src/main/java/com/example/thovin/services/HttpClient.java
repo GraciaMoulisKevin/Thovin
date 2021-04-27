@@ -13,6 +13,7 @@ public class HttpClient {
 
     // On emulator
     private static final String BASE_URL = "http://10.0.2.2:29321/v1/";
+
     public static final boolean DEBUG = true;
 
     private static HttpClient INSTANCE;
@@ -20,6 +21,7 @@ public class HttpClient {
 
     // --- Services
     private static AuthServices authServices;
+    private static RestaurantServices restaurantServices;
 
     private HttpClient() {
         initHttpClient();
@@ -30,17 +32,18 @@ public class HttpClient {
         return INSTANCE;
     }
 
-    public Retrofit getRetrofit() {
-        return retrofit;
-    }
-
     public AuthServices getAuthServices() {
         if (authServices == null) authServices = retrofit.create(AuthServices.class);
         return authServices;
     }
 
+    public RestaurantServices getRestaurantServices() {
+        if (restaurantServices == null) restaurantServices = retrofit.create(RestaurantServices.class);
+        return restaurantServices;
+    }
+
     /**
-     * Initialise our http client (Retrofit)
+     * Initialise a Retrofit client
      */
     public void initHttpClient() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
