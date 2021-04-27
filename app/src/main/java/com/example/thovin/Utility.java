@@ -95,6 +95,28 @@ public class Utility {
     }
 
     // ----------------- AUTH TEXTLISTENER -----------------
+    public static void addTextChangedListener(Context context, ArrayList<TextInputLayout> t){
+        for (TextInputLayout field : t) {
+            field.getEditText().addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (s.length() == 0)
+                        setErrorOnField(context, field, context.getString(R.string.err_empty_field));
+                    else
+                        field.setError(null);
+                }
+            });
+        }
+    }
+
     public static void addTextChangedListenerLogin(Context context, TextInputLayout t){
         t.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -150,10 +172,8 @@ public class Utility {
                 }
             }
         });
-    }
 
-    public static void addTextChangedListenerRegisterCheck(Context context, TextInputLayout t, TextInputLayout t_check){
-        t.getEditText().addTextChangedListener(new TextWatcher() {
+        t_check.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -165,11 +185,11 @@ public class Utility {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 0)
-                    setErrorOnField(context, t, context.getString(R.string.err_empty_field));
-                else if (!s.toString().equals(t_check.getEditText().getText().toString()))
-                    setErrorOnField(context, t, context.getString(R.string.err_password_not_equals));
+                    setErrorOnField(context, t_check, context.getString(R.string.err_empty_field));
+                else if (!s.toString().equals(t.getEditText().getText().toString()))
+                    setErrorOnField(context, t_check, context.getString(R.string.err_password_not_equals));
                 else
-                    t.setError(null);
+                    t_check.setError(null);
             }
         });
     }

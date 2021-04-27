@@ -160,26 +160,7 @@ public class AuthDelivererFragment extends Fragment {
                 registerZip,
                 registerPhone));
 
-        for (TextInputLayout field : textFields) {
-            field.getEditText().addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if (s.length() == 0)
-                        Utility.setErrorOnField(context, field, getString(R.string.err_empty_field));
-                    else
-                        field.setError(null);
-                }
-            });
-        }
-
+        Utility.addTextChangedListener(context, textFields);
 
         // --- Password fields
         loginPassword = rootView.findViewById(R.id.fg_auth_deliverer_login_password);
@@ -188,7 +169,6 @@ public class AuthDelivererFragment extends Fragment {
 
         Utility.addTextChangedListenerLogin(context, loginPassword);
         Utility.addTextChangedListenerRegister(context, registerPassword, registerCheckPassword);
-        Utility.addTextChangedListenerRegisterCheck(context, registerCheckPassword, registerPassword);
     }
 
     /**
