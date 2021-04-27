@@ -56,40 +56,40 @@ public class UserViewModel extends ViewModel {
 
         setIsLoading(true);
 
-//        authServices.login(loginModel).enqueue(new Callback<AuthResult>() {
-//            @Override
-//            public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
-//                setIsLoading(false);
-//
-//                AuthResult result = new AuthResult();
-//
-//                if (response.isSuccessful()) {
-//                    result = response.body();
-//                    result.setSuccess(true);
-//                } else {
-//                    try {
-//                        Gson gson = new Gson();
-//                        result = gson.fromJson(response.errorBody().string(), AuthResult.class);
-//                        result.setSuccess(false);
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                result.setType(AuthResult.LOGIN);
-//                result.setResCode(response.code());
-//                setCurrentUser(result);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<AuthResult> call, Throwable t) {
-//                setIsLoading(false);
-//                setCurrentUser(new AuthResult(0, -1));
-//            }
-//        });
-        setIsLoading(false);
-        setCurrentUser(getMockUser());
+        authServices.login(loginModel).enqueue(new Callback<AuthResult>() {
+            @Override
+            public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
+                setIsLoading(false);
+
+                AuthResult result = new AuthResult();
+
+                if (response.isSuccessful()) {
+                    result = response.body();
+                    result.setSuccess(true);
+                } else {
+                    try {
+                        Gson gson = new Gson();
+                        result = gson.fromJson(response.errorBody().string(), AuthResult.class);
+                        result.setSuccess(false);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                result.setType(AuthResult.LOGIN);
+                result.setResCode(response.code());
+                setCurrentUser(result);
+            }
+
+            @Override
+            public void onFailure(Call<AuthResult> call, Throwable t) {
+                setIsLoading(false);
+                setCurrentUser(new AuthResult(0, -1));
+            }
+        });
+        //setIsLoading(false);
+        //setCurrentUser(getMockUser());
     }
 
 
