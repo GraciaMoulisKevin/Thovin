@@ -1,8 +1,9 @@
-package com.example.thovin.ui.auth;
+package com.example.thovin.viewModels;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.thovin.Utility;
 import com.example.thovin.models.user.AddressModel;
 import com.example.thovin.models.user.UserModel;
 import com.example.thovin.services.HttpClient;
@@ -14,7 +15,6 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,17 +35,18 @@ public class UserViewModel extends ViewModel {
         return currentUser;
     }
 
-    public void setCurrentUser(AuthResult userValue) {
-        userViewModelRepository.setCurrentUser(userValue);
-        if (currentUser != null) currentUser.setValue(userValue);
+    public void setCurrentUser(AuthResult value) {
+        userViewModelRepository.setCurrentUser(value);
+        currentUser.setValue(value);
+
     }
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
-    public void setIsLoading(Boolean isLoading) {
-        this.isLoading.setValue(isLoading);
+    public void setIsLoading(Boolean value) {
+        isLoading.setValue(value);
     }
 
 
@@ -53,43 +54,41 @@ public class UserViewModel extends ViewModel {
      * Login
      */
     public void login(LoginModel loginModel) {
-
         setIsLoading(true);
 
-//        authServices.login(loginModel).enqueue(new Callback<AuthResult>() {
-//            @Override
-//            public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
-//                setIsLoading(false);
-//
-//                AuthResult result = new AuthResult();
-//
-//                if (response.isSuccessful()) {
-//                    result = response.body();
-//                    result.setSuccess(true);
-//                } else {
-//                    try {
-//                        Gson gson = new Gson();
-//                        result = gson.fromJson(response.errorBody().string(), AuthResult.class);
-//                        result.setSuccess(false);
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                result.setType(AuthResult.LOGIN);
-//                result.setResCode(response.code());
-//                setCurrentUser(result);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<AuthResult> call, Throwable t) {
-//                setIsLoading(false);
-//                setCurrentUser(new AuthResult(0, -1));
-//            }
-//        });
-        setIsLoading(false);
-        setCurrentUser(getMockUser());
+        authServices.login(loginModel).enqueue(new Callback<AuthResult>() {
+            @Override
+            public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
+                setIsLoading(false);
+
+                AuthResult result = new AuthResult();
+
+                if (response.isSuccessful()) {
+                    result = response.body();
+                    result.setSuccess(true);
+                } else {
+                    try {
+                        result = Utility.GSON.fromJson(response.errorBody().string(), AuthResult.class);
+                        result.setSuccess(false);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                result.setType(AuthResult.LOGIN);
+                result.setResCode(response.code());
+                setCurrentUser(result);
+            }
+
+            @Override
+            public void onFailure(Call<AuthResult> call, Throwable t) {
+                setIsLoading(false);
+                setCurrentUser(new AuthResult(0, -1));
+            }
+        });
+//        setCurrentUser(getMockUser());
+//        setIsLoading(false);
     }
 
 
@@ -137,7 +136,7 @@ public class UserViewModel extends ViewModel {
      * Logout
      */
     public void logout() {
-        setCurrentUser(null);
+        if (currentUser != null) setCurrentUser(null);
     }
 
 
@@ -168,12 +167,13 @@ public class UserViewModel extends ViewModel {
         user.setAddress(address);
 
         AuthResult result = new AuthResult();
+        result.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MDdlYjU5ZDYyZTBlMTAwNzg4MzVkYjgiLCJpYXQiOjE2MTk1MzU2MTMsImV4cCI6MTYyMDc0NTIxM30.9-Cfn75I0V8b7suoysCiNcnJ2STUGXAWCLHi24a8Io4");
+        result.setExpires(1620745213979L);
         result.resCode = 200;
         result.success = true;
         result.setUser(user);
         result.setType(AuthResult.LOGIN);
 
-        setIsLoading(false);
         return result;
     }
 

@@ -1,4 +1,4 @@
-package com.example.thovin.ui.auth;
+package com.example.thovin.viewModels;
 
 import androidx.lifecycle.MutableLiveData;
 

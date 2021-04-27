@@ -11,14 +11,21 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Utility {
 
+    public final static int STATE_SUCCESS = 0;
+    public final static int STATE_ERROR = 1;
+    public final static int STATE_FAILURE = 2;
+
     public final static int TYPE_LOGIN = 0;
     public final static int TYPE_REGISTER = 1;
+
+    public final static Gson GSON = new Gson();
 
     // ----------------- TEXT INPUT -----------------
     // --- Error fields

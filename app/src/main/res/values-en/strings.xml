@@ -68,4 +68,8 @@
     <string name="description">Mock description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="header_restaurant">Restaurants</string>
     <string name="category">category</string>
+    <string name="Available">Available</string>
+    <string name="Unavailable">Unavailable</string>
+    <string name="Indisponible_text">You will not receive notifications when new delivery near you are available.</string>
+    <string name="Disponible_text">You will receive notifications when new delivery near you are available.</string>
 </resources>
