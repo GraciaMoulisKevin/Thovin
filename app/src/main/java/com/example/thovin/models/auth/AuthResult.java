@@ -13,13 +13,13 @@ public class AuthResult {
     // --- On success
     public String token;
     public long expires;
+    public UserModel user;
 
     // --- On failure
     public int resCode;
     public String code;
     public String message;
     public String[] fields;
-    public UserModel user;
 
     public AuthResult() {
     }

@@ -13,15 +13,15 @@
             android:id="@+id/nav_account"
             android:icon="@drawable/ic_round_person_24"
             android:title="@string/my_account" />
+    </group>
+
+    <group android:id="@+id/options_group"
+        android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_parameters"
             android:icon="@drawable/ic_round_settings_24"
             android:title="@string/parameters" />
-    </group>
-
-    <group android:id="@+id/options_group"
-        android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_logout"

@@ -25,6 +25,7 @@ import com.example.thovin.RestaurantActivity;
 import com.example.thovin.Utility;
 import com.example.thovin.models.user.AddressModel;
 import com.example.thovin.models.auth.AuthResult;
+import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 

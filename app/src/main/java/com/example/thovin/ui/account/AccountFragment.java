@@ -15,7 +15,7 @@ import android.widget.Button;
 import com.example.thovin.R;
 import com.example.thovin.models.user.AddressModel;
 import com.example.thovin.models.user.UserModel;
-import com.example.thovin.ui.auth.UserViewModel;
+import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -108,10 +108,12 @@ public class AccountFragment extends Fragment {
         if (onEdition) {
             for (TextInputLayout field : fields) {
                 field.setEnabled(true);
+                field.setEndIconMode(TextInputLayout.END_ICON_CLEAR_TEXT);
             }
         } else {
             for (TextInputLayout field : fields) {
                 field.setEnabled(false);
+                field.setEndIconMode(TextInputLayout.END_ICON_NONE);
             }
         }
     }

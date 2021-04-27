@@ -82,6 +82,8 @@
     <string name="description">Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="header_restaurant">Restaurants</string>
     <string name="category">catégorie</string>
+    <string name="err_unauthorized">Vous n\'êtes pas autorisé à faire ça</string>
+    <string name="warn_no_restaurant_available">Aucun restaurant disponible.</string>
 
 
 </resources>
