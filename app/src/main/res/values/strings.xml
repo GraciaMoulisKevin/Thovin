@@ -82,6 +82,11 @@
     <string name="description">Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="header_restaurant">Restaurants</string>
     <string name="category">catégorie</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="Indisponible_text">Vous ne recevrez pas les notifications lorsqu\'une nouvelle course près de vous est disponible</string>
+    <string name="Disponible_text">Vous recevrez les notifications lorsqu\'une nouvelle course près de vous est disponible</string>
+    <string name="Available">Disponible</string>
+    <string name="Unavailable">Indisponible</string>
 
 
 </resources>
