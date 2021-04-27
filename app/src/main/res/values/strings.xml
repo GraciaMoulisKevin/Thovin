@@ -86,6 +86,6 @@
     <string name="Disponible_text">Vous recevrez les notifications lorsqu\'une nouvelle course près de vous est disponible</string>
     <string name="Available">Disponible</string>
     <string name="Unavailable">Indisponible</string>
-    <string name="err_unauthorized">Vous n\'êtes pas autorisé à faire ça</string>
+    <string name="err_unauthorized">Vous n\'êtes pas autorisé à faire ça !</string>
     <string name="warn_no_restaurant_available">Aucun restaurant disponible.</string>
 </resources>
