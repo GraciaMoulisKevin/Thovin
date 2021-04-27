@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Thovin</string>
+    <string name="app_name">WeeberEat</string>
     <string name="menu">Menu</string>
     <string name="home">Home</string>
     <string name="cancel">Cancel</string>
