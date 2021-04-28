@@ -1,22 +1,29 @@
-package com.example.thovin.ui.home;
+package com.example.thovin.ui.parameters.deliverer;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.example.thovin.R;
+import com.example.thovin.Utility;
+import com.example.thovin.viewModels.UserViewModel;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class DelivererStatusFragment extends Fragment {
 
     private View rootView;
-    private LinearLayout available, unavailable;
+    private MaterialCardView available, unavailable;
+    private UserViewModel userViewModel;
 
     public DelivererStatusFragment() {}
 
@@ -35,19 +42,17 @@ public class DelivererStatusFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        available = rootView.findViewById(R.id.fg_deliverer_status_available);
-        unavailable = rootView.findViewById(R.id.fg_deliverer_status_unavailable);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-        available.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
+        available = rootView.findViewById(R.id.deliverer_status_available_card_view);
+        unavailable = rootView.findViewById(R.id.deliverer_status_unavailable_card_view);
+
+        available.setOnClickListener(v -> {
+            Utility.getSuccessSnackbar(getContext(), v, "You're now available!", Snackbar.LENGTH_SHORT).show();
         });
 
-        unavailable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
+        unavailable.setOnClickListener(v -> {
+            Utility.getErrorSnackbar(getContext(), v, "You're now unavailable!", Snackbar.LENGTH_SHORT).show();
         });
     }
 }

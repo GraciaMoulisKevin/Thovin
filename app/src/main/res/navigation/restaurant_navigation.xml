@@ -7,16 +7,24 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.thovin.ui.home.HomeRestaurantFragment"
+        android:name="com.example.thovin.ui.home.restaurant.RestaurantHomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home_restaurant" >
+        tools:layout="@layout/fragment_restaurant_home" >
         <action
             android:id="@+id/action_nav_home_to_nav_account"
             app:destination="@id/nav_account" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_parameters"
+            app:destination="@id/nav_parameters" />
     </fragment>
     <fragment
         android:id="@+id/nav_account"
         android:name="com.example.thovin.ui.account.AccountFragment"
         android:label="@string/my_account"
         tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/nav_parameters"
+        android:name="com.example.thovin.ui.parameters.RestaurantParametersFragment"
+        android:label="@string/parameters"
+        tools:layout="@layout/fragment_restaurant_parameters" />
 </navigation>

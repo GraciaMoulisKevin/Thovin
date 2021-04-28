@@ -1,5 +1,6 @@
 package com.example.thovin.ui.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.thovin.R;
+import com.example.thovin.Utility;
+import com.google.android.material.snackbar.Snackbar;
 
 public class AuthFragment extends Fragment {
 

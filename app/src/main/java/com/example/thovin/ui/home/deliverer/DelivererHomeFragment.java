@@ -1,4 +1,4 @@
-package com.example.thovin.ui.home;
+package com.example.thovin.ui.home.deliverer;
 
 import android.os.Bundle;
 
@@ -12,14 +12,14 @@ import android.view.ViewGroup;
 
 import com.example.thovin.R;
 
-public class HomeDelivererFragment extends Fragment {
+public class DelivererHomeFragment extends Fragment {
 
     View rootView;
 
-    public HomeDelivererFragment() { }
+    public DelivererHomeFragment() { }
 
-    public static HomeDelivererFragment newInstance() {
-        return new HomeDelivererFragment();
+    public static DelivererHomeFragment newInstance() {
+        return new DelivererHomeFragment();
     }
 
     @Override
@@ -29,7 +29,7 @@ public class HomeDelivererFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_home_deliverer, container, false);
+        rootView = inflater.inflate(R.layout.fragment_deliverer_home, container, false);
         return rootView;
     }
 

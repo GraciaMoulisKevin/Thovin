@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.auth.AuthDelivererFragment">
+    tools:context=".ui.auth.DelivererAuthFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/high_spacing"
             android:gravity="center"
-            android:text="@string/auth_is_subscribe_text"
+            android:text="@string/is_already_subscribe"
             android:textColor="@color/gray_900"
             android:textSize="26sp"
             android:textStyle="bold"
@@ -113,7 +113,7 @@
             android:layout_height="69dp"
             android:layout_marginTop="@dimen/high_spacing"
             android:gravity="center"
-            android:text="@string/fg_auth_is_new_restaurant_text"
+            android:text="@string/is_new_restaurant_text"
             android:textColor="@color/gray_900"
             android:textSize="26sp"
             android:textStyle="bold"
@@ -126,7 +126,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/auth_is_new_text2"
+            android:text="@string/register"
             android:textColor="@color/gray_900"
             android:textSize="26sp"
             android:textStyle="bold"

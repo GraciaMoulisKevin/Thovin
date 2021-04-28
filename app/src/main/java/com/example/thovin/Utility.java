@@ -1,6 +1,7 @@
 package com.example.thovin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -199,6 +200,23 @@ public class Utility {
                     t_check.setError(null);
             }
         });
+    }
+
+    public static <T> Intent getHomeIntent(Context context, Class<T> activity) {
+        Intent intent = new Intent(context, activity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
+    }
+
+    public static Intent getLogoutIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("STATE", context.getString(R.string.warn_logout));
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
     }
 }
 

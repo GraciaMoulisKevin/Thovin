@@ -38,21 +38,21 @@
     <!-- Authentication client -->
     <fragment
         android:id="@+id/nav_auth_client"
-        android:name="com.example.thovin.ui.auth.AuthClientFragment"
+        android:name="com.example.thovin.ui.auth.ClientAuthFragment"
         android:label="@string/client_connection"
-        tools:layout="@layout/fragment_auth_client" />
+        tools:layout="@layout/fragment_client_auth" />
 
     <!-- Authentication deliverer -->
     <fragment
         android:id="@+id/nav_auth_deliverer"
-        android:name="com.example.thovin.ui.auth.AuthDelivererFragment"
+        android:name="com.example.thovin.ui.auth.DelivererAuthFragment"
         android:label="@string/deliverer_connection"
-        tools:layout="@layout/fragment_auth_deliverer" />
+        tools:layout="@layout/fragment_deliverer_auth" />
 
     <!-- Authentication restaurant -->
     <fragment
         android:id="@+id/nav_auth_restaurant"
-        android:name="com.example.thovin.ui.auth.AuthRestaurantFragment"
+        android:name="com.example.thovin.ui.auth.RestaurantAuthFragment"
         android:label="@string/restaurant_connection"
-        tools:layout="@layout/fragment_auth_restaurant"/>
+        tools:layout="@layout/fragment_restaurant_auth"/>
 </navigation>

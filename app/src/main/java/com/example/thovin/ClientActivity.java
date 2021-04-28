@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -25,12 +24,12 @@ public class ClientActivity extends AppCompatActivity {
     private MaterialToolbar toolbar;
     private NavController navController;
     private NavigationView navigationView;
-    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
+
 
         // --- Configure the fragment navigation
         configureNavigationUi();
@@ -48,6 +47,7 @@ public class ClientActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         navigationView = findViewById(R.id.nav_view);
+
         drawerLayout = findViewById(R.id.drawer_layout);
 
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
@@ -59,11 +59,7 @@ public class ClientActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,6 +67,15 @@ public class ClientActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.client_app_top_bar, menu);
         return true;
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
+    }
+
+
 
     @Override
     public boolean onSupportNavigateUp() {

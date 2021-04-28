@@ -9,14 +9,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.thovin.ClientActivity;
 import com.example.thovin.DelivererActivity;
 import com.example.thovin.models.auth.LoginModel;
 import com.example.thovin.models.auth.RegisterModel;
@@ -32,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class AuthDelivererFragment extends Fragment {
+public class DelivererAuthFragment extends Fragment {
     // --- Root view
     private Context context;
     private View rootView;
@@ -54,10 +53,11 @@ public class AuthDelivererFragment extends Fragment {
     private TextInputLayout registerZip;
     private TextInputLayout registerPhone;
 
-    public AuthDelivererFragment() { }
+    public DelivererAuthFragment() {
+    }
 
-    public static AuthDelivererFragment newInstance() {
-        return new AuthDelivererFragment();
+    public static DelivererAuthFragment newInstance() {
+        return new DelivererAuthFragment();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class AuthDelivererFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_auth_deliverer, container, false);
+        rootView = inflater.inflate(R.layout.fragment_deliverer_auth, container, false);
         context = getContext();
         return rootView;
     }
@@ -87,14 +87,10 @@ public class AuthDelivererFragment extends Fragment {
         // --- User
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), result -> {
             if (result != null) {
-                if (result.success) {
-                    Intent intent = new Intent(getActivity(), DelivererActivity.class);
-                    startActivity(intent);
-                } else if (result.type == 0){
-                    handleLoginError(result);
-                } else {
-                    handleRegisterError(result);
-                }
+                if (result.success)
+                    startActivity(Utility.getHomeIntent(context, DelivererActivity.class));
+                else if (result.type == 0) handleLoginError(result);
+                else handleRegisterError(result);
             }
         });
 
@@ -104,6 +100,7 @@ public class AuthDelivererFragment extends Fragment {
 
     /**
      * Get a login POJO by looking at each text input layout needed
+     *
      * @return the login POJO
      */
     private LoginModel getLoginPOJO() {
@@ -114,6 +111,7 @@ public class AuthDelivererFragment extends Fragment {
 
     /**
      * Get a register POJO by looking at each text input layout needed
+     *
      * @return the register POJO
      */
     private RegisterModel getRegisterPOJO() {
@@ -193,6 +191,7 @@ public class AuthDelivererFragment extends Fragment {
 
     /**
      * Check all login inputs
+     *
      * @return Return true if no error found, else false
      */
     private boolean checkLoginInputs() {
@@ -205,6 +204,7 @@ public class AuthDelivererFragment extends Fragment {
 
     /**
      * Check all register inputs
+     *
      * @return Return true if no error found, else false
      */
     private boolean checkRegisterInputs() {
@@ -225,6 +225,7 @@ public class AuthDelivererFragment extends Fragment {
 
     /**
      * Check all given fields for error or missing value
+     *
      * @param fields The fields to check
      * @return Return true if no error found, else false
      */
@@ -266,6 +267,7 @@ public class AuthDelivererFragment extends Fragment {
 
     /**
      * Handle error on login
+     *
      * @param result The authentication result
      */
     private void handleLoginError(AuthResult result) {
@@ -295,6 +297,7 @@ public class AuthDelivererFragment extends Fragment {
 
     /**
      * Handle error on registration
+     *
      * @param result The authentication result
      */
     private void handleRegisterError(AuthResult result) {
