@@ -1,6 +1,5 @@
 package com.example.thovin.ui.parameters;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +18,18 @@ import com.example.thovin.Utility;
 import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.card.MaterialCardView;
 
+public class RestaurantParametersFragment extends Fragment {
 
-public class ClientParameters extends Fragment {
+    public View rootView;
+    private MaterialCardView logoutButton;
+    private UserViewModel userViewModel;
 
-    View rootView;
-    MaterialCardView logoutButton;
-    UserViewModel userViewModel;
+    public RestaurantParametersFragment() {
+    }
 
-    public ClientParameters() { }
+    public static RestaurantParametersFragment newInstance() {
+        return new RestaurantParametersFragment();
 
-    public static ClientParameters newInstance() {
-        return new ClientParameters();
     }
 
     @Override
@@ -38,7 +39,7 @@ public class ClientParameters extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_client_parameters, container, false);
+        rootView = inflater.inflate(R.layout.fragment_restaurant_parameters, container, false);
         return rootView;
     }
 
