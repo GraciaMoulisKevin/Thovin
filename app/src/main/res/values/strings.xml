@@ -6,8 +6,6 @@
     <string name="cancel">Annuler</string>
     <string name="save">Sauvegarder</string>
     <string name="connection">Se connecter</string>
-    <string name="client_connection">Connexion client</string>
-    <string name="deliverer_connection">Connexion livreur</string>
     <string name="register">S\'inscrire</string>
     <string name="parameters">Paramètres</string>
     <string name="cart">Panier</string>
@@ -27,7 +25,24 @@
     <string name="required">Requis</string>
     <string name="restaurant_name">Nom du restaurant</string>
     <string name="restaurant_connection">Connexion restaurateur</string>
+    <string name="my_account">Mon compte</string>
+    <string name="delete_all">Tout annuler</string>
+    <string name="history">Historique</string>
+    <string name="logout">Se déconnecter</string>
+    <string name="exit">Quitter</string>
+    <string name="category">catégorie</string>
+    <string name="available">Disponible</string>
+    <string name="unavailable">Indisponible</string>
+    <string name="description">Description</string>
 
+    <!-- Success message -->
+    <string name="success_connection">Connexion réussie</string>
+
+    <!-- Warning message -->
+    <string name="warn_no_restaurant_available">Aucun restaurant disponible.</string>
+    <string name="warn_logout">Vous avez été déconnecté</string>
+
+    <!-- Error message -->
     <string name="err_empty_field">Champ vide</string>
     <string name="err_password_length">8 caractères min.</string>
     <string name="err_password_not_equals">mot de passe différent</string>
@@ -36,7 +51,9 @@
     <string name="err_400">Valeurs manquantes ou mal formatés</string>
     <string name="err_404">Email ou mot de passe incorrect</string>
     <string name="err_409">Email déjà utilisé</string>
+    <string name="err_unauthorized">Vous n\'êtes pas autorisé à faire ça !</string>
 
+    <string name="content_mock_descrition">Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="content_description_more">Voir plus</string>
     <string name="content_description_cart_bar">Accéder à votre panier</string>
     <string name="content_description_search_bar">Rechercher un restaurant, catégories etc…</string>
@@ -44,48 +61,35 @@
     <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
     <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
 
-    <!-- MainActivity -->
-    <string name="fg_home_address_input_header">Entrez votre adresse pour trouver les restaurants à proximité :</string>
-    <string name="fg_quick_connection_tip">Tip: Connecter-vous pour retrouver vos adresses récentes</string>
-    <string name="fg_home_address_input_placeholder">Saisissez votre adresse</string>
-    <string name="fg_home_position_btn">Me localiser</string>
-    <string name="fg_home_searchbar_placeholder">Un mot clé pour trouver ton précieux</string>
-
     <!-- AccountFragment -->
-    <string name="my_account">Mon compte</string>
-    <string name="fg_account_editor_new_password_input">Nouveau mot de passe</string>
-    <string name="fg_account_modify_btn">Modifier mes informations et/ou mot de passe</string>
+    <string name="new_password">Nouveau mot de passe</string>
+    <string name="change_user_information">Modifier mes informations et/ou mot de passe</string>
 
     <!-- CartFragment -->
-    <string name="fg_cart_header">Votre panier</string>
-    <string name="fg_cart_delete_all">Tout annuler</string>
+    <string name="cart_header">Votre panier</string>
 
     <!-- AuthenticationFragment -->
-    <string name="fg_auth_text">Je souhaite me connecter en tant que :</string>
-    <string name="fg_auth_client_btn">Client Homosapiens</string>
-    <string name="fg_auth_deliverer_btn">Livreur de compétition</string>
-    <string name="fg_auth_restaurant_btn">Restaurateur aguerris</string>
+    <string name="client_connection">Connexion client</string>
+    <string name="deliverer_connection">Connexion livreur</string>
+    <string name="auth_header">Je souhaite me connecter en tant que :</string>
+    <string name="auth_client_btn">Client Homosapiens</string>
+    <string name="auth_deliverer_btn">Livreur de compétition</string>
+    <string name="auth_restaurant_btn">Restaurateur aguerris</string>
+    <string name="is_already_subscribe">Déjà inscrit ?</string>
+    <string name="is_new_client_text">Nouveau client ?</string>
+    <string name="is_new_deliverer_text">Nouveau livreur ?</string>
+    <string name="is_new_restaurant_text">Nouveau restaurant ?</string>
 
-    <!-- AuthentificationClientActivity -->
-    <string name="auth_is_subscribe_text">Déjà inscrit ?</string>
-    <string name="fg_auth_is_new_client_text">Nouveau client ?</string>
-    <string name="fg_auth_is_new_deliverer_text">Nouveau livreur ?</string>
-    <string name="fg_auth_is_new_restaurant_text">Nouveau restaurant ?</string>
-    <string name="auth_is_new_text2">Inscris toi</string>
+    <!-- ClientActivity -->
+    <string name="header_restaurant">Restaurants</string>
 
-    <string name="history">Historique</string>
-    <string name="logout">Déconnexion</string>
-    <string name="exit">Quitter</string>
+    <!-- DelivererActivity -->
+    <string name="state_unavailable_text">Vous ne recevrez pas les notifications lorsqu\'une nouvelle course près de vous est disponible</string>
+    <string name="state_available_text">Vous recevrez les notifications lorsqu\'une nouvelle course près de vous est disponible</string>
+
+    <!-- RestaurantActivity -->
     <string name="our_products">Nos produits</string>
     <string name="our_menus">Nos menus</string>
-    <string name="connection_success">Connexion réussie</string>
-    <string name="description">Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
-    <string name="header_restaurant">Restaurants</string>
-    <string name="category">catégorie</string>
-    <string name="Indisponible_text">Vous ne recevrez pas les notifications lorsqu\'une nouvelle course près de vous est disponible</string>
-    <string name="Disponible_text">Vous recevrez les notifications lorsqu\'une nouvelle course près de vous est disponible</string>
-    <string name="Available">Disponible</string>
-    <string name="Unavailable">Indisponible</string>
-    <string name="err_unauthorized">Vous n\'êtes pas autorisé à faire ça !</string>
-    <string name="warn_no_restaurant_available">Aucun restaurant disponible.</string>
+    <string name="status">Status</string>
+    <string name="param_state_description">Choisir votre status pour définir votre disponibilité et/ou gérer les notifications.</string>
 </resources>

@@ -7,11 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import com.example.thovin.ClientActivity;
 import com.example.thovin.models.auth.LoginModel;
 import com.example.thovin.models.auth.RegisterModel;
 import com.example.thovin.R;
+import com.example.thovin.RestaurantActivity;
 import com.example.thovin.Utility;
 import com.example.thovin.models.user.AddressModel;
 import com.example.thovin.models.auth.AuthResult;
@@ -32,12 +32,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class AuthClientFragment extends Fragment {
+public class RestaurantAuthFragment extends Fragment {
+
+    public static String LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL";
 
     // --- Root view
     private Context context;
     private View rootView;
     private UserViewModel userViewModel;
+    private SavedStateHandle savedStateHandle;
 
     // --- Fields
     private TextInputLayout loginEmail;
@@ -48,6 +51,7 @@ public class AuthClientFragment extends Fragment {
     private TextInputLayout registerEmail;
     private TextInputLayout registerPassword;
     private TextInputLayout registerCheckPassword;
+    private TextInputLayout registerRestaurantName;
     private TextInputLayout registerStreet;
     private TextInputLayout registerAdditional;
     private TextInputLayout registerCity;
@@ -55,11 +59,11 @@ public class AuthClientFragment extends Fragment {
     private TextInputLayout registerZip;
     private TextInputLayout registerPhone;
 
-    public AuthClientFragment() {
+    public RestaurantAuthFragment() {
     }
 
-    public static AuthClientFragment newInstance() {
-        return new AuthClientFragment();
+    public static RestaurantAuthFragment newInstance() {
+        return new RestaurantAuthFragment();
     }
 
     @Override
@@ -68,8 +72,8 @@ public class AuthClientFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_auth_client, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_restaurant_auth, container, false);
         context = getContext();
         return rootView;
     }
@@ -79,8 +83,9 @@ public class AuthClientFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.logout();
 
-        // --- Progress Spinner
+        // --- Loader
         userViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             Utility.toggleSpinner(getActivity(), isLoading);
         });
@@ -88,17 +93,14 @@ public class AuthClientFragment extends Fragment {
         // --- User
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), result -> {
             if (result != null) {
-                if (result.success) {
-                    Intent intent = new Intent(getActivity(), ClientActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                } else if (result.type == 0) {
-                    handleLoginError(result);
-                } else {
-                    handleRegisterError(result);
-                }
+                if (result.success)
+                    startActivity(Utility.getHomeIntent(context, RestaurantActivity.class));
+                else if (result.type == 0) handleLoginError(result);
+                else handleRegisterError(result);
+
             }
         });
+
 
         configureTextInputLayout();
         configureButtons();
@@ -126,6 +128,7 @@ public class AuthClientFragment extends Fragment {
         String email = registerEmail.getEditText().getText().toString();
         String password = registerPassword.getEditText().getText().toString();
         String phone = registerPhone.getEditText().getText().toString();
+        String restaurantName = registerRestaurantName.getEditText().getText().toString();
 
         AddressModel address = new AddressModel();
         address.setStreet(registerStreet.getEditText().getText().toString());
@@ -134,7 +137,7 @@ public class AuthClientFragment extends Fragment {
         address.setCountry(registerCountry.getEditText().getText().toString());
         address.setZip(registerZip.getEditText().getText().toString());
 
-        return new RegisterModel(firstName, lastName, email, password, phone, address, RegisterModel.TYPE_CLIENT);
+        return new RegisterModel(firstName, lastName, email, password, phone, restaurantName, address, RegisterModel.TYPE_RESTAURANT);
     }
 
     /**
@@ -143,22 +146,24 @@ public class AuthClientFragment extends Fragment {
     private void configureTextInputLayout() {
 
         // --- Text fields
-        loginEmail = rootView.findViewById(R.id.fg_auth_client_login_email);
-        registerLastName = rootView.findViewById(R.id.fg_auth_client_last_name);
-        registerFirstName = rootView.findViewById(R.id.fg_auth_client_first_name);
-        registerEmail = rootView.findViewById(R.id.fg_auth_client_email);
-        registerStreet = rootView.findViewById(R.id.fg_auth_client_street);
-        registerAdditional = rootView.findViewById(R.id.fg_auth_client_additional);
-        registerCity = rootView.findViewById(R.id.fg_auth_client_city);
-        registerCountry = rootView.findViewById(R.id.fg_auth_client_country);
-        registerZip = rootView.findViewById(R.id.fg_auth_client_zip);
-        registerPhone = rootView.findViewById(R.id.fg_auth_client_phone);
+        loginEmail = rootView.findViewById(R.id.fg_auth_restaurant_login_email);
+        registerLastName = rootView.findViewById(R.id.fg_auth_restaurant_last_name);
+        registerFirstName = rootView.findViewById(R.id.fg_auth_restaurant_first_name);
+        registerEmail = rootView.findViewById(R.id.fg_auth_restaurant_email);
+        registerRestaurantName = rootView.findViewById(R.id.fg_auth_restaurant_name);
+        registerStreet = rootView.findViewById(R.id.fg_auth_restaurant_street);
+        registerAdditional = rootView.findViewById(R.id.fg_auth_restaurant_additional);
+        registerCity = rootView.findViewById(R.id.fg_auth_restaurant_city);
+        registerCountry = rootView.findViewById(R.id.fg_auth_restaurant_country);
+        registerZip = rootView.findViewById(R.id.fg_auth_restaurant_zip);
+        registerPhone = rootView.findViewById(R.id.fg_auth_restaurant_phone);
 
         ArrayList<TextInputLayout> textFields = new ArrayList<>(Arrays.asList(
                 loginEmail,
                 registerLastName,
                 registerFirstName,
                 registerEmail,
+                registerRestaurantName,
                 registerStreet,
                 registerCity,
                 registerCountry,
@@ -168,9 +173,9 @@ public class AuthClientFragment extends Fragment {
         Utility.addTextChangedListener(context, textFields);
 
         // --- Password fields
-        loginPassword = rootView.findViewById(R.id.fg_auth_client_login_password);
-        registerPassword = rootView.findViewById(R.id.fg_auth_client_password);
-        registerCheckPassword = rootView.findViewById(R.id.fg_auth_client_check_password);
+        loginPassword = rootView.findViewById(R.id.fg_auth_restaurant_login_password);
+        registerPassword = rootView.findViewById(R.id.fg_auth_restaurant_password);
+        registerCheckPassword = rootView.findViewById(R.id.fg_auth_restaurant_check_password);
 
         Utility.addTextChangedListenerLogin(context, loginPassword);
         Utility.addTextChangedListenerRegister(context, registerPassword, registerCheckPassword);
@@ -181,14 +186,14 @@ public class AuthClientFragment extends Fragment {
      */
     private void configureButtons() {
         // --- Login button
-        Button login_btn = rootView.findViewById(R.id.fg_auth_client_login_btn);
+        Button login_btn = rootView.findViewById(R.id.fg_auth_restaurant_login_btn);
         login_btn.setOnClickListener(v -> {
             boolean isOk = checkLoginInputs();
             if (isOk) login();
         });
 
         // --- Register button
-        Button register_btn = rootView.findViewById(R.id.fg_auth_client_register_btn);
+        Button register_btn = rootView.findViewById(R.id.fg_auth_restaurant_register_btn);
         register_btn.setOnClickListener(v -> {
             boolean isOk = checkRegisterInputs();
             if (isOk) register();
@@ -220,6 +225,7 @@ public class AuthClientFragment extends Fragment {
                 registerEmail,
                 registerPassword,
                 registerCheckPassword,
+                registerRestaurantName,
                 registerStreet,
                 registerCity,
                 registerCountry,
@@ -254,7 +260,6 @@ public class AuthClientFragment extends Fragment {
 
         return isOk;
     }
-
 
     /**
      * Login
@@ -319,11 +324,9 @@ public class AuthClientFragment extends Fragment {
 
                     HashMap<String, TextInputLayout> fields = new HashMap<>();
                     fields.put("register_email", registerEmail);
-                    fields.put("register_zip", registerZip);
                     fields.put("register_phone", registerPhone);
 
                     Utility.setErrorOnFields(context, fields, result.getFields(), message, Utility.TYPE_REGISTER);
-
                     break;
                 case 409:
                     message = getString(R.string.err_409);

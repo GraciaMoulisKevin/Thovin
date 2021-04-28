@@ -15,7 +15,9 @@
         <activity android:name=".RestaurantActivity" />
         <activity android:name=".ClientActivity" />
         <activity android:name=".DelivererActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

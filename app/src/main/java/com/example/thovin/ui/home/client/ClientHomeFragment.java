@@ -1,7 +1,8 @@
 package com.example.thovin.ui.home.client;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,22 +17,25 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thovin.MainActivity;
 import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.models.auth.AuthResult;
 import com.example.thovin.models.user.UserModel;
+import com.example.thovin.ui.auth.AuthFragment;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.example.thovin.viewModels.UserViewModel;
-import com.example.thovin.ui.home.RestaurantAdapter;
+import com.example.thovin.ui.home.restaurant.RestaurantAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HomeClientFragment extends Fragment {
+public class ClientHomeFragment extends Fragment {
 
     private View rootView;
+    private Context context;
 
     private UserViewModel userViewModel;
     private AuthResult currentUser;
@@ -43,16 +47,17 @@ public class HomeClientFragment extends Fragment {
     private Boolean firstStart = true;
     private RecyclerView recyclerView;
 
-    public HomeClientFragment() {
+    public ClientHomeFragment() {
     }
 
-    public static HomeClientFragment newInstance() {
-        return new HomeClientFragment();
+    public static ClientHomeFragment newInstance() {
+        return new ClientHomeFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_home_client, container, false);
+        rootView = inflater.inflate(R.layout.fragment_client_home, container, false);
+        context = getContext();
         return rootView;
     }
 
@@ -70,17 +75,18 @@ public class HomeClientFragment extends Fragment {
 
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
             // --- Kill the activity, user shouldn't be there
-            if (user == null) getActivity().finish();
+            if (user == null) startActivity(Utility.getLogoutIntent(context));
+            else {
+                // --- Welcome message on first start
+                if (firstStart) {
+                    Utility.getSuccessSnackbar(context, rootView, getString(R.string.success_connection) + " " + user.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
+                    firstStart = false;
+                }
 
-            // --- Welcome message on first start
-            if (firstStart) {
-                Utility.getSuccessSnackbar(getContext(), rootView, getString(R.string.connection_success) + " " + user.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
-                firstStart = false;
+                // --- Save the user and load the restaurants list
+                currentUser = user;
+                restaurantViewModel.loadRestaurant(currentUser.token);
             }
-
-            // --- Save the user and load the restaurants list
-            currentUser = user;
-            restaurantViewModel.loadRestaurant(currentUser.token);
         });
 
 
@@ -90,7 +96,7 @@ public class HomeClientFragment extends Fragment {
             if (state == Utility.STATE_SUCCESS) {
                 // --- If no restaurant found, display a message
                 if (result.size() == 0) {
-                    Utility.getWarningSnackbar(getContext(), view, getString(R.string.warn_no_restaurant_available), Snackbar.LENGTH_LONG).show();
+                    Utility.getWarningSnackbar(context, view, getString(R.string.warn_no_restaurant_available), Snackbar.LENGTH_LONG).show();
                     noRestaurantAvailable.setVisibility(View.VISIBLE);
                 } else {
                     noRestaurantAvailable.setVisibility(View.GONE);
@@ -99,10 +105,10 @@ public class HomeClientFragment extends Fragment {
                 }
             } else if (state == Utility.STATE_ERROR) {
                 noRestaurantAvailable.setVisibility(View.VISIBLE);
-                Utility.getErrorSnackbar(getContext(), view, getString(R.string.err_unauthorized), Snackbar.LENGTH_LONG).show();
+                Utility.getErrorSnackbar(context, view, getString(R.string.err_unauthorized), Snackbar.LENGTH_LONG).show();
             } else {
                 noRestaurantAvailable.setVisibility(View.VISIBLE);
-                Utility.getErrorSnackbar(getContext(), view, getString(R.string.err_occurred), Snackbar.LENGTH_LONG).show();
+                Utility.getErrorSnackbar(context, view, getString(R.string.err_occurred), Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -114,7 +120,7 @@ public class HomeClientFragment extends Fragment {
      */
     public void configureRecyclerView() {
         recyclerView = rootView.findViewById(R.id.restaurant_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         setRecyclerViewAdapter();
     }
 
@@ -122,7 +128,7 @@ public class HomeClientFragment extends Fragment {
      * Set the RecyclerView Adapter with the list of restaurants
      */
     public void setRecyclerViewAdapter() {
-        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(getContext(), restaurants);
+        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(context, restaurants);
         recyclerView.setAdapter(restaurantAdapter);
     }
 
@@ -135,7 +141,7 @@ public class HomeClientFragment extends Fragment {
 
         Spinner categorySpinner = rootView.findViewById(R.id.category_spinner);
 
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, categories);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         categorySpinner.setAdapter(categoryAdapter);

@@ -216,7 +216,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:padding="10sp"
-            android:text="@string/fg_account_modify_btn"
+            android:text="@string/change_user_information"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:icon="@drawable/ic_round_border_color_24"
             app:iconGravity="textEnd"

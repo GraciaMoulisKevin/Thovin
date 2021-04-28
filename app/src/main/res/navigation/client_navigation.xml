@@ -7,15 +7,18 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.thovin.ui.home.client.HomeClientFragment"
+        android:name="com.example.thovin.ui.home.client.ClientHomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home_client" >
+        tools:layout="@layout/fragment_client_home" >
         <action
             android:id="@+id/action_nav_home_to_nav_account"
             app:destination="@id/nav_account" />
         <action
             android:id="@+id/action_nav_home_to_nav_cart"
             app:destination="@id/nav_cart" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_parameters"
+            app:destination="@id/nav_parameters" />
     </fragment>
     <fragment
         android:id="@+id/nav_account"
@@ -27,4 +30,10 @@
         android:name="com.example.thovin.ui.cart.CartFragment"
         android:label="@string/cart"
         tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/nav_parameters"
+        android:name="com.example.thovin.ui.parameters.ClientParameters"
+        android:label="@string/parameters"
+        tools:layout="@layout/fragment_client_parameters" >
+    </fragment>
 </navigation>

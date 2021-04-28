@@ -1,4 +1,4 @@
-package com.example.thovin.ui.home;
+package com.example.thovin.ui.home.restaurant;
 
 import android.content.Context;
 import android.view.LayoutInflater;

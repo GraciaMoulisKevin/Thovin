@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,10 +26,20 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private AppBarConfiguration appBarConfiguration;
 
+    private Boolean isFirstStart = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        String state = intent.getStringExtra("STATE");
+
+        if (state != null && isFirstStart) {
+            Utility.getWarningSnackbar(getApplicationContext(), findViewById(android.R.id.content).getRootView(), state, Snackbar.LENGTH_SHORT).show();
+            isFirstStart = false;
+        }
 
         // --- Configure the fragment navigation
         configureNavigationUi();

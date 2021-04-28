@@ -1,4 +1,4 @@
-package com.example.thovin.ui.home;
+package com.example.thovin.ui.home.restaurant;
 
 import android.os.Bundle;
 
@@ -10,14 +10,14 @@ import android.view.ViewGroup;
 
 import com.example.thovin.R;
 
-public class HomeRestaurantFragment extends Fragment {
+public class RestaurantHomeFragment extends Fragment {
 
     View rootView;
 
-    public HomeRestaurantFragment() { }
+    public RestaurantHomeFragment() { }
 
-    public static HomeRestaurantFragment newInstance() {
-        return new HomeRestaurantFragment();
+    public static RestaurantHomeFragment newInstance() {
+        return new RestaurantHomeFragment();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class HomeRestaurantFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_home_restaurant, container, false);
+        rootView = inflater.inflate(R.layout.fragment_restaurant_home, container, false);
         return rootView;
     }
 }
