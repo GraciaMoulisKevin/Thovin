@@ -9,7 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
-public interface AuthServices{
+public interface IAuthServices {
     @POST("auth")
     Call<AuthResult> login(@Body LoginModel body);
 

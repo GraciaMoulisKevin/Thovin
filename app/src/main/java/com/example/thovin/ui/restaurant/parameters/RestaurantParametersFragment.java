@@ -1,4 +1,4 @@
-package com.example.thovin.ui.parameters;
+package com.example.thovin.ui.restaurant.parameters;
 
 import android.os.Bundle;
 
@@ -6,9 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +19,6 @@ import com.google.android.material.card.MaterialCardView;
 public class RestaurantParametersFragment extends Fragment {
 
     public View rootView;
-    private MaterialCardView logoutButton;
     private UserViewModel userViewModel;
 
     public RestaurantParametersFragment() {
@@ -49,7 +46,7 @@ public class RestaurantParametersFragment extends Fragment {
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-        logoutButton = rootView.findViewById(R.id.logout_button);
+        MaterialCardView logoutButton = rootView.findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(v -> {
             userViewModel.logout();
             startActivity(Utility.getLogoutIntent(getContext()));

@@ -80,9 +80,7 @@ public class DelivererAuthFragment extends Fragment {
         userViewModel.logout();
 
         // --- Loader
-        userViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            Utility.toggleSpinner(getActivity(), isLoading);
-        });
+        userViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> Utility.toggleSpinner(getActivity(), isLoading));
 
         // --- User
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), result -> {

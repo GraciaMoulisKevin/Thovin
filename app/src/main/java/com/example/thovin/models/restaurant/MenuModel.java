@@ -4,20 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class MenuModel {
     @SerializedName("_id")
-    public Object id;
+    public String id;
     public String name;
     public String description;
     @SerializedName("img_url")
     public String imgURL;
-    public ProductModel[] products;
+    @SerializedName("products")
+    public String[] productsId;
     public String category;
 
-    public Object getId() {
+    public String getId() {
         return id;
-    }
-
-    public void setId(Object id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -44,12 +41,12 @@ public class MenuModel {
         this.imgURL = imgURL;
     }
 
-    public ProductModel[] getProducts() {
-        return products;
+    public String[] getProductsId() {
+        return productsId;
     }
 
-    public void setProducts(ProductModel[] products) {
-        this.products = products;
+    public void setProductsId(String[] productsId) {
+        this.productsId = productsId;
     }
 
     public String getCategory() {

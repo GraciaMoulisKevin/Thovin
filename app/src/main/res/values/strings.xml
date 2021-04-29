@@ -81,7 +81,7 @@
     <string name="is_new_restaurant_text">Nouveau restaurant ?</string>
 
     <!-- ClientActivity -->
-    <string name="header_restaurant">Restaurants</string>
+    <string name="restaurants">Restaurants</string>
 
     <!-- DelivererActivity -->
     <string name="state_unavailable_text">Vous ne recevrez pas les notifications lorsqu\'une nouvelle course près de vous est disponible</string>
@@ -94,4 +94,6 @@
     <string name="param_state_description">Choisir votre status pour définir votre disponibilité et/ou gérer les notifications.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="price">prix</string>
+    <string name="menu_name">Nom du menu</string>
 </resources>

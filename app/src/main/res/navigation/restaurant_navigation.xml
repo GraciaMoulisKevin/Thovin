@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.thovin.ui.home.restaurant.RestaurantHomeFragment"
+        android:name="com.example.thovin.ui.restaurant.home.RestaurantHomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_restaurant_home" >
         <action
@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/nav_parameters"
-        android:name="com.example.thovin.ui.parameters.RestaurantParametersFragment"
+        android:name="com.example.thovin.ui.restaurant.parameters.RestaurantParametersFragment"
         android:label="@string/parameters"
         tools:layout="@layout/fragment_restaurant_parameters" />
 </navigation>

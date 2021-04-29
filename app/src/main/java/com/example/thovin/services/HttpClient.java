@@ -20,8 +20,8 @@ public class HttpClient {
     private static Retrofit retrofit;
 
     // --- Services
-    private static AuthServices authServices;
-    private static RestaurantServices restaurantServices;
+    private static IAuthServices IAuthServices;
+    private static IRestaurantServices IRestaurantServices;
 
     private HttpClient() {
         initHttpClient();
@@ -32,14 +32,14 @@ public class HttpClient {
         return INSTANCE;
     }
 
-    public AuthServices getAuthServices() {
-        if (authServices == null) authServices = retrofit.create(AuthServices.class);
-        return authServices;
+    public IAuthServices getAuthServices() {
+        if (IAuthServices == null) IAuthServices = retrofit.create(IAuthServices.class);
+        return IAuthServices;
     }
 
-    public RestaurantServices getRestaurantServices() {
-        if (restaurantServices == null) restaurantServices = retrofit.create(RestaurantServices.class);
-        return restaurantServices;
+    public IRestaurantServices getRestaurantServices() {
+        if (IRestaurantServices == null) IRestaurantServices = retrofit.create(IRestaurantServices.class);
+        return IRestaurantServices;
     }
 
     /**

@@ -1,13 +1,13 @@
 package com.example.thovin.models.user;
 
-import com.example.thovin.models.restaurant.MenuModel;
-import com.example.thovin.models.restaurant.ProductModel;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 
 public class UserModel {
 
     @SerializedName("_id")
-    public Object id;
+    public String id;
     public Boolean admin;
     public String type;
     @SerializedName("first_name")
@@ -21,17 +21,15 @@ public class UserModel {
     // --- Additional Restaurant value
     @SerializedName("restaurant_name")
     public String restaurantName;
-    public ProductModel[] products;
-    public MenuModel[] menus;
+    @SerializedName("products")
+    public ArrayList<String> productsId;
+    @SerializedName("menus")
+    public ArrayList<String> menusId;
 
 
     // --- GETTERS AND SETTERS
     public Object getId() {
         return id;
-    }
-
-    public void setId(Object id) {
-        this.id = id;
     }
 
     public Boolean getAdmin() {
@@ -96,6 +94,7 @@ public class UserModel {
                 + address.zip + " " + address.city + ", "
                 + address.country;
     }
+
     public String getFullName() {
         return getFirstName() + " " + getLastName();
     }
@@ -108,19 +107,19 @@ public class UserModel {
         this.restaurantName = restaurantName;
     }
 
-    public ProductModel[] getProducts() {
-        return products;
+    public ArrayList<String> getProductsId() {
+        return productsId;
     }
 
-    public void setProducts(ProductModel[] products) {
-        this.products = products;
+    public void setProductsId(ArrayList<String> productsId) {
+        this.productsId = productsId;
     }
 
-    public MenuModel[] getMenus() {
-        return menus;
+    public ArrayList<String> getMenusId() {
+        return menusId;
     }
 
-    public void setMenus(MenuModel[] menus) {
-        this.menus = menus;
+    public void setMenusId(ArrayList<String> menusId) {
+        this.menusId = menusId;
     }
 }
