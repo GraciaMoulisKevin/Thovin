@@ -65,8 +65,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 //        for (ProductModel product : menus.getProduct) {
 //            total += product.price;
 //        }
-        String totalToString = total + "€";
-        holder.price.setText(totalToString);
+        holder.price.setText(String.valueOf(total));
     }
 
     @Override
