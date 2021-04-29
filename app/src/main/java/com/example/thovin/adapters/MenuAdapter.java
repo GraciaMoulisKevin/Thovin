@@ -1,6 +1,7 @@
 package com.example.thovin.adapters;
 
 import android.content.Context;
+import android.renderscript.Sampler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,8 +66,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 //        for (ProductModel product : menus.getProduct) {
 //            total += product.price;
 //        }
-        String totalToString = total + "€";
-        holder.price.setText(totalToString);
+        holder.price.setText(String.valueOf(total));
     }
 
     @Override
