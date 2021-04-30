@@ -1,7 +1,6 @@
 package com.example.thovin.ui.auth;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,14 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.thovin.ClientActivity;
 import com.example.thovin.DelivererActivity;
-import com.example.thovin.models.auth.LoginModel;
-import com.example.thovin.models.auth.RegisterModel;
+import com.example.thovin.models.LoginModel;
+import com.example.thovin.models.RegisterModel;
 import com.example.thovin.R;
 import com.example.thovin.Utility;
-import com.example.thovin.models.user.AddressModel;
-import com.example.thovin.models.auth.AuthResult;
+import com.example.thovin.models.AddressModel;
+import com.example.thovin.models.AuthResult;
 import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;

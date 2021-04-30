@@ -1,17 +1,20 @@
-package com.example.thovin.models.restaurant;
+package com.example.thovin.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ProductModel {
+import java.util.ArrayList;
+
+public class MenuModel {
     @SerializedName("_id")
     public String id;
     public String name;
     public String description;
     @SerializedName("img_url")
     public String imgURL;
-    @SerializedName("extras")
-    public String[] extrasId;
-    public String type;
+    @SerializedName("products")
+    public ArrayList<String> productsId;
+    // public ArrayList<ProductModel> products
+    public String category;
 
     public String getId() {
         return id;
@@ -41,19 +44,27 @@ public class ProductModel {
         this.imgURL = imgURL;
     }
 
-    public String[] getExtrasId() {
-        return extrasId;
+    public ArrayList<String> getProductsId() {
+        return productsId;
     }
 
-    public void setExtrasId(String[] extrasId) {
-        this.extrasId = extrasId;
+    public void setProductsId(ArrayList<String> productsId) {
+        this.productsId = productsId;
     }
 
-    public String getType() {
-        return type;
+//    public ArrayList<ProductModel> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(ArrayList<ProductModel> products) {
+//        this.products = products;
+//    }
+
+    public String getCategory() {
+        return category;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

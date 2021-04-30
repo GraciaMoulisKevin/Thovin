@@ -1,6 +1,6 @@
-package com.example.thovin.models.auth;
+package com.example.thovin.models;
 
-import com.example.thovin.models.user.UserModel;
+import com.example.thovin.models.UserModel;
 
 public class AuthResult {
 

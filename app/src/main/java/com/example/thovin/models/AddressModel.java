@@ -1,4 +1,4 @@
-package com.example.thovin.models.user;
+package com.example.thovin.models;
 
 public class AddressModel {
     public String street;

@@ -1,4 +1,4 @@
-package com.example.thovin.models.payment;
+package com.example.thovin.models;
 
 public class CreditCartModel {
     public String number;

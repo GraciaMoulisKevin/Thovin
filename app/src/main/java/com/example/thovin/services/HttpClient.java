@@ -8,38 +8,68 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpClient {
 
-    // On personal mobile (use personal IP address)
-    // private static final String BASE_URL = "http://192.168.1.13:29321/v1/";
+    /**
+     * The base url to make call at the API.
+     * On user device purpose, please use your IP address else use the emulator line
+     */
+    // private static final String BASE_URL = "http://192.168.1.13:29321/v1/"; // personal device
+    private static final String BASE_URL = "http://10.0.2.2:29321/v1/"; // emulator
 
-    // On emulator
-    private static final String BASE_URL = "http://10.0.2.2:29321/v1/";
 
+    /**
+     * Define debug output
+     */
     public static final boolean DEBUG = true;
+
 
     private static HttpClient INSTANCE;
     private static Retrofit retrofit;
 
-    // --- Services
+
+    // --- All services provided
     private static IAuthServices IAuthServices;
     private static IRestaurantServices IRestaurantServices;
+    private static ICartServices ICartServices;
+
 
     private HttpClient() {
         initHttpClient();
     }
 
+    /**
+     * Get the current instance of this HttpClient
+     * @return The instance
+     */
     public static HttpClient getInstance() {
         if (INSTANCE == null) INSTANCE = new HttpClient();
         return INSTANCE;
     }
 
+    /**
+     * Get a retrofit instance of authentication services
+     * @return The retrofit authentication service instance
+     */
     public IAuthServices getAuthServices() {
         if (IAuthServices == null) IAuthServices = retrofit.create(IAuthServices.class);
         return IAuthServices;
     }
 
+    /**
+     * Get a retrofit instance of restaurant services
+     * @return The retrofit restaurant service instance
+     */
     public IRestaurantServices getRestaurantServices() {
         if (IRestaurantServices == null) IRestaurantServices = retrofit.create(IRestaurantServices.class);
         return IRestaurantServices;
+    }
+
+    /**
+     * Get a retrofit instance of cart services
+     * @return The retrofit cart service instance
+     */
+    public ICartServices getCartServices() {
+        if (ICartServices == null) ICartServices = retrofit.create(ICartServices.class);
+        return ICartServices;
     }
 
     /**

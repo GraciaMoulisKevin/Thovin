@@ -1,6 +1,5 @@
-package com.example.thovin.models.order;
+package com.example.thovin.models;
 
-import com.example.thovin.models.payment.CreditCartModel;
 import com.google.gson.annotations.SerializedName;
 
 public class OrderModel {

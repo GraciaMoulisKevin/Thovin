@@ -17,11 +17,8 @@ import android.widget.TextView;
 
 import com.example.thovin.R;
 import com.example.thovin.Utility;
-import com.example.thovin.adapters.MenuAdapter;
 import com.example.thovin.adapters.ProductAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
-import com.example.thovin.models.restaurant.MenuModel;
-import com.example.thovin.models.user.UserModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.google.android.material.snackbar.Snackbar;
 

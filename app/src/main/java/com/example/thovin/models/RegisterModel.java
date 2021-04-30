@@ -1,6 +1,5 @@
-package com.example.thovin.models.auth;
+package com.example.thovin.models;
 
-import com.example.thovin.models.user.AddressModel;
 import com.google.gson.annotations.SerializedName;
 
 public class RegisterModel {

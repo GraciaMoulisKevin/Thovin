@@ -1,4 +1,4 @@
-package com.example.thovin.models.auth;
+package com.example.thovin.models;
 
 public class LoginModel {
 

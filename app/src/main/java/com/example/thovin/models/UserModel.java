@@ -1,4 +1,4 @@
-package com.example.thovin.models.user;
+package com.example.thovin.models;
 
 import com.google.gson.annotations.SerializedName;
 

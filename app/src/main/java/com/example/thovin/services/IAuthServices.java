@@ -1,8 +1,8 @@
 package com.example.thovin.services;
 
-import com.example.thovin.models.auth.LoginModel;
-import com.example.thovin.models.auth.RegisterModel;
-import com.example.thovin.models.auth.AuthResult;
+import com.example.thovin.models.LoginModel;
+import com.example.thovin.models.RegisterModel;
+import com.example.thovin.models.AuthResult;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

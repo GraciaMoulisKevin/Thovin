@@ -1,6 +1,6 @@
 package com.example.thovin.services;
 
-import com.example.thovin.models.user.UserModel;
+import com.example.thovin.models.UserModel;
 
 import java.util.ArrayList;
 

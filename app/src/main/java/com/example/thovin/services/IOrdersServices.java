@@ -1,6 +1,6 @@
 package com.example.thovin.services;
 
-import com.example.thovin.models.order.OrderModel;
+import com.example.thovin.models.OrderModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
