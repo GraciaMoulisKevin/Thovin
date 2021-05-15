@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.thovin.DelivererActivity;
-import com.example.thovin.models.LoginModel;
-import com.example.thovin.models.RegisterModel;
+import com.example.thovin.models.LoginRequest;
+import com.example.thovin.models.RegisterRequest;
 import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.models.AddressModel;
@@ -99,10 +99,10 @@ public class DelivererAuthFragment extends Fragment {
      *
      * @return the login POJO
      */
-    private LoginModel getLoginPOJO() {
+    private LoginRequest getLoginPOJO() {
         String email = loginEmail.getEditText().getText().toString();
         String password = loginPassword.getEditText().getText().toString();
-        return new LoginModel(email, password);
+        return new LoginRequest(email, password);
     }
 
     /**
@@ -110,7 +110,7 @@ public class DelivererAuthFragment extends Fragment {
      *
      * @return the register POJO
      */
-    private RegisterModel getRegisterPOJO() {
+    private RegisterRequest getRegisterPOJO() {
         String firstName = registerFirstName.getEditText().getText().toString();
         String lastName = registerLastName.getEditText().getText().toString();
         String email = registerEmail.getEditText().getText().toString();
@@ -124,7 +124,7 @@ public class DelivererAuthFragment extends Fragment {
         address.setCountry(registerCountry.getEditText().getText().toString());
         address.setZip(registerZip.getEditText().getText().toString());
 
-        return new RegisterModel(firstName, lastName, email, password, phone, address, RegisterModel.TYPE_DELIVERER);
+        return new RegisterRequest(firstName, lastName, email, password, phone, address, RegisterRequest.TYPE_DELIVERER);
     }
 
     /**
@@ -249,16 +249,16 @@ public class DelivererAuthFragment extends Fragment {
      * Login
      */
     private void login() {
-        LoginModel loginModel = getLoginPOJO();
-        userViewModel.login(loginModel);
+        LoginRequest loginRequest = getLoginPOJO();
+        userViewModel.login(loginRequest);
     }
 
     /**
      * Register
      */
     private void register() {
-        RegisterModel registerModel = getRegisterPOJO();
-        userViewModel.register(registerModel);
+        RegisterRequest registerRequest = getRegisterPOJO();
+        userViewModel.register(registerRequest);
     }
 
     /**

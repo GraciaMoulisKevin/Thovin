@@ -15,8 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.thovin.models.LoginModel;
-import com.example.thovin.models.RegisterModel;
+import com.example.thovin.models.LoginRequest;
+import com.example.thovin.models.RegisterRequest;
 import com.example.thovin.R;
 import com.example.thovin.RestaurantActivity;
 import com.example.thovin.Utility;
@@ -107,10 +107,10 @@ public class RestaurantAuthFragment extends Fragment {
      *
      * @return the login POJO
      */
-    private LoginModel getLoginPOJO() {
+    private LoginRequest getLoginPOJO() {
         String email = loginEmail.getEditText().getText().toString();
         String password = loginPassword.getEditText().getText().toString();
-        return new LoginModel(email, password);
+        return new LoginRequest(email, password);
     }
 
     /**
@@ -118,7 +118,7 @@ public class RestaurantAuthFragment extends Fragment {
      *
      * @return the register POJO
      */
-    private RegisterModel getRegisterPOJO() {
+    private RegisterRequest getRegisterPOJO() {
         String firstName = registerFirstName.getEditText().getText().toString();
         String lastName = registerLastName.getEditText().getText().toString();
         String email = registerEmail.getEditText().getText().toString();
@@ -133,7 +133,7 @@ public class RestaurantAuthFragment extends Fragment {
         address.setCountry(registerCountry.getEditText().getText().toString());
         address.setZip(registerZip.getEditText().getText().toString());
 
-        return new RegisterModel(firstName, lastName, email, password, phone, restaurantName, address, RegisterModel.TYPE_RESTAURANT);
+        return new RegisterRequest(firstName, lastName, email, password, phone, restaurantName, address, RegisterRequest.TYPE_RESTAURANT);
     }
 
     /**
@@ -261,16 +261,16 @@ public class RestaurantAuthFragment extends Fragment {
      * Login
      */
     private void login() {
-        LoginModel loginModel = getLoginPOJO();
-        userViewModel.login(loginModel);
+        LoginRequest loginRequest = getLoginPOJO();
+        userViewModel.login(loginRequest);
     }
 
     /**
      * Register
      */
     private void register() {
-        RegisterModel registerModel = getRegisterPOJO();
-        userViewModel.register(registerModel);
+        RegisterRequest registerRequest = getRegisterPOJO();
+        userViewModel.register(registerRequest);
     }
 
     /**

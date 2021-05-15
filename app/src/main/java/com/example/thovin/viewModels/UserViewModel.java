@@ -7,8 +7,8 @@ import com.example.thovin.Utility;
 import com.example.thovin.models.AddressModel;
 import com.example.thovin.models.UserModel;
 import com.example.thovin.services.HttpClient;
-import com.example.thovin.models.LoginModel;
-import com.example.thovin.models.RegisterModel;
+import com.example.thovin.models.LoginRequest;
+import com.example.thovin.models.RegisterRequest;
 import com.example.thovin.models.AuthResult;
 import com.example.thovin.services.IAuthServices;
 import com.google.gson.Gson;
@@ -56,7 +56,6 @@ public class UserViewModel extends ViewModel {
     public void setCurrentUser(AuthResult value) {
         userViewModelRepository.setCurrentUser(value);
         currentUser.setValue(value);
-
     }
 
     public MutableLiveData<Boolean> getIsLoading() {
@@ -72,10 +71,10 @@ public class UserViewModel extends ViewModel {
     /**
      * Try to login a user with the different values he give
      */
-    public void login(LoginModel loginModel) {
+    public void login(LoginRequest loginRequest) {
         setIsLoading(true);
 
-        apiAuthServices.login(loginModel).enqueue(new Callback<AuthResult>() {
+        apiAuthServices.login(loginRequest).enqueue(new Callback<AuthResult>() {
             @Override
             public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
                 AuthResult result = new AuthResult();
@@ -112,11 +111,11 @@ public class UserViewModel extends ViewModel {
     /**
      * Try to register a user with the different values he give
      */
-    public void register(RegisterModel registerModel) {
+    public void register(RegisterRequest registerRequest) {
 
         setIsLoading(true);
 
-        apiAuthServices.register(registerModel).enqueue(new Callback<AuthResult>() {
+        apiAuthServices.register(registerRequest).enqueue(new Callback<AuthResult>() {
             @Override
             public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
                 setIsLoading(false);

@@ -13,13 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.adapters.ProductAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
+import com.example.thovin.models.AuthResult;
+import com.example.thovin.models.UserModel;
+import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
+import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -29,15 +34,23 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
 
     private View rootView;
     private Context context;
-
-    private RestaurantViewModel restaurantViewModel;
-    private String currentMenu;
-
     private TextView name, price;
     private RecyclerView products;
     private int argsPosition;
 
-    public MenuDetailsFragment() { }
+    // --- User
+    private UserViewModel userViewModel;
+    private AuthResult user;
+    private CartViewModel cartViewModel;
+
+    // --- Restaurant
+    private RestaurantViewModel restaurantViewModel;
+    private UserModel currentRestaurant;
+    private String currentMenu;
+
+
+    public MenuDetailsFragment() {
+    }
 
     public static MenuDetailsFragment newInstance() {
         return new MenuDetailsFragment();
@@ -58,20 +71,35 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         argsPosition = 0;
+
         configureViews();
+        configureViewModels();
 
-        restaurantViewModel = new ViewModelProvider(requireActivity()).get(RestaurantViewModel.class);
-
+        user = userViewModel.getCurrentUser().getValue();
         restaurantViewModel.getCurrentRestaurant().observe(getViewLifecycleOwner(), currentRestaurant -> {
             if (currentRestaurant != null) {
+                this.currentRestaurant = currentRestaurant;
                 Utility.getSuccessSnackbar(getContext(), view, currentRestaurant.restaurantName, Snackbar.LENGTH_SHORT);
                 currentMenu = currentRestaurant.getMenusId().get(argsPosition);
                 setViews();
             }
         });
+
+
+        Button addToCartBtn = rootView.findViewById(R.id.add_to_cart_btn);
+        addToCartBtn.setOnClickListener(v -> cartViewModel.addItem(user.token, currentMenu, currentRestaurant.id));
     }
+
+    /**
+     * Configure all View Models
+     */
+    public void configureViewModels() {
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
+        restaurantViewModel = new ViewModelProvider(requireActivity()).get(RestaurantViewModel.class);
+    }
+
 
     public void configureViews() {
         name = rootView.findViewById(R.id.menu_name);

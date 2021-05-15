@@ -1,22 +1,26 @@
 package com.example.thovin.viewModels;
 
-import androidx.lifecycle.MutableLiveData;
+import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+import com.example.thovin.models.AddItemRequest;
 import com.example.thovin.models.CartModel;
-import com.example.thovin.models.MenuModel;
-import com.example.thovin.models.ProductModel;
 import com.example.thovin.services.HttpClient;
 import com.example.thovin.services.ICartServices;
 
-import java.util.ArrayList;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class CartViewModel {
+public class CartViewModel extends ViewModel {
     private static final ICartServices apiCartServices = HttpClient.getInstance().getCartServices();
 
     /**
      * Current user cart
      */
-    private MutableLiveData<CartModel> currentCart;
+    private MutableLiveData<CartModel> currentCart = new MutableLiveData<>();
 
     /**
      * A boolean to inspect loading progression
@@ -31,9 +35,7 @@ public class CartViewModel {
         return currentCart;
     }
 
-    public void setCurrentCart(CartModel currentCart) {
-        this.currentCart.setValue(currentCart);
-    }
+    public void setCurrentCart(CartModel currentCart) { this.currentCart.setValue(currentCart); }
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
@@ -44,7 +46,57 @@ public class CartViewModel {
     }
     // ---------------------------------------------------------------------------------------------
 
-//    public double totalPrice() {
+    public void initCart(String token) {
+        setIsLoading(true);
+
+        apiCartServices.getUserCart("Bearer " + token).enqueue(new Callback<CartModel>() {
+            @Override
+            public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+
+                if (response.isSuccessful()) {
+                    setCurrentCart(response.body());
+                }
+                else {
+                    // error
+                }
+
+                setIsLoading(false);
+            }
+
+            @Override
+            public void onFailure(Call<CartModel> call, Throwable t) {
+                setIsLoading(false);
+            }
+        });
+    }
+
+    public void addItem(String token, String menuId, String restaurantId) {
+        setIsLoading(true);
+
+        AddItemRequest itemRequest = new AddItemRequest(menuId, restaurantId);
+
+        apiCartServices.addItem("Bearer " + token, itemRequest).enqueue(new Callback<CartModel>() {
+            @Override
+            public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+
+                if (response.isSuccessful()) {
+                    currentCart.setValue(response.body());
+                }
+                else {
+                    // error
+                }
+
+                setIsLoading(false);
+            }
+
+            @Override
+            public void onFailure(Call<CartModel> call, Throwable t) {
+                setIsLoading(false);
+            }
+        });
+    }
+
+    //    public double totalPrice() {
 //        double total = 0;
 //        ArrayList<MenuModel> menus = new ArrayList<>(); // currentCart.getValue().getMenus();
 //

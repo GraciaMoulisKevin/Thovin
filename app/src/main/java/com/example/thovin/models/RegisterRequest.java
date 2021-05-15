@@ -2,7 +2,7 @@ package com.example.thovin.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RegisterModel {
+public class RegisterRequest {
     public static String TYPE_CLIENT = "client";
     public static String TYPE_DELIVERER = "deliverer";
     public static String TYPE_RESTAURANT = "restaurant";
@@ -19,7 +19,7 @@ public class RegisterModel {
     private final AddressModel address;
     private final String type;
 
-    public RegisterModel(String firstName, String lastName, String email, String password, String phone, AddressModel address, String type) {
+    public RegisterRequest(String firstName, String lastName, String email, String password, String phone, AddressModel address, String type) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -30,7 +30,7 @@ public class RegisterModel {
         this.type = type;
     }
 
-    public RegisterModel(String firstName, String lastName, String email, String password, String phone, String restaurantName, AddressModel address, String type) {
+    public RegisterRequest(String firstName, String lastName, String email, String password, String phone, String restaurantName, AddressModel address, String type) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

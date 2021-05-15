@@ -23,6 +23,7 @@ import com.example.thovin.adapters.RestaurantAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.UserModel;
+import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -37,6 +38,7 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
     private Context context;
 
     private UserViewModel userViewModel;
+    private CartViewModel cartViewModel;
     private AuthResult currentUser;
 
     private RestaurantViewModel restaurantViewModel;
@@ -65,28 +67,27 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
         super.onViewCreated(view, savedInstanceState);
 
         noRestaurantAvailable = rootView.findViewById(R.id.no_restaurant_available);
+        configureViewModels();
         configureRecyclerView();
         configureCategorySpinner();
 
+        currentUser = userViewModel.getCurrentUser().getValue();
+        if (currentUser == null) startActivity(Utility.getLogoutIntent(context));
+        else {
+            if (firstStart) {
+                firstStart = false;
 
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        restaurantViewModel = new ViewModelProvider(requireActivity()).get(RestaurantViewModel.class);
+                // --- Welcome message
+                Utility.getSuccessSnackbar(context, rootView, getString(R.string.success_connection)
+                        + " " + currentUser.getUser().getFullName(), Snackbar.LENGTH_SHORT).show();
 
-        userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
-            // --- Kill the activity, user shouldn't be there
-            if (user == null) startActivity(Utility.getLogoutIntent(context));
-            else {
-                // --- Welcome message on first start
-                if (firstStart) {
-                    Utility.getSuccessSnackbar(context, rootView, getString(R.string.success_connection) + " " + user.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
-                    firstStart = false;
-                }
+                // --- Init user cart
+                cartViewModel.initCart(currentUser.token);
 
-                // --- Save the user and load the restaurants list
-                currentUser = user;
+                // --- Load restaurants
                 restaurantViewModel.loadRestaurant(currentUser.token);
             }
-        });
+        }
 
 
         // Observe restaurants list
@@ -110,8 +111,15 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
                 Utility.getErrorSnackbar(context, view, getString(R.string.err_occurred), Snackbar.LENGTH_LONG).show();
             }
         });
+    }
 
-
+    /**
+     * Configure all View Models
+     */
+    public void configureViewModels() {
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
+        restaurantViewModel = new ViewModelProvider(requireActivity()).get(RestaurantViewModel.class);
     }
 
     /**

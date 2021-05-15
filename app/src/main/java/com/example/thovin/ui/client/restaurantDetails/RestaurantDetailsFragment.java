@@ -66,7 +66,11 @@ public class RestaurantDetailsFragment extends Fragment implements RecycleViewOn
             if (currentRestaurant != null) {
                 Utility.getSuccessSnackbar(getContext(), view, currentRestaurant.restaurantName, Snackbar.LENGTH_SHORT);
                 this.currentRestaurant = currentRestaurant;
-                setViews();
+
+                name.setText(currentRestaurant.getRestaurantName());
+                email.setText(currentRestaurant.getEmail());
+                phone.setText(currentRestaurant.getPhone());
+                setMenusRecyclerView();
             }
         });
     }
@@ -76,13 +80,6 @@ public class RestaurantDetailsFragment extends Fragment implements RecycleViewOn
         email = rootView.findViewById(R.id.restaurant_email);
         phone = rootView.findViewById(R.id.restaurant_phone);
         menus = rootView.findViewById(R.id.restaurant_menus);
-    }
-
-    public void setViews() {
-        name.setText(currentRestaurant.getRestaurantName());
-        email.setText(currentRestaurant.getEmail());
-        phone.setText(currentRestaurant.getPhone());
-        setMenusRecyclerView();
     }
 
 
