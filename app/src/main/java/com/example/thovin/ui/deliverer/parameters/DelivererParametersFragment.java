@@ -1,4 +1,4 @@
-package com.example.thovin.ui.parameters.deliverer;
+package com.example.thovin.ui.deliverer.parameters;
 
 import android.os.Bundle;
 
@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import com.google.android.material.card.MaterialCardView;
 public class DelivererParametersFragment extends Fragment {
 
     public View rootView;
-    private MaterialCardView logoutButton;
     private UserViewModel userViewModel;
 
     public DelivererParametersFragment() {
@@ -53,7 +51,7 @@ public class DelivererParametersFragment extends Fragment {
         MaterialCardView navToStatus = rootView.findViewById(R.id.param_status_card_view);
         navToStatus.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_parameters_to_nav_deliverer_status));
 
-        logoutButton = rootView.findViewById(R.id.logout_button);
+        MaterialCardView logoutButton = rootView.findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(v -> {
             userViewModel.logout();
             startActivity(Utility.getLogoutIntent(getContext()));

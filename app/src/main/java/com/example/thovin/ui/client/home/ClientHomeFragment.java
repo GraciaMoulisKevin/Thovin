@@ -1,7 +1,6 @@
-package com.example.thovin.ui.home.client;
+package com.example.thovin.ui.client.home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,25 +13,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.thovin.MainActivity;
 import com.example.thovin.R;
 import com.example.thovin.Utility;
+import com.example.thovin.adapters.RestaurantAdapter;
+import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.auth.AuthResult;
 import com.example.thovin.models.user.UserModel;
-import com.example.thovin.ui.auth.AuthFragment;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.example.thovin.viewModels.UserViewModel;
-import com.example.thovin.ui.home.restaurant.RestaurantAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ClientHomeFragment extends Fragment {
+public class ClientHomeFragment extends Fragment implements RecycleViewOnClickListener {
 
     private View rootView;
     private Context context;
@@ -128,7 +127,7 @@ public class ClientHomeFragment extends Fragment {
      * Set the RecyclerView Adapter with the list of restaurants
      */
     public void setRecyclerViewAdapter() {
-        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(context, restaurants);
+        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(context, restaurants, this);
         recyclerView.setAdapter(restaurantAdapter);
     }
 
@@ -160,6 +159,13 @@ public class ClientHomeFragment extends Fragment {
 
             }
         });
+    }
+
+    // --- Recycler View onClick methods
+    @Override
+    public void onItemClick(int position) {
+        restaurantViewModel.setCurrentRestaurant(restaurants.get(position));
+        Navigation.findNavController(rootView).navigate(R.id.action_nav_home_to_nav_restaurant_details);
     }
 }
 

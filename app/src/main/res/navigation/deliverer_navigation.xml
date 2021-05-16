@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.thovin.ui.home.deliverer.DelivererHomeFragment"
+        android:name="com.example.thovin.ui.deliverer.home.DelivererHomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_deliverer_home" >
         <action
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/nav_parameters"
-        android:name="com.example.thovin.ui.parameters.deliverer.DelivererParametersFragment"
+        android:name="com.example.thovin.ui.deliverer.parameters.DelivererParametersFragment"
         android:label="@string/parameters"
         tools:layout="@layout/fragment_deliverer_parameters" >
         <action
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/nav_deliverer_status"
-        android:name="com.example.thovin.ui.parameters.deliverer.DelivererStatusFragment"
+        android:name="com.example.thovin.ui.deliverer.parameters.DelivererStatusFragment"
         android:label="@string/status"
         tools:layout="@layout/fragment_deliverer_status" />
 

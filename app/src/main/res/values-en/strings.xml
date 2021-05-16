@@ -60,7 +60,7 @@
     <string name="our_menus">Our menus</string>
     <string name="success_connection">Successfully connected</string>
     <string name="content_mock_descrition">Mock description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
-    <string name="header_restaurant">Restaurants</string>
+    <string name="restaurants">Restaurants</string>
     <string name="category">category</string>
     <string name="available">Available</string>
     <string name="unavailable">Unavailable</string>
@@ -71,4 +71,6 @@
     <string name="warn_logout">You have been disconnected</string>
     <string name="description">Description</string>
     <string name="status">Status</string>
+    <string name="param_state_description">Choose your status to define your availability and/or manage notifications.</string>
+    <string name="price">price</string>
 </resources>

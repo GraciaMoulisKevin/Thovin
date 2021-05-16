@@ -24,8 +24,6 @@ public class AuthResult {
     public AuthResult() {
     }
 
-    public AuthResult(int type) { this.type = type; }
-
     public AuthResult(int type, int resCode) {
         this.type = type;
         this.resCode = resCode;

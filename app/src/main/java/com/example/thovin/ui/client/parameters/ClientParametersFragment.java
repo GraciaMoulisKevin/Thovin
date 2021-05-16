@@ -1,4 +1,4 @@
-package com.example.thovin.ui.parameters;
+package com.example.thovin.ui.client.parameters;
 
 import android.os.Bundle;
 
@@ -20,7 +20,6 @@ import com.google.android.material.card.MaterialCardView;
 public class ClientParametersFragment extends Fragment {
 
     View rootView;
-    MaterialCardView logoutButton;
     UserViewModel userViewModel;
 
     public ClientParametersFragment() { }
@@ -46,7 +45,7 @@ public class ClientParametersFragment extends Fragment {
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-        logoutButton = rootView.findViewById(R.id.logout_button);
+        MaterialCardView logoutButton = rootView.findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(v -> {
             userViewModel.logout();
             startActivity(Utility.getLogoutIntent(getContext()));

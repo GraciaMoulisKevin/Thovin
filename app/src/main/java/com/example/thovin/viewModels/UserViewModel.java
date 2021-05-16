@@ -10,11 +10,10 @@ import com.example.thovin.services.HttpClient;
 import com.example.thovin.models.auth.LoginModel;
 import com.example.thovin.models.auth.RegisterModel;
 import com.example.thovin.models.auth.AuthResult;
-import com.example.thovin.services.AuthServices;
+import com.example.thovin.services.IAuthServices;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,13 +21,32 @@ import retrofit2.Response;
 
 public class UserViewModel extends ViewModel {
 
-    private static final UserViewModelRepository userViewModelRepository = UserViewModelRepository.getInstance();
-    private static final AuthServices authServices = HttpClient.getInstance().getAuthServices();
+    /**
+     * Retrofit authentication services
+     */
+    private static final IAuthServices I_AUTH_SERVICES = HttpClient.getInstance().getAuthServices();
 
+
+    /**
+     * This repository store the current user connected. This enable different activity to share
+     * the same user and also reconnect automatically the user next time.
+     */
+    private static final UserViewModelRepository userViewModelRepository = UserViewModelRepository.getInstance();
+
+
+    /**
+     * The current user connected
+     */
     private MutableLiveData<AuthResult> currentUser;
+
+
+    /**
+     * A boolean to inspect loading progression
+     */
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 
 
+    // ---------------------------------------------------------------------------------------------
     // --- GETTER && SETTERS
     public MutableLiveData<AuthResult> getCurrentUser() {
         if (currentUser == null) currentUser = userViewModelRepository.getCurrentUser();
@@ -48,19 +66,18 @@ public class UserViewModel extends ViewModel {
     public void setIsLoading(Boolean value) {
         isLoading.setValue(value);
     }
+    // ---------------------------------------------------------------------------------------------
 
 
     /**
-     * Login
+     * Try to login a user with the different values he give
      */
     public void login(LoginModel loginModel) {
         setIsLoading(true);
 
-        authServices.login(loginModel).enqueue(new Callback<AuthResult>() {
+        I_AUTH_SERVICES.login(loginModel).enqueue(new Callback<AuthResult>() {
             @Override
             public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
-                setIsLoading(false);
-
                 AuthResult result = new AuthResult();
 
                 if (response.isSuccessful()) {
@@ -70,7 +87,6 @@ public class UserViewModel extends ViewModel {
                     try {
                         result = Utility.GSON.fromJson(response.errorBody().string(), AuthResult.class);
                         result.setSuccess(false);
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -79,12 +95,13 @@ public class UserViewModel extends ViewModel {
                 result.setType(AuthResult.LOGIN);
                 result.setResCode(response.code());
                 setCurrentUser(result);
+                setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<AuthResult> call, Throwable t) {
-                setIsLoading(false);
                 setCurrentUser(new AuthResult(0, -1));
+                setIsLoading(false);
             }
         });
 //        setCurrentUser(getMockUser());
@@ -93,13 +110,13 @@ public class UserViewModel extends ViewModel {
 
 
     /**
-     * Register
+     * Try to register a user with the different values he give
      */
     public void register(RegisterModel registerModel) {
 
         setIsLoading(true);
 
-        authServices.register(registerModel).enqueue(new Callback<AuthResult>() {
+        I_AUTH_SERVICES.register(registerModel).enqueue(new Callback<AuthResult>() {
             @Override
             public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
                 setIsLoading(false);
@@ -133,22 +150,15 @@ public class UserViewModel extends ViewModel {
     }
 
     /**
-     * Logout
+     * Logout the current user connected
      */
     public void logout() {
         if (currentUser != null) setCurrentUser(null);
     }
 
 
-    public ArrayList<UserModel> getRestaurants() {
-        ArrayList<UserModel> mockList = new ArrayList<>();
-        UserModel mockRestaurant = getMockRestaurant();
-        for (int i=0; i < 20; i++) {
-            mockList.add(mockRestaurant);
-        }
-        return mockList;
-    }
-
+    // ---------------------------------------------------------------------------------------------
+    // --- MOCK METHODS ----------------------------------------------------------------------------
     public AuthResult getMockUser() {
         UserModel user = new UserModel();
         user.setAdmin(false);

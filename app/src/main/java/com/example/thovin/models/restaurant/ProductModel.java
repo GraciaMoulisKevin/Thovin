@@ -3,12 +3,19 @@ package com.example.thovin.models.restaurant;
 import com.google.gson.annotations.SerializedName;
 
 public class ProductModel {
+    @SerializedName("_id")
+    public String id;
     public String name;
     public String description;
     @SerializedName("img_url")
     public String imgURL;
-    public ProductModel[] extras;
+    @SerializedName("extras")
+    public String[] extrasId;
     public String type;
+
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -34,12 +41,12 @@ public class ProductModel {
         this.imgURL = imgURL;
     }
 
-    public ProductModel[] getExtras() {
-        return extras;
+    public String[] getExtrasId() {
+        return extrasId;
     }
 
-    public void setExtras(ProductModel[] extras) {
-        this.extras = extras;
+    public void setExtrasId(String[] extrasId) {
+        this.extrasId = extrasId;
     }
 
     public String getType() {

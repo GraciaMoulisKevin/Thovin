@@ -1,4 +1,4 @@
-package com.example.thovin.ui.home.restaurant;
+package com.example.thovin.ui.restaurant.home;
 
 import android.os.Bundle;
 

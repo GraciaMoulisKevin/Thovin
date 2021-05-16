@@ -79,9 +79,7 @@ public class ClientAuthFragment extends Fragment {
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         // --- Progress Spinner
-        userViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            Utility.toggleSpinner(getActivity(), isLoading);
-        });
+        userViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> Utility.toggleSpinner(getActivity(), isLoading));
 
         // --- User
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), result -> {
