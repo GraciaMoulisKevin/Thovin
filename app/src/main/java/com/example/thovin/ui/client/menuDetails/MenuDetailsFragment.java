@@ -1,4 +1,4 @@
-package com.example.thovin.ui.client.restaurantDetails;
+package com.example.thovin.ui.client.menuDetails;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,27 +18,32 @@ import android.widget.TextView;
 import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.adapters.MenuAdapter;
+import com.example.thovin.adapters.ProductAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
+import com.example.thovin.models.restaurant.MenuModel;
 import com.example.thovin.models.user.UserModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
-public class RestaurantDetailsFragment extends Fragment implements RecycleViewOnClickListener {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickListener {
 
     private View rootView;
     private Context context;
 
     private RestaurantViewModel restaurantViewModel;
-    private UserModel currentRestaurant;
+    private String currentMenu;
 
-    private TextView name, email, phone;
-    private RecyclerView menus;
+    private TextView name, price;
+    private RecyclerView products;
+    private int argsPosition;
 
-    public RestaurantDetailsFragment() {
-    }
+    public MenuDetailsFragment() { }
 
-    public static RestaurantDetailsFragment newInstance() {
-        return new RestaurantDetailsFragment();
+    public static MenuDetailsFragment newInstance() {
+        return new MenuDetailsFragment();
     }
 
     @Override
@@ -49,7 +53,7 @@ public class RestaurantDetailsFragment extends Fragment implements RecycleViewOn
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_restaurant_details, container, false);
+        rootView = inflater.inflate(R.layout.fragment_menu_details, container, false);
         context = getContext();
         return rootView;
     }
@@ -58,6 +62,7 @@ public class RestaurantDetailsFragment extends Fragment implements RecycleViewOn
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        argsPosition = 0;
         configureViews();
 
         restaurantViewModel = new ViewModelProvider(requireActivity()).get(RestaurantViewModel.class);
@@ -65,35 +70,34 @@ public class RestaurantDetailsFragment extends Fragment implements RecycleViewOn
         restaurantViewModel.getCurrentRestaurant().observe(getViewLifecycleOwner(), currentRestaurant -> {
             if (currentRestaurant != null) {
                 Utility.getSuccessSnackbar(getContext(), view, currentRestaurant.restaurantName, Snackbar.LENGTH_SHORT);
-                this.currentRestaurant = currentRestaurant;
+                currentMenu = currentRestaurant.getMenusId().get(argsPosition);
                 setViews();
             }
         });
     }
 
     public void configureViews() {
-        name = rootView.findViewById(R.id.restaurant_name);
-        email = rootView.findViewById(R.id.restaurant_email);
-        phone = rootView.findViewById(R.id.restaurant_phone);
-        menus = rootView.findViewById(R.id.restaurant_menus);
+        name = rootView.findViewById(R.id.menu_name);
+        price = rootView.findViewById(R.id.menu_price);
+
+        products = rootView.findViewById(R.id.menu_products);
     }
 
     public void setViews() {
-        name.setText(currentRestaurant.getRestaurantName());
-        email.setText(currentRestaurant.getEmail());
-        phone.setText(currentRestaurant.getPhone());
-        setMenusRecyclerView();
+        name.setText(currentMenu);
+        price.setText(currentMenu);
+        setProductsRecyclerView();
     }
 
-
-    public void setMenusRecyclerView() {
-        menus.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        MenuAdapter menuAdapter = new MenuAdapter(context, currentRestaurant.getMenusId(), this);
-        menus.setAdapter(menuAdapter);
+    public void setProductsRecyclerView() {
+        ArrayList<String> currentMenu_products = new ArrayList<>(Arrays.asList("Product1", "Product2"));
+        products.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        ProductAdapter productAdapter = new ProductAdapter(context, currentMenu_products, this);
+        products.setAdapter(productAdapter);
     }
 
     @Override
     public void onItemClick(int position) {
-        Navigation.findNavController(rootView).navigate(R.id.action_nav_restaurant_details_to_nav_menu_details);
+        // Navigation.findNavController(rootView).navigate();
     }
 }
