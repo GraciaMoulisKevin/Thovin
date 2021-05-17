@@ -4,14 +4,18 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thovin.R;
+import com.example.thovin.Utility;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.google.android.material.card.MaterialCardView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -19,16 +23,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     Context context;
     ArrayList<String> products;
     private final RecycleViewOnClickListener recycleViewOnClickListener;
+    private boolean toggleInteractionBar;
 
-    public ProductAdapter(Context context, ArrayList<String> products, RecycleViewOnClickListener recycleViewOnClickListener) {
+    public ProductAdapter(Context context, ArrayList<String> products, RecycleViewOnClickListener recycleViewOnClickListener, boolean toggleInteractionBar) {
         this.context = context;
         this.products = products;
         this.recycleViewOnClickListener = recycleViewOnClickListener;
+        this.toggleInteractionBar = toggleInteractionBar;
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        // add attributs here
         private MaterialCardView container;
 
         private TextView name;
@@ -37,7 +42,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
+
             container = itemView.findViewById(R.id.adapter_menu_container);
+
             container.setOnClickListener(v -> recycleViewOnClickListener.onItemClick(getAdapterPosition()));
 
             name = itemView.findViewById(R.id.name);

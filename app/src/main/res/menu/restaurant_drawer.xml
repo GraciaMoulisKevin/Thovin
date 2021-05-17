@@ -21,12 +21,12 @@
         <item
             android:id="@+id/nav_products"
             android:icon="@drawable/ic_baseline_lunch_dining_24"
-            android:title="@string/our_products"/>
+            android:title="@string/my_products"/>
 
         <item
             android:id="@+id/nav_menus"
             android:icon="@drawable/ic_round_fastfood_24"
-            android:title="@string/our_menus"/>
+            android:title="@string/my_menus"/>
     </group>
 
     <group android:id="@+id/options_group"

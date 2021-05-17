@@ -5,12 +5,16 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.thovin.Utility;
 import com.example.thovin.models.AddressModel;
+import com.example.thovin.models.CreditCardModel;
+import com.example.thovin.models.OrderRequest;
+import com.example.thovin.models.OrderResult;
 import com.example.thovin.models.UserModel;
 import com.example.thovin.services.HttpClient;
 import com.example.thovin.models.LoginRequest;
 import com.example.thovin.models.RegisterRequest;
 import com.example.thovin.models.AuthResult;
 import com.example.thovin.services.IAuthServices;
+import com.example.thovin.services.IOrderServices;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -22,9 +26,10 @@ import retrofit2.Response;
 public class UserViewModel extends ViewModel {
 
     /**
-     * Retrofit authentication services
+     * Retrofit services
      */
     private static final IAuthServices apiAuthServices = HttpClient.getInstance().getAuthServices();
+    private static final IOrderServices apiOrderServices = HttpClient.getInstance().getOrderServices();
 
 
     /**

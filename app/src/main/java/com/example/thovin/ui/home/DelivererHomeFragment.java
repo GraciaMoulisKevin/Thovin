@@ -1,4 +1,4 @@
-package com.example.thovin.ui.deliverer.home;
+package com.example.thovin.ui.home;
 
 import android.os.Bundle;
 

@@ -30,6 +30,7 @@ public class HttpClient {
     private static IAuthServices IAuthServices;
     private static IRestaurantServices IRestaurantServices;
     private static ICartServices ICartServices;
+    private static IOrderServices IOrderServices;
 
 
     private HttpClient() {
@@ -70,6 +71,15 @@ public class HttpClient {
     public ICartServices getCartServices() {
         if (ICartServices == null) ICartServices = retrofit.create(ICartServices.class);
         return ICartServices;
+    }
+
+    /**
+     * Get a retrofit instance of orders services
+     * @return The retrofit cart service instance
+     */
+    public IOrderServices getOrderServices() {
+        if (IOrderServices == null) IOrderServices = retrofit.create(IOrderServices.class);
+        return IOrderServices;
     }
 
     /**

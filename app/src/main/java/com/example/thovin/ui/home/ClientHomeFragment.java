@@ -1,4 +1,4 @@
-package com.example.thovin.ui.client.home;
+package com.example.thovin.ui.home;
 
 import android.content.Context;
 import android.os.Bundle;

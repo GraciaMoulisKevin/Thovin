@@ -1,9 +1,15 @@
 package com.example.thovin.models;
 
-public class CreditCartModel {
+public class CreditCardModel {
     public String number;
     public String expiration;
     public String ccv;
+
+    public CreditCardModel(String number, String expiration, String ccv) {
+        this.number = number;
+        this.expiration = expiration;
+        this.ccv = ccv;
+    }
 
     public String getNumber() {
         return number;

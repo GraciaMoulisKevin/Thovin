@@ -1,4 +1,4 @@
-package com.example.thovin.ui.client.restaurantDetails;
+package com.example.thovin.ui;
 
 import android.content.Context;
 import android.os.Bundle;

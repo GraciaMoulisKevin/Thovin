@@ -1,7 +1,5 @@
 package com.example.thovin.viewModels;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -35,7 +33,13 @@ public class CartViewModel extends ViewModel {
         return currentCart;
     }
 
-    public void setCurrentCart(CartModel currentCart) { this.currentCart.setValue(currentCart); }
+    public void setCurrentCart(CartModel currentCart) {
+        this.currentCart.setValue(currentCart);
+    }
+
+    public void dumpCurrentCart() {
+        this.currentCart.setValue(null);
+    }
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
@@ -55,8 +59,7 @@ public class CartViewModel extends ViewModel {
 
                 if (response.isSuccessful()) {
                     setCurrentCart(response.body());
-                }
-                else {
+                } else {
                     // error
                 }
 
@@ -81,8 +84,7 @@ public class CartViewModel extends ViewModel {
 
                 if (response.isSuccessful()) {
                     currentCart.setValue(response.body());
-                }
-                else {
+                } else {
                     // error
                 }
 

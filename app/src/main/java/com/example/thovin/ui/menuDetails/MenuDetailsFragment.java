@@ -1,4 +1,4 @@
-package com.example.thovin.ui.client.menuDetails;
+package com.example.thovin.ui.menuDetails;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -117,7 +117,7 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
     public void setProductsRecyclerView() {
         ArrayList<String> currentMenu_products = new ArrayList<>(Arrays.asList("Product1", "Product2"));
         products.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        ProductAdapter productAdapter = new ProductAdapter(context, currentMenu_products, this);
+        ProductAdapter productAdapter = new ProductAdapter(context, currentMenu_products, this, false);
         products.setAdapter(productAdapter);
     }
 

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -69,7 +70,13 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
                 setProductsRecyclerView();
             }
         });
+
+        Button goToPayment = rootView.findViewById(R.id.go_to_payment_btn);
+        goToPayment.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_nav_cart_to_nav_payment);
+        });
     }
+
 
     /**
      * Configure simple Views
@@ -77,6 +84,7 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
     public void configureViews() {
         products = rootView.findViewById(R.id.menu_products);
     }
+
 
     /**
      * Configure all View Models
@@ -91,9 +99,8 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
      */
     public void setProductsRecyclerView() {
         ArrayList<String> items = currentCart.getMenus();
-        Log.i("DEBUG", items.toString());
         products.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        ProductAdapter productAdapter = new ProductAdapter(context, items, this);
+        ProductAdapter productAdapter = new ProductAdapter(context, items, this, true);
         products.setAdapter(productAdapter);
     }
 

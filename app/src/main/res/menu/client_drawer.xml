@@ -15,6 +15,20 @@
             android:title="@string/my_account" />
     </group>
 
+    <group android:id="@+id/orders_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/ic_outline_shopping_bag_24"
+            android:title="@string/my_cart" />
+
+        <item
+            android:id="@+id/nav_orders"
+            android:icon="@drawable/ic_round_person_24"
+            android:title="@string/my_orders" />
+    </group>
+
     <group android:id="@+id/options_group"
         android:checkableBehavior="single">
 

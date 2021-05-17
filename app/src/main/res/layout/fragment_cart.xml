@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/menu_products">
 
         <Button
-            android:id="@+id/fg_auth_client_cancel_btn"
+            android:id="@+id/remove_all_items_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/medium_spacing"
@@ -41,13 +41,13 @@
             android:text="@string/cancel" />
 
         <Button
-            android:id="@+id/fg_auth_client_register_btn"
+            android:id="@+id/go_to_payment_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/medium_spacing"
             android:layout_weight="0.5"
             android:backgroundTint="@color/main_green"
-            android:text="payer" />
+            android:text="@string/pay" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

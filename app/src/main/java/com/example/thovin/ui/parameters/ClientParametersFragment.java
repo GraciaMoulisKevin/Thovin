@@ -1,4 +1,4 @@
-package com.example.thovin.ui.client.parameters;
+package com.example.thovin.ui.parameters;
 
 import android.os.Bundle;
 
