@@ -84,9 +84,9 @@ public class RestaurantDetailsFragment extends Fragment implements RecycleViewOn
 
 
     public void setMenusRecyclerView() {
-        menus.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        MenuAdapter menuAdapter = new MenuAdapter(context, currentRestaurant.getMenusId(), this);
-        menus.setAdapter(menuAdapter);
+//        menus.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+//        MenuAdapter menuAdapter = new MenuAdapter(context, currentRestaurant.getMenusId(), this);
+//        menus.setAdapter(menuAdapter);
     }
 
     @Override

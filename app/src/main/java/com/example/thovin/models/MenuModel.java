@@ -11,9 +11,7 @@ public class MenuModel {
     public String description;
     @SerializedName("img_url")
     public String imgURL;
-    @SerializedName("products")
-    public ArrayList<String> productsId;
-    // public ArrayList<ProductModel> products
+    public ArrayList<ProductResult> products;
     public String category;
 
     public String getId() {
@@ -44,21 +42,13 @@ public class MenuModel {
         this.imgURL = imgURL;
     }
 
-    public ArrayList<String> getProductsId() {
-        return productsId;
+    public ArrayList<ProductResult> getProducts() {
+        return products;
     }
 
-    public void setProductsId(ArrayList<String> productsId) {
-        this.productsId = productsId;
+    public void setProducts(ArrayList<ProductResult> products) {
+        this.products = products;
     }
-
-//    public ArrayList<ProductModel> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(ArrayList<ProductModel> products) {
-//        this.products = products;
-//    }
 
     public String getCategory() {
         return category;

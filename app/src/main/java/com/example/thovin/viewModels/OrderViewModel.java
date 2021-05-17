@@ -64,6 +64,7 @@ public class OrderViewModel extends ViewModel {
     }
 
     public void setHistoric(ArrayList<OrderResult> _historic) {
+        if (historic == null) historic = new MutableLiveData<>();
         historic.setValue(_historic);
     }
 
@@ -105,10 +106,16 @@ public class OrderViewModel extends ViewModel {
             public void onResponse(Call<ArrayList<OrderResult>> call, Response<ArrayList<OrderResult>> response) {
 
                 if (response.isSuccessful()) {
-                    setHistoric(response.body());
-                } else {
-                    setHistoric(null);
-                }
+                    ArrayList<OrderResult> orders = response.body();
+
+                    if (orders.size() > 0) {
+                        OrderResult lastOrder = orders.get(orders.size() - 1);
+                        if (lastOrder.status.equals("pending")) setCurrentOrder(lastOrder);
+                    }
+
+                    setHistoric(orders);
+
+                } else setHistoric(null);
 
                 setIsLoading(false);
             }

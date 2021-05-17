@@ -1,4 +1,4 @@
-package com.example.thovin.ui.paiement;
+package com.example.thovin.ui.payment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -94,7 +94,7 @@ public class PaymentFragment extends Fragment {
                         getString(R.string.command_success), Snackbar.LENGTH_SHORT).show();
                 cartViewModel.dumpCurrentCart();
                 orderViewModel.dumpIsPaymentSuccess();
-                Navigation.findNavController(view).navigate(R.id.action_nav_payment_to_nav_cart);
+                Navigation.findNavController(view).navigate(R.id.action_nav_payment_to_nav_history);
             }
             else
                 Utility.getErrorSnackbar(context, view,

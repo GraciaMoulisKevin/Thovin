@@ -24,6 +24,7 @@ import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.UserModel;
 import com.example.thovin.viewModels.CartViewModel;
+import com.example.thovin.viewModels.OrderViewModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -37,12 +38,19 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
     private View rootView;
     private Context context;
 
+    // --- User view model
     private UserViewModel userViewModel;
-    private CartViewModel cartViewModel;
     private AuthResult currentUser;
 
+    // --- Cart view model
+    private CartViewModel cartViewModel;
+
+    // --- Restaurant view model
     private RestaurantViewModel restaurantViewModel;
     private ArrayList<UserModel> restaurants = new ArrayList<>();
+
+    // --- Order view model
+    private OrderViewModel orderViewModel;
 
     private TextView noRestaurantAvailable;
     private Boolean firstStart = true;
@@ -86,6 +94,9 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
 
                 // --- Load restaurants
                 restaurantViewModel.loadRestaurant(currentUser.token);
+
+                // --- Load orders
+                orderViewModel.getOrders(currentUser.token);
             }
         }
 
@@ -119,6 +130,7 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
     public void configureViewModels() {
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
+        orderViewModel = new ViewModelProvider(requireActivity()).get(OrderViewModel.class);
         restaurantViewModel = new ViewModelProvider(requireActivity()).get(RestaurantViewModel.class);
     }
 

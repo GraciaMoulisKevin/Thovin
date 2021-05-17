@@ -11,9 +11,7 @@ public class ProductModel {
     public String description;
     @SerializedName("img_url")
     public String imgURL;
-    @SerializedName("extras")
-    public ArrayList<String> extrasId;
-    // public ArrayList<ProductModel> extras
+    public ArrayList<ProductModel> extras;
     public String type;
 
     public String getId() {
@@ -44,21 +42,13 @@ public class ProductModel {
         this.imgURL = imgURL;
     }
 
-    public ArrayList<String> getExtrasId() {
-        return extrasId;
+    public ArrayList<ProductModel> getExtras() {
+        return extras;
     }
 
-    public void setExtrasId(ArrayList<String> extrasId) {
-        this.extrasId = extrasId;
+    public void setExtras(ArrayList<ProductModel> extras) {
+        this.extras = extras;
     }
-
-    //    public ArrayList<ProductModel> getExtras() {
-    //        return extras;
-    //    }
-    //
-    //    public void setExtras(ArrayList<ProductModel> extras) {
-    //        this.extras = extras;
-    //    }
 
     public String getType() {
         return type;

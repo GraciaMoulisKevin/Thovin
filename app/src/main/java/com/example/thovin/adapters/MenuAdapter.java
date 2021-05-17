@@ -3,25 +3,31 @@ package com.example.thovin.adapters;
 import android.content.Context;
 import android.renderscript.Sampler;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thovin.R;
+import com.example.thovin.Utility;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
+import com.example.thovin.models.MenuModel;
+import com.example.thovin.models.ProductResult;
 import com.google.android.material.card.MaterialCardView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> {
     Context context;
-    ArrayList<String> menus;
+    ArrayList<MenuModel> menus;
     private final RecycleViewOnClickListener recycleViewOnClickListener;
 
-    public MenuAdapter(Context context, ArrayList<String> menus, RecycleViewOnClickListener recycleViewOnClickListener) {
+    public MenuAdapter(Context context, ArrayList<MenuModel> menus, RecycleViewOnClickListener recycleViewOnClickListener) {
         this.context = context;
         this.menus = menus;
         this.recycleViewOnClickListener = recycleViewOnClickListener;
@@ -34,6 +40,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         private TextView name;
         private TextView description;
         private TextView price;
+        private ImageView icon;
 
         public MenuViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -44,6 +51,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);
             price = itemView.findViewById(R.id.price);
+            icon = itemView.findViewById(R.id.icon);
         }
     }
 
@@ -57,18 +65,23 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
+        MenuModel menu = menus.get(position);
 
-        // TODO: add the description
-//        holder.name.setText("MOCK NAME");
-//        holder.description.setText("MOCK DESCRIPTION");
+        holder.name.setText(menu.name);
+        holder.description.setText(menu.description);
 
-        // TODO: get the price by adding all the products
-        double total = 0;
-//        for (ProductModel product : menus.getProduct) {
-//            total += product.price;
-//        }
+        float total = 0;
+        for (ProductResult product : menu.getProducts()) {
+            total += product.getPrice();
+        }
         holder.price.setText(String.valueOf(total));
+
+        Picasso.with(context).load(menu.imgURL)
+                .resize(80, 80)
+                .error(R.drawable.app_logo)
+                .into(holder.icon);
     }
+
 
     @Override
     public int getItemCount() {

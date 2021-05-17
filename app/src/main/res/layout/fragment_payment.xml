@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/medium_spacing"
     android:layout_marginEnd="@dimen/medium_spacing"
-    tools:context=".ui.paiement.PaymentFragment">
+    tools:context=".ui.payment.PaymentFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/card_numbers"

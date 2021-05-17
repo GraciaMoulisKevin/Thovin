@@ -11,22 +11,21 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.thovin.R;
-import com.example.thovin.adapters.ProductAdapter;
+import com.example.thovin.adapters.MenuAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.CartModel;
+import com.example.thovin.models.MenuModel;
 import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.UserViewModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CartFragment extends Fragment implements RecycleViewOnClickListener {
 
@@ -39,7 +38,7 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
     private CartViewModel cartViewModel;
     private CartModel currentCart;
 
-    private RecyclerView products;
+    private RecyclerView menusRecyclerView;
 
     public CartFragment() {
     }
@@ -82,7 +81,7 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
      * Configure simple Views
      */
     public void configureViews() {
-        products = rootView.findViewById(R.id.menu_products);
+        menusRecyclerView = rootView.findViewById(R.id.menu_products);
     }
 
 
@@ -98,10 +97,10 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
      * Set products recycler view
      */
     public void setProductsRecyclerView() {
-        ArrayList<String> items = currentCart.getMenus();
-        products.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        ProductAdapter productAdapter = new ProductAdapter(context, items, this, true);
-        products.setAdapter(productAdapter);
+        ArrayList<MenuModel> menus = currentCart.getMenus();
+        menusRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        MenuAdapter menuAdapter = new MenuAdapter(context, menus, this);
+        menusRecyclerView.setAdapter(menuAdapter);
     }
 
     @Override
