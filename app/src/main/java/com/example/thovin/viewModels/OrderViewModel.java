@@ -119,12 +119,13 @@ public class OrderViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     setCurrentOrder(response.body());
                 }
-
+                else setCurrentOrder(null);
                 setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<OrderResult> call, Throwable t) {
+                setCurrentOrder(null);
                 setIsLoading(false);
             }
 
