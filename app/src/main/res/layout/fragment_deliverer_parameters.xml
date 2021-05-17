@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginHorizontal="@dimen/medium_spacing"
-    tools:context=".ui.deliverer.parameters.DelivererParametersFragment">
+    tools:context=".ui.parameters.DelivererParametersFragment">
 
 
         <com.google.android.material.card.MaterialCardView

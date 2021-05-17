@@ -4,13 +4,17 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.thovin.Utility;
-import com.example.thovin.models.user.AddressModel;
-import com.example.thovin.models.user.UserModel;
+import com.example.thovin.models.AddressModel;
+import com.example.thovin.models.CreditCardModel;
+import com.example.thovin.models.OrderRequest;
+import com.example.thovin.models.OrderResult;
+import com.example.thovin.models.UserModel;
 import com.example.thovin.services.HttpClient;
-import com.example.thovin.models.auth.LoginModel;
-import com.example.thovin.models.auth.RegisterModel;
-import com.example.thovin.models.auth.AuthResult;
+import com.example.thovin.models.LoginRequest;
+import com.example.thovin.models.RegisterRequest;
+import com.example.thovin.models.AuthResult;
 import com.example.thovin.services.IAuthServices;
+import com.example.thovin.services.IOrderServices;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -22,14 +26,15 @@ import retrofit2.Response;
 public class UserViewModel extends ViewModel {
 
     /**
-     * Retrofit authentication services
+     * Retrofit services
      */
-    private static final IAuthServices I_AUTH_SERVICES = HttpClient.getInstance().getAuthServices();
+    private static final IAuthServices apiAuthServices = HttpClient.getInstance().getAuthServices();
+    private static final IOrderServices apiOrderServices = HttpClient.getInstance().getOrderServices();
 
 
     /**
      * This repository store the current user connected. This enable different activity to share
-     * the same user and also reconnect automatically the user next time.
+     * the same user and also reconnect automatically the user next time he start the app.
      */
     private static final UserViewModelRepository userViewModelRepository = UserViewModelRepository.getInstance();
 
@@ -56,7 +61,6 @@ public class UserViewModel extends ViewModel {
     public void setCurrentUser(AuthResult value) {
         userViewModelRepository.setCurrentUser(value);
         currentUser.setValue(value);
-
     }
 
     public MutableLiveData<Boolean> getIsLoading() {
@@ -72,10 +76,10 @@ public class UserViewModel extends ViewModel {
     /**
      * Try to login a user with the different values he give
      */
-    public void login(LoginModel loginModel) {
+    public void login(LoginRequest loginRequest) {
         setIsLoading(true);
 
-        I_AUTH_SERVICES.login(loginModel).enqueue(new Callback<AuthResult>() {
+        apiAuthServices.login(loginRequest).enqueue(new Callback<AuthResult>() {
             @Override
             public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
                 AuthResult result = new AuthResult();
@@ -112,11 +116,11 @@ public class UserViewModel extends ViewModel {
     /**
      * Try to register a user with the different values he give
      */
-    public void register(RegisterModel registerModel) {
+    public void register(RegisterRequest registerRequest) {
 
         setIsLoading(true);
 
-        I_AUTH_SERVICES.register(registerModel).enqueue(new Callback<AuthResult>() {
+        apiAuthServices.register(registerRequest).enqueue(new Callback<AuthResult>() {
             @Override
             public void onResponse(Call<AuthResult> call, Response<AuthResult> response) {
                 setIsLoading(false);

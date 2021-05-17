@@ -8,7 +8,6 @@
     <string name="connection">Se connecter</string>
     <string name="register">S\'inscrire</string>
     <string name="parameters">Paramètres</string>
-    <string name="cart">Panier</string>
     <string name="name">Nom</string>
     <string name="first_name">Prenom</string>
     <string name="email">Email</string>
@@ -25,7 +24,6 @@
     <string name="required">Requis</string>
     <string name="restaurant_name">Nom du restaurant</string>
     <string name="restaurant_connection">Connexion restaurateur</string>
-    <string name="my_account">Mon compte</string>
     <string name="delete_all">Tout annuler</string>
     <string name="history">Historique</string>
     <string name="logout">Se déconnecter</string>
@@ -34,6 +32,9 @@
     <string name="available">Disponible</string>
     <string name="unavailable">Indisponible</string>
     <string name="description">Description</string>
+    <string name="price">prix</string>
+    <string name="cart">Panier</string>
+
 
     <!-- Success message -->
     <string name="success_connection">Connexion réussie</string>
@@ -53,13 +54,21 @@
     <string name="err_409">Email déjà utilisé</string>
     <string name="err_unauthorized">Vous n\'êtes pas autorisé à faire ça !</string>
 
+    <!-- Content description -->
     <string name="content_mock_descrition">Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="content_description_more">Voir plus</string>
     <string name="content_description_cart_bar">Accéder à votre panier</string>
     <string name="content_description_search_bar">Rechercher un restaurant, catégories etc…</string>
 
+    <!-- Navigation drawer -->
     <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
     <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
+    <string name="my_account">Mon compte</string>
+    <string name="my_orders">Mes commandes</string>
+    <string name="my_cart">Mon panier</string>
+    <string name="my_products">Mes produits</string>
+    <string name="my_menus">Mes menus</string>
+
 
     <!-- AccountFragment -->
     <string name="new_password">Nouveau mot de passe</string>
@@ -84,16 +93,16 @@
     <string name="restaurants">Restaurants</string>
 
     <!-- DelivererActivity -->
+    <string name="param_state_description">Choisir votre status pour définir votre disponibilité et/ou gérer les notifications.</string>
     <string name="state_unavailable_text">Vous ne recevrez pas les notifications lorsqu\'une nouvelle course près de vous est disponible</string>
     <string name="state_available_text">Vous recevrez les notifications lorsqu\'une nouvelle course près de vous est disponible</string>
 
     <!-- RestaurantActivity -->
-    <string name="our_products">Nos produits</string>
-    <string name="our_menus">Nos menus</string>
     <string name="status">Status</string>
-    <string name="param_state_description">Choisir votre status pour définir votre disponibilité et/ou gérer les notifications.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="price">prix</string>
     <string name="menu_name">Nom du menu</string>
+    <string name="add_to_cart">Ajouter au panier</string>
+    <string name="pay">payer</string>
+    <string name="payment">Paiement</string>
+    <string name="card_numbers">Numéro de la carte</string>
+    <string name="command_success">Votre commande est validée</string>
 </resources>

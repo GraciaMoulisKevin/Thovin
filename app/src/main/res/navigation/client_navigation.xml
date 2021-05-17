@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.thovin.ui.client.home.ClientHomeFragment"
+        android:name="com.example.thovin.ui.home.ClientHomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_client_home" >
         <action
@@ -31,17 +31,21 @@
     <fragment
         android:id="@+id/nav_cart"
         android:name="com.example.thovin.ui.cart.CartFragment"
-        android:label="@string/cart"
-        tools:layout="@layout/fragment_cart" />
+        android:label="@string/my_cart"
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_nav_cart_to_nav_payment"
+            app:destination="@id/nav_payment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_parameters"
-        android:name="com.example.thovin.ui.client.parameters.ClientParametersFragment"
+        android:name="com.example.thovin.ui.parameters.ClientParametersFragment"
         android:label="@string/parameters"
         tools:layout="@layout/fragment_client_parameters" >
     </fragment>
     <fragment
         android:id="@+id/nav_restaurant_details"
-        android:name="com.example.thovin.ui.client.restaurantDetails.RestaurantDetailsFragment"
+        android:name="com.example.thovin.ui.RestaurantDetailsFragment"
         android:label="@string/restaurants"
         tools:layout="@layout/fragment_restaurant_details" >
         <action
@@ -50,7 +54,18 @@
     </fragment>
     <fragment
         android:id="@+id/nav_menu_details"
-        android:name="com.example.thovin.ui.client.menuDetails.MenuDetailsFragment"
+        android:name="com.example.thovin.ui.menuDetails.MenuDetailsFragment"
         android:label="@string/menu"
         tools:layout="@layout/fragment_menu_details" />
+    <fragment
+        android:id="@+id/nav_payment"
+        android:name="com.example.thovin.ui.paiement.PaymentFragment"
+        android:label="@string/payment"
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_nav_payment_to_nav_cart"
+            app:destination="@id/nav_cart"
+            app:popUpTo="@id/nav_payment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

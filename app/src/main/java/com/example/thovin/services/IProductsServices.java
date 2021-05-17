@@ -1,7 +1,7 @@
 package com.example.thovin.services;
 
-import com.example.thovin.models.restaurant.MenuModel;
-import com.example.thovin.models.restaurant.ProductModel;
+import com.example.thovin.models.MenuModel;
+import com.example.thovin.models.ProductModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -2,7 +2,7 @@ package com.example.thovin.viewModels;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.thovin.models.auth.AuthResult;
+import com.example.thovin.models.AuthResult;
 
 public class UserViewModelRepository {
 

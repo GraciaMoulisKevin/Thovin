@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thovin.R;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
-import com.example.thovin.models.user.UserModel;
+import com.example.thovin.models.UserModel;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;

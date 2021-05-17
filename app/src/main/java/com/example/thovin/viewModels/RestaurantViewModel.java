@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.thovin.Utility;
-import com.example.thovin.models.user.UserModel;
+import com.example.thovin.models.UserModel;
 import com.example.thovin.services.HttpClient;
 import com.example.thovin.services.IRestaurantServices;
 
@@ -15,7 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RestaurantViewModel extends ViewModel {
-    private static final IRestaurantServices I_RESTAURANT_SERVICES = HttpClient.getInstance().getRestaurantServices();
+    private static final IRestaurantServices apiRestaurantServices = HttpClient.getInstance().getRestaurantServices();
 
     /**
      * The list of all available restaurant
@@ -79,7 +79,7 @@ public class RestaurantViewModel extends ViewModel {
     public void loadRestaurant(String token) {
         setIsLoading(true);
 
-        I_RESTAURANT_SERVICES.getRestaurants("Bearer " + token).enqueue(new Callback<ArrayList<UserModel>>() {
+        apiRestaurantServices.getRestaurants("Bearer " + token).enqueue(new Callback<ArrayList<UserModel>>() {
             @Override
             public void onResponse(Call<ArrayList<UserModel>> call, Response<ArrayList<UserModel>> response) {
 
