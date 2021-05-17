@@ -40,6 +40,10 @@ public class OrderViewModel extends ViewModel {
      */
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 
+    /**
+     * A boolean to inspect loading progression
+     */
+    private MutableLiveData<Boolean> isPaymentSuccess;
 
     // ---------------------------------------------------------------------------------------------
     // --- GETTER && SETTERS
@@ -70,6 +74,20 @@ public class OrderViewModel extends ViewModel {
 
     public void setIsLoading(Boolean value) {
         isLoading.setValue(value);
+    }
+
+
+    public MutableLiveData<Boolean> getIsPaymentSuccess() {
+        if (isPaymentSuccess == null) isPaymentSuccess = new MutableLiveData<>();
+        return isPaymentSuccess;
+    }
+
+    public void setIsPaymentSuccess(Boolean value) {
+        isPaymentSuccess.setValue(value);
+    }
+
+    public void dumpIsPaymentSuccess() {
+        isPaymentSuccess = null;
     }
     // ---------------------------------------------------------------------------------------------
 
@@ -118,14 +136,16 @@ public class OrderViewModel extends ViewModel {
 
                 if (response.isSuccessful()) {
                     setCurrentOrder(response.body());
+                    setIsPaymentSuccess(true);
                 }
-                else setCurrentOrder(null);
+                else setIsPaymentSuccess(false);
+
                 setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<OrderResult> call, Throwable t) {
-                setCurrentOrder(null);
+                setIsPaymentSuccess(false);
                 setIsLoading(false);
             }
 

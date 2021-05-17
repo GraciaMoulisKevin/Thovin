@@ -88,11 +88,12 @@ public class PaymentFragment extends Fragment {
         });
 
 
-        orderViewModel.getCurrentOrder().observe(getViewLifecycleOwner(), currentOrder -> {
-            if (currentOrder != null) {
+        orderViewModel.getIsPaymentSuccess().observe(getViewLifecycleOwner(), isOk -> {
+            if (isOk != null) {
                 Utility.getSuccessSnackbar(context, view,
                         getString(R.string.command_success), Snackbar.LENGTH_SHORT).show();
                 cartViewModel.dumpCurrentCart();
+                orderViewModel.dumpIsPaymentSuccess();
                 Navigation.findNavController(view).navigate(R.id.action_nav_payment_to_nav_cart);
             }
             else

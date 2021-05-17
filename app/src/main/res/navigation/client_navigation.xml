@@ -65,7 +65,7 @@
         <action
             android:id="@+id/action_nav_payment_to_nav_cart"
             app:destination="@id/nav_cart"
-            app:popUpTo="@id/nav_payment"
+            app:popUpTo="@id/nav_cart"
             app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
