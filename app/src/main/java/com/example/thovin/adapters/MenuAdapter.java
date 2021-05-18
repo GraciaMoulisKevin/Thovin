@@ -1,9 +1,7 @@
 package com.example.thovin.adapters;
 
 import android.content.Context;
-import android.renderscript.Sampler;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thovin.R;
-import com.example.thovin.Utility;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.MenuModel;
 import com.example.thovin.models.ProductResult;
@@ -40,7 +37,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         private TextView name;
         private TextView description;
         private TextView price;
-        private ImageView icon;
+        private ImageView image;
 
         public MenuViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -51,7 +48,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);
             price = itemView.findViewById(R.id.price);
-            icon = itemView.findViewById(R.id.icon);
+            image = itemView.findViewById(R.id.icon);
         }
     }
 
@@ -79,12 +76,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         Picasso.with(context).load(menu.imgURL)
                 .resize(80, 80)
                 .error(R.drawable.app_logo)
-                .into(holder.icon);
+                .into(holder.image);
     }
 
 
     @Override
     public int getItemCount() {
-        return menus.size();
+        return (menus != null)? menus.size() : 0;
     }
 }

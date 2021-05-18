@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class CartModel {
     @SerializedName("_id")
     public String id;
-    public UserModel restaurant;
-    public UserModel client;
+    public String restaurantId;
+    public String clientId;
     public ArrayList<MenuModel> menus;
 
     public String getId() {
@@ -19,20 +19,20 @@ public class CartModel {
         this.id = id;
     }
 
-    public UserModel getRestaurant() {
-        return restaurant;
+    public String getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setRestaurant(UserModel restaurant) {
-        this.restaurant = restaurant;
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
-    public UserModel getClient() {
-        return client;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setClient(UserModel client) {
-        this.client = client;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public ArrayList<MenuModel> getMenus() {

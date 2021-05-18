@@ -21,6 +21,8 @@ import com.example.thovin.Utility;
 import com.example.thovin.adapters.ProductAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
+import com.example.thovin.models.MenuModel;
+import com.example.thovin.models.ProductResult;
 import com.example.thovin.models.UserModel;
 import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
@@ -28,7 +30,6 @@ import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickListener {
 
@@ -36,7 +37,7 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
     private Context context;
     private TextView name, price;
     private RecyclerView products;
-    private int argsPosition;
+    private int menuPosition;
 
     // --- User
     private UserViewModel userViewModel;
@@ -46,7 +47,7 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
     // --- Restaurant
     private RestaurantViewModel restaurantViewModel;
     private UserModel currentRestaurant;
-    private String currentMenu;
+    private MenuModel currentMenu;
 
 
     public MenuDetailsFragment() {
@@ -71,24 +72,23 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        argsPosition = 0;
+        menuPosition = getArguments().getInt("POSITION");
 
         configureViews();
         configureViewModels();
 
         user = userViewModel.getCurrentUser().getValue();
-        restaurantViewModel.getCurrentRestaurant().observe(getViewLifecycleOwner(), currentRestaurant -> {
-            if (currentRestaurant != null) {
-                this.currentRestaurant = currentRestaurant;
-                Utility.getSuccessSnackbar(getContext(), view, currentRestaurant.restaurantName, Snackbar.LENGTH_SHORT);
-                currentMenu = currentRestaurant.getMenusId().get(argsPosition);
-                setViews();
-            }
-        });
+        currentRestaurant = restaurantViewModel.getCurrentRestaurant().getValue();
 
+        if (currentRestaurant != null)
+            currentMenu = restaurantViewModel.getCurrentRestaurantMenus().getValue().get(menuPosition);
+
+        name.setText(currentMenu.name);
+        price.setText(String.valueOf(getTotalPrice(currentMenu.products)));
+        setProductsRecyclerView();
 
         Button addToCartBtn = rootView.findViewById(R.id.add_to_cart_btn);
-        addToCartBtn.setOnClickListener(v -> cartViewModel.addItem(user.token, currentMenu, currentRestaurant.id));
+        addToCartBtn.setOnClickListener(v -> cartViewModel.addItem(user.token, currentMenu.id, currentRestaurant.id));
     }
 
     /**
@@ -104,21 +104,19 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
     public void configureViews() {
         name = rootView.findViewById(R.id.menu_name);
         price = rootView.findViewById(R.id.menu_price);
-
         products = rootView.findViewById(R.id.menu_products);
     }
 
-    public void setViews() {
-        name.setText(currentMenu);
-        price.setText(currentMenu);
-        setProductsRecyclerView();
+    public void setProductsRecyclerView() {
+        products.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        ProductAdapter productAdapter = new ProductAdapter(context, currentMenu.products, this, false);
+        products.setAdapter(productAdapter);
     }
 
-    public void setProductsRecyclerView() {
-        ArrayList<String> currentMenu_products = new ArrayList<>(Arrays.asList("Product1", "Product2"));
-        products.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        ProductAdapter productAdapter = new ProductAdapter(context, currentMenu_products, this, false);
-        products.setAdapter(productAdapter);
+    public float getTotalPrice(ArrayList<ProductResult> products) {
+        float total = 0;
+        for (ProductResult p : products) total += p.price;
+        return total;
     }
 
     @Override

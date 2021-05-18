@@ -55,7 +55,7 @@
     <string name="err_unauthorized">Vous n\'êtes pas autorisé à faire ça !</string>
 
     <!-- Content description -->
-    <string name="content_mock_descrition">Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="content_mock_description">Description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="content_description_more">Voir plus</string>
     <string name="content_description_cart_bar">Accéder à votre panier</string>
     <string name="content_description_search_bar">Rechercher un restaurant, catégories etc…</string>
@@ -107,4 +107,14 @@
     <string name="command_success">Votre commande est validée</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="products">Produits</string>
+    <string name="empty_cart">Votre panier est vide</string>
+    <string name="image">Image</string>
+    <string name="type">Type</string>
+    <string name="extra">Extra</string>
+    <string name="add">Ajouter</string>
+    <string name="in_progress">En cours de développement...</string>
+    <string name="products_editor">Editeur de produits</string>
+    <string name="new_product">Nouveau produit</string>
+    <string name="new_menu">Nouveau menu</string>
 </resources>

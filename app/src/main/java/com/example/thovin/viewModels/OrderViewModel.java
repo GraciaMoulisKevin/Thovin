@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel;
 import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.OrderRequest;
 import com.example.thovin.models.OrderResult;
+import com.example.thovin.models.ProductModel;
+import com.example.thovin.models.ProductResult;
 import com.example.thovin.services.HttpClient;
 import com.example.thovin.services.IAuthServices;
 import com.example.thovin.services.IOrderServices;
@@ -157,5 +159,11 @@ public class OrderViewModel extends ViewModel {
             }
 
         });
+    }
+
+    public float getTotalPrice(ArrayList<ProductResult> products) {
+        float total = 0;
+        for (ProductResult product : products) total += product.price;
+        return total;
     }
 }

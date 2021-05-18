@@ -75,7 +75,7 @@
                 android:layout_marginTop="@dimen/small_spacing"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@string/content_mock_descrition"
+                android:text="@string/content_mock_description"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
         </LinearLayout>
 

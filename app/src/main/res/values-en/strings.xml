@@ -59,7 +59,7 @@
     <string name="my_products">My products</string>
     <string name="my_menus">My menus</string>
     <string name="success_connection">Successfully connected</string>
-    <string name="content_mock_descrition">Mock description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="content_mock_description">Mock description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="restaurants">Restaurants</string>
     <string name="category">category</string>
     <string name="available">Available</string>
@@ -81,4 +81,10 @@
     <string name="card_numbers">Card numbers</string>
     <string name="cart">Cart</string>
     <string name="command_success">Your order has been validated</string>
+    <string name="products">Produits</string>
+    <string name="empty_cart">Your cart is empty</string>
+    <string name="type">Type</string>
+    <string name="extra">Extra</string>
+    <string name="add">Add</string>
+    <string name="image">Image</string>
 </resources>

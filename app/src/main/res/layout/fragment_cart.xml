@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.cart.CartFragment">
 
+    <TextView
+        android:id="@+id/empty_cart_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/empty_cart"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menu_products"
         android:layout_width="match_parent"
@@ -19,7 +31,7 @@
 
     <!--    Validation buttons    -->
     <LinearLayout
-        android:id="@+id/fg_auth_client_buttons"
+        android:id="@+id/interaction_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -32,13 +44,13 @@
         app:layout_constraintTop_toBottomOf="@+id/menu_products">
 
         <Button
-            android:id="@+id/remove_all_items_btn"
+            android:id="@+id/dump_cart_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/medium_spacing"
             android:layout_weight="0.5"
             android:backgroundTint="@color/red_500"
-            android:text="@string/cancel" />
+            android:text="@string/delete_all" />
 
         <Button
             android:id="@+id/go_to_payment_btn"

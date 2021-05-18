@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.thovin.Utility;
+import com.example.thovin.models.MenuModel;
+import com.example.thovin.models.ProductModel;
 import com.example.thovin.models.UserModel;
 import com.example.thovin.services.HttpClient;
 import com.example.thovin.services.IRestaurantServices;
@@ -26,6 +28,17 @@ public class RestaurantViewModel extends ViewModel {
      * The current restaurant the user is watching
      */
     private MutableLiveData<UserModel> currentRestaurant;
+
+
+    /**
+     * The current restaurant menus the user is watching
+     */
+    private MutableLiveData<ArrayList<MenuModel>> currentRestaurantMenus;
+
+    /**
+     * The current restaurant products the user is watching
+     */
+    private MutableLiveData<ArrayList<ProductModel>> currentRestaurantProducts;
 
     /**
      * A boolean to inspect loading progression
@@ -53,6 +66,26 @@ public class RestaurantViewModel extends ViewModel {
     public void setCurrentRestaurant(UserModel value) {
         if (currentRestaurant == null) currentRestaurant = new MutableLiveData<>();
         currentRestaurant.setValue(value);
+    }
+
+    public MutableLiveData<ArrayList<MenuModel>> getCurrentRestaurantMenus() {
+        if (currentRestaurantMenus == null) currentRestaurantMenus = new MutableLiveData<>();
+        return currentRestaurantMenus;
+    }
+
+    public void setCurrentRestaurantMenus(ArrayList<MenuModel> value) {
+        if (currentRestaurantMenus == null) currentRestaurantMenus = new MutableLiveData<>();
+        currentRestaurantMenus.setValue(value);
+    }
+
+    public MutableLiveData<ArrayList<ProductModel>> getCurrentRestaurantProducts() {
+        if (currentRestaurantProducts == null) currentRestaurantProducts = new MutableLiveData<>();
+        return currentRestaurantProducts;
+    }
+
+    public void setCurrentRestaurantProducts(ArrayList<ProductModel> value) {
+        if (currentRestaurantProducts == null) currentRestaurantProducts = new MutableLiveData<>();
+        currentRestaurantProducts.setValue(value);
     }
 
     public MutableLiveData<Boolean> getIsLoading() {
@@ -99,6 +132,52 @@ public class RestaurantViewModel extends ViewModel {
             public void onFailure(Call<ArrayList<UserModel>> call, Throwable t) {
                 setState(Utility.STATE_FAILURE);
                 setRestaurants(null);
+                setIsLoading(false);
+            }
+        });
+    }
+
+    /**
+     * Load all the menus available from the database
+     * @param token The user authorization token
+     */
+    public void getMenus(String token, String restaurantId) {
+        setIsLoading(true);
+
+        apiRestaurantServices.getMenus("Bearer " + token, restaurantId).enqueue(new Callback<ArrayList<MenuModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<MenuModel>> call, Response<ArrayList<MenuModel>> response) {
+
+                if (response.isSuccessful()) setCurrentRestaurantMenus(response.body());
+                setIsLoading(false);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<MenuModel>> call, Throwable t) {
+                setCurrentRestaurantMenus(null);
+                setIsLoading(false);
+            }
+        });
+    }
+
+    /**
+     * Load all the menus available from the database
+     * @param token The user authorization token
+     */
+    public void getProducts(String token, String restaurantId) {
+        setIsLoading(true);
+
+        apiRestaurantServices.getProducts("Bearer " + token, restaurantId).enqueue(new Callback<ArrayList<ProductModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ProductModel>> call, Response<ArrayList<ProductModel>> response) {
+
+                if (response.isSuccessful()) setCurrentRestaurantProducts(response.body());
+                setIsLoading(false);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ProductModel>> call, Throwable t) {
+                setCurrentRestaurantProducts(null);
                 setIsLoading(false);
             }
         });

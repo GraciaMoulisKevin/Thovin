@@ -1,12 +1,18 @@
 package com.example.thovin.viewModels;
 
+import android.util.Log;
+import android.view.View;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.thovin.models.AddItemRequest;
 import com.example.thovin.models.CartModel;
+import com.example.thovin.models.MenuModel;
 import com.example.thovin.services.HttpClient;
 import com.example.thovin.services.ICartServices;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,13 +39,10 @@ public class CartViewModel extends ViewModel {
         return currentCart;
     }
 
-    public void setCurrentCart(CartModel currentCart) {
-        this.currentCart.setValue(currentCart);
+    public void setCurrentCart(CartModel value) {
+        this.currentCart.setValue(value);
     }
 
-    public void dumpCurrentCart() {
-        this.currentCart.setValue(null);
-    }
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
@@ -50,6 +53,10 @@ public class CartViewModel extends ViewModel {
     }
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Initialize user cart
+     * @param token the user authorization token
+     */
     public void initCart(String token) {
         setIsLoading(true);
 
@@ -57,12 +64,7 @@ public class CartViewModel extends ViewModel {
             @Override
             public void onResponse(Call<CartModel> call, Response<CartModel> response) {
 
-                if (response.isSuccessful()) {
-                    setCurrentCart(response.body());
-                } else {
-                    // error
-                }
-
+                if (response.isSuccessful()) setCurrentCart(response.body());
                 setIsLoading(false);
             }
 
@@ -73,6 +75,12 @@ public class CartViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Add new item in the cart
+     * @param token the user authorization token
+     * @param menuId the menu id to add
+     * @param restaurantId the restaurant id providing the menu
+     */
     public void addItem(String token, String menuId, String restaurantId) {
         setIsLoading(true);
 
@@ -83,11 +91,8 @@ public class CartViewModel extends ViewModel {
             public void onResponse(Call<CartModel> call, Response<CartModel> response) {
 
                 if (response.isSuccessful()) {
-                    currentCart.setValue(response.body());
-                } else {
-                    // error
+                    setCurrentCart(response.body());
                 }
-
                 setIsLoading(false);
             }
 
@@ -98,16 +103,25 @@ public class CartViewModel extends ViewModel {
         });
     }
 
-    //    public double totalPrice() {
-//        double total = 0;
-//        ArrayList<MenuModel> menus = new ArrayList<>(); // currentCart.getValue().getMenus();
-//
-//        for (MenuModel menu : menus) {
-//            for (ProductModel product : menu.getProducts()) {
-//                total += product.price();
-//            }
-//        }
-//
-//        return total;
-//    }
+    /**
+     * Empty the cart
+     * @param token the user authorization token
+     */
+    public void deleteCart(String token) {
+        setIsLoading(true);
+
+        apiCartServices.deleteCart("Bearer " + token).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                if (response.isSuccessful()) setCurrentCart(null);
+                setIsLoading(false);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                setIsLoading(false);
+            }
+        });
+    }
 }

@@ -23,8 +23,10 @@ public class UserModel {
     public String restaurantName;
     @SerializedName("products")
     public ArrayList<String> productsId;
+    public ArrayList<ProductModel> productsModels;
     @SerializedName("menus")
     public ArrayList<String> menusId;
+    public ArrayList<MenuModel> menusModels;
 
 
     // --- GETTERS AND SETTERS
@@ -115,11 +117,27 @@ public class UserModel {
         this.productsId = productsId;
     }
 
+    public ArrayList<ProductModel> getProductsModels() {
+        return productsModels;
+    }
+
+    public void setProductsModels(ArrayList<ProductModel> productsModels) {
+        this.productsModels = productsModels;
+    }
+
     public ArrayList<String> getMenusId() {
         return menusId;
     }
 
     public void setMenusId(ArrayList<String> menusId) {
         this.menusId = menusId;
+    }
+
+    public ArrayList<MenuModel> getMenus() {
+        return menusModels;
+    }
+
+    public void setMenus(ArrayList<MenuModel> menus) {
+        this.menusModels = menus;
     }
 }

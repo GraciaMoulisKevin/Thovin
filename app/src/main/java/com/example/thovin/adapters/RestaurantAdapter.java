@@ -31,18 +31,18 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     public class RestaurantViewHolder extends RecyclerView.ViewHolder {
 
         MaterialCardView container;
-        TextView restaurantName;
-        TextView restaurantDescription;
-        TextView restaurantAddress;
+        TextView name;
+        TextView description;
+        TextView address;
 
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
             container = itemView.findViewById(R.id.adapter_restaurant_container);
             container.setOnClickListener(v -> recycleViewOnClickListener.onItemClick(getAdapterPosition()));
 
-            restaurantName = itemView.findViewById(R.id.name);
-            restaurantDescription = itemView.findViewById(R.id.description);
-            restaurantAddress = itemView.findViewById(R.id.address);
+            name = itemView.findViewById(R.id.name);
+            description = itemView.findViewById(R.id.description);
+            address = itemView.findViewById(R.id.address);
         }
     }
 
@@ -57,9 +57,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     @Override
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
         UserModel restaurant = restaurants.get(position);
-        holder.restaurantName.setText(restaurant.restaurantName);
-        holder.restaurantDescription.setText(restaurant.email);
-        holder.restaurantAddress.setText(restaurant.getFullAddress());
+        holder.name.setText(restaurant.restaurantName);
+        holder.description.setText(R.string.content_mock_description);
+        holder.address.setText(restaurant.getFullAddress());
     }
 
     @Override

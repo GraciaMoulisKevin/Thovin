@@ -1,5 +1,8 @@
 package com.example.thovin.services;
 
+import com.example.thovin.models.MenuModel;
+import com.example.thovin.models.ProductModel;
+import com.example.thovin.models.ProductResult;
 import com.example.thovin.models.UserModel;
 
 import java.util.ArrayList;
@@ -7,8 +10,17 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Path;
 
 public interface IRestaurantServices {
     @GET("restaurants")
     Call<ArrayList<UserModel>> getRestaurants(@Header("Authorization") String token);
+
+    @GET("restaurants/{id}/menus")
+    Call<ArrayList<MenuModel>> getMenus(@Header("Authorization") String token,
+                                        @Path(value="id", encoded = true) String id);
+
+    @GET("restaurants/{id}/products")
+    Call<ArrayList<ProductModel>> getProducts(@Header("Authorization") String token,
+                                              @Path(value="id", encoded = true) String id);
 }

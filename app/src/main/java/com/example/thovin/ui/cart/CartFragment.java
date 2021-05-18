@@ -15,12 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.thovin.R;
 import com.example.thovin.adapters.MenuAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
-import com.example.thovin.models.CartModel;
 import com.example.thovin.models.MenuModel;
 import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.UserViewModel;
@@ -36,8 +37,10 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
     private UserViewModel userViewModel;
     private AuthResult user;
     private CartViewModel cartViewModel;
-    private CartModel currentCart;
 
+    private TextView emptyCartText;
+    private LinearLayout interactionButtons;
+    private Button goToPaymentBtn, dumpCartBtn;
     private RecyclerView menusRecyclerView;
 
     public CartFragment() {
@@ -64,16 +67,14 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
         user = userViewModel.getCurrentUser().getValue();
 
         cartViewModel.getCurrentCart().observe(getViewLifecycleOwner(), currentCart -> {
-            if (currentCart != null) {
-                this.currentCart = currentCart;
-                setProductsRecyclerView();
-            }
+            if (currentCart != null && currentCart.getMenus() != null)
+                setProductsRecyclerView(currentCart.getMenus());
+            else toggleDisplay();
         });
 
-        Button goToPayment = rootView.findViewById(R.id.go_to_payment_btn);
-        goToPayment.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_nav_cart_to_nav_payment);
-        });
+        goToPaymentBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_cart_to_nav_payment));
+
+        dumpCartBtn.setOnClickListener(v -> cartViewModel.deleteCart(user.token));
     }
 
 
@@ -81,6 +82,10 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
      * Configure simple Views
      */
     public void configureViews() {
+        emptyCartText = rootView.findViewById(R.id.empty_cart_txt);
+        goToPaymentBtn = rootView.findViewById(R.id.go_to_payment_btn);
+        dumpCartBtn = rootView.findViewById(R.id.dump_cart_btn);
+        interactionButtons = rootView.findViewById(R.id.interaction_buttons);
         menusRecyclerView = rootView.findViewById(R.id.menu_products);
     }
 
@@ -96,11 +101,26 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
     /**
      * Set products recycler view
      */
-    public void setProductsRecyclerView() {
-        ArrayList<MenuModel> menus = currentCart.getMenus();
+    public void setProductsRecyclerView(ArrayList<MenuModel> menus) {
         menusRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         MenuAdapter menuAdapter = new MenuAdapter(context, menus, this);
         menusRecyclerView.setAdapter(menuAdapter);
+    }
+
+    /**
+     * Toggle display to show empty card text, otherwise the cart items
+     */
+    public void toggleDisplay() {
+        if (emptyCartText.getVisibility() == View.INVISIBLE) {
+            emptyCartText.setVisibility(View.VISIBLE);
+            interactionButtons.setVisibility(View.GONE);
+            menusRecyclerView.setVisibility(View.GONE);
+        } else {
+            emptyCartText.setVisibility(View.GONE);
+            interactionButtons.setVisibility(View.VISIBLE);
+            menusRecyclerView.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

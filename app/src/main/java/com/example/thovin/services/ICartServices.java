@@ -5,6 +5,7 @@ import com.example.thovin.models.CartModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -15,4 +16,7 @@ public interface ICartServices {
 
     @POST("users/me/cart")
     Call<CartModel> addItem(@Header("Authorization") String token, @Body AddItemRequest item);
+
+    @DELETE("users/me/cart")
+    Call<Void> deleteCart(@Header("Authorization") String token);
 }

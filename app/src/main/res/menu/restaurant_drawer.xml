@@ -19,14 +19,14 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_products"
-            android:icon="@drawable/ic_baseline_lunch_dining_24"
-            android:title="@string/my_products"/>
+            android:id="@+id/nav_product_editor"
+            android:icon="@drawable/ic_round_add_24"
+            android:title="@string/new_product"/>
 
         <item
             android:id="@+id/nav_menus"
-            android:icon="@drawable/ic_round_fastfood_24"
-            android:title="@string/my_menus"/>
+            android:icon="@drawable/ic_round_add_24"
+            android:title="@string/new_menu"/>
     </group>
 
     <group android:id="@+id/options_group"

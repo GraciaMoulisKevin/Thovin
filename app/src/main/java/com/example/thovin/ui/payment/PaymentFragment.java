@@ -92,7 +92,7 @@ public class PaymentFragment extends Fragment {
             if (isOk != null) {
                 Utility.getSuccessSnackbar(context, view,
                         getString(R.string.command_success), Snackbar.LENGTH_SHORT).show();
-                cartViewModel.dumpCurrentCart();
+                cartViewModel.deleteCart(user.token);
                 orderViewModel.dumpIsPaymentSuccess();
                 Navigation.findNavController(view).navigate(R.id.action_nav_payment_to_nav_history);
             }
