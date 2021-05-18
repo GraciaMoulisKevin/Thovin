@@ -24,6 +24,7 @@ import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.MenuModel;
 import com.example.thovin.models.ProductModel;
+import com.example.thovin.models.ProductResult;
 import com.example.thovin.models.UserModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.example.thovin.viewModels.UserViewModel;
@@ -47,7 +48,9 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
     private RecyclerView menusRecyclerView;
     private RecyclerView productsRecyclerView;
 
-    private boolean isRestaurantOwner = false;
+    private Boolean isFirstStart = true;
+    private Boolean isRestaurantOwner = false;
+
     public RestaurantHomeFragment() { }
 
     public static RestaurantHomeFragment newInstance() {
@@ -74,12 +77,22 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
         configureViewModel();
 
         currentUser = userViewModel.getCurrentUser().getValue();
-        currentRestaurant = restaurantViewModel.getCurrentRestaurant().getValue();
 
-        // --- Mean user connected is the restaurant owner
-        if (currentRestaurant == null) {
-            isRestaurantOwner = true;
-            restaurantViewModel.setCurrentRestaurant(currentUser.user);
+        // --- Check if it is restaurant owner
+        isRestaurantOwner = currentUser.getUser().type.equals(UserModel.RESTAURANT);
+
+        if (isRestaurantOwner) {
+            if (isFirstStart) {
+                // --- Welcome message
+                Utility.getSuccessSnackbar(context, view, getString(R.string.success_connection), Snackbar.LENGTH_SHORT).show();
+
+                // --- Set current restaurant
+                restaurantViewModel.setCurrentRestaurant(currentUser.user);
+
+                isFirstStart = false;
+            }
+
+            // --- Toggle on interaction items
             rootView.findViewById(R.id.restaurant_products).setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.add_menu_btn).setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.products_header).setVisibility(View.VISIBLE);
@@ -88,23 +101,26 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
 
         restaurantViewModel.getCurrentRestaurant().observe(getViewLifecycleOwner(), currentRestaurant -> {
             if (currentRestaurant != null) {
-                Utility.getSuccessSnackbar(getContext(), view, currentRestaurant.restaurantName, Snackbar.LENGTH_SHORT);
                 this.currentRestaurant = currentRestaurant;
 
                 name.setText(currentRestaurant.getRestaurantName());
 
+                // --- Load menus
                 restaurantViewModel.getMenus(currentUser.token, currentRestaurant.id);
 
+                // --- Load products (if user is restaurant owner)
                 if (isRestaurantOwner)
                     restaurantViewModel.getProducts(currentUser.token, currentRestaurant.id);
             }
         });
 
+        // --- Show and observe menus
         restaurantViewModel.getCurrentRestaurantMenus().observe(getViewLifecycleOwner(), this::setMenusRecyclerView);
 
-        if (isRestaurantOwner)
+        // --- Show and observe products (if user is the restaurant owner)
+        if (isRestaurantOwner) {
             restaurantViewModel.getCurrentRestaurantProducts().observe(getViewLifecycleOwner(), this::setProductsRecyclerView);
-
+        }
     }
 
     public void configureViews() {
