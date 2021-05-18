@@ -1,5 +1,7 @@
 package com.example.thovin.services;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -86,7 +88,9 @@ public class HttpClient {
      * Initialise a Retrofit client
      */
     public void initHttpClient() {
-        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS);
 
         if (DEBUG) okHttpBuilder.addInterceptor(getInterceptor()).build();
 

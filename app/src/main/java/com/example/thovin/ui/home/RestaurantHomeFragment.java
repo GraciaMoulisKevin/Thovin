@@ -10,7 +10,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +23,10 @@ import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.MenuModel;
 import com.example.thovin.models.ProductModel;
-import com.example.thovin.models.ProductResult;
 import com.example.thovin.models.UserModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.example.thovin.viewModels.UserViewModel;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -45,13 +44,16 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
     private UserModel currentRestaurant;
 
     private TextView name;
+    private MaterialButton addProductBtn, addMenuBtn;
+
     private RecyclerView menusRecyclerView;
     private RecyclerView productsRecyclerView;
 
     private Boolean isFirstStart = true;
     private Boolean isRestaurantOwner = false;
 
-    public RestaurantHomeFragment() { }
+    public RestaurantHomeFragment() {
+    }
 
     public static RestaurantHomeFragment newInstance() {
         return new RestaurantHomeFragment();
@@ -94,9 +96,9 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
 
             // --- Toggle on interaction items
             rootView.findViewById(R.id.restaurant_products).setVisibility(View.VISIBLE);
-            rootView.findViewById(R.id.add_menu_btn).setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.products_header).setVisibility(View.VISIBLE);
-            rootView.findViewById(R.id.add_product_btn).setVisibility(View.VISIBLE);
+            addMenuBtn.setVisibility(View.VISIBLE);
+            addProductBtn.setVisibility(View.VISIBLE);
         }
 
         restaurantViewModel.getCurrentRestaurant().observe(getViewLifecycleOwner(), currentRestaurant -> {
@@ -127,11 +129,20 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
         name = rootView.findViewById(R.id.restaurant_name);
         menusRecyclerView = rootView.findViewById(R.id.restaurant_menus);
         productsRecyclerView = rootView.findViewById(R.id.restaurant_products);
+        addMenuBtn = rootView.findViewById(R.id.add_menu_btn);
+        addProductBtn = rootView.findViewById(R.id.add_product_btn);
+
+        addProductBtn.setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_nav_product_editor));
+
     }
 
     public void configureViewModel() {
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         restaurantViewModel = new ViewModelProvider(requireActivity()).get(RestaurantViewModel.class);
+
+        restaurantViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading ->
+                Utility.toggleSpinner(getActivity(), isLoading));
     }
 
     public void setMenusRecyclerView(ArrayList<MenuModel> menus) {

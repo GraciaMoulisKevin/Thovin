@@ -27,7 +27,7 @@ public class Utility {
 
     public final static int STATE_SUCCESS = 0;
     public final static int STATE_ERROR = 1;
-    public final static int STATE_FAILURE = 2;
+    public final static int STATE_FAILURE = -1;
 
     public final static int TYPE_LOGIN = 0;
     public final static int TYPE_REGISTER = 1;
@@ -208,6 +208,14 @@ public class Utility {
         });
     }
 
+    /**
+     * Get a new intent to open a specific home activity.
+     * This intent clear the top stack and all task, then set this intent as the new main task.
+     * @param context The application context
+     * @param activity The activity to start
+     * @param <T> Generic type for activity class
+     * @return The intent to start the activity
+     */
     public static <T> Intent getHomeIntent(Context context, Class<T> activity) {
         Intent intent = new Intent(context, activity);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -216,6 +224,12 @@ public class Utility {
         return intent;
     }
 
+    /**
+     * Get a new intent for logout purpose.
+     * This intent clear the top stack and all task, then set this intent as the new main task.
+     * @param context The application context
+     * @return The intent to restart the app from the MainActivity.
+     */
     public static Intent getLogoutIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra("STATE", context.getString(R.string.warn_logout));
@@ -223,6 +237,20 @@ public class Utility {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         return intent;
+    }
+
+    // ----------------- Product Types -----------------
+    public static ArrayList<String> PRODUCT_TYPE = new ArrayList<>();
+    public static ArrayList<String> PRODUCT_TYPE_TRANSLATE = new ArrayList<>();
+
+    /**
+     * Get the common name type (for database purpose)
+     * @param typeSelected The selected type
+     * @return The product name translate for the database
+     */
+    public static String getProductType(String typeSelected) {
+        int index = PRODUCT_TYPE_TRANSLATE.indexOf(typeSelected);
+        return (index != -1)? PRODUCT_TYPE.get(index) : typeSelected;
     }
 }
 

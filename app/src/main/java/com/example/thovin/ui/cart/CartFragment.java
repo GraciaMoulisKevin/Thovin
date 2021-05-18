@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.thovin.R;
+import com.example.thovin.Utility;
 import com.example.thovin.adapters.MenuAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
@@ -35,7 +36,9 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
 
     // --- User
     private UserViewModel userViewModel;
-    private AuthResult user;
+    private AuthResult currentUser;
+
+    // --- Cart
     private CartViewModel cartViewModel;
 
     private TextView emptyCartText;
@@ -64,7 +67,7 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
         configureViews();
         configureViewModels();
 
-        user = userViewModel.getCurrentUser().getValue();
+        currentUser = userViewModel.getCurrentUser().getValue();
 
         cartViewModel.getCurrentCart().observe(getViewLifecycleOwner(), currentCart -> {
             if (currentCart != null && currentCart.getMenus() != null)
@@ -74,7 +77,7 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
 
         goToPaymentBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_cart_to_nav_payment));
 
-        dumpCartBtn.setOnClickListener(v -> cartViewModel.deleteCart(user.token));
+        dumpCartBtn.setOnClickListener(v -> cartViewModel.deleteCart(currentUser.token));
     }
 
 
@@ -96,6 +99,9 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
     public void configureViewModels() {
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
+
+        cartViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading ->
+                Utility.toggleSpinner(getActivity(), isLoading));
     }
 
     /**
