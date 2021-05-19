@@ -70,8 +70,10 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
         currentUser = userViewModel.getCurrentUser().getValue();
 
         cartViewModel.getCurrentCart().observe(getViewLifecycleOwner(), currentCart -> {
-            if (currentCart != null && currentCart.getMenus() != null)
+            if (currentCart != null && currentCart.getMenus() != null) {
                 setProductsRecyclerView(currentCart.getMenus());
+                goToPaymentBtn.setText(currentCart.getPrice());
+            }
             else toggleDisplay();
         });
 
