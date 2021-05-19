@@ -158,7 +158,7 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
 
     // --- Recycler View onClick methods
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, String tag) {
         restaurantViewModel.setCurrentRestaurantMenus(null);
         restaurantViewModel.setCurrentRestaurantProducts(null);
         restaurantViewModel.setCurrentRestaurant(restaurants.get(position));

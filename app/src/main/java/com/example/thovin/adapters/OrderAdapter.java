@@ -35,7 +35,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             super(itemView);
             container = itemView.findViewById(R.id.adapter_history_container);
             container.setOnClickListener(v ->
-                    recycleViewOnClickListener.onItemClick(getAdapterPosition()));
+                    recycleViewOnClickListener.onItemClick(getAdapterPosition(),
+                            RecycleViewOnClickListener.TAG_ORDER));
         }
     }
 
