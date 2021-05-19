@@ -75,7 +75,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.description.setText(product.description);
         holder.price.setVisibility(View.GONE);
 
-        Picasso.with(context).load(product.imgURL)
+        Picasso.get().load(product.imgURL)
                 .resize(80, 80)
                 .error(R.drawable.app_logo)
                 .into(holder.image);

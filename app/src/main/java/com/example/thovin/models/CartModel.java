@@ -42,4 +42,17 @@ public class CartModel {
     public void setMenus(ArrayList<MenuModel> menus) {
         this.menus = menus;
     }
+
+    /**
+     * Send total price of the cart
+     */
+    public String getPrice(){
+        double sum = 0;
+        for (MenuModel m : this.getMenus()){
+            for (ProductResult p : m.getProducts()){
+                sum += p.getPrice();
+            }
+        }
+        return String.format("%.2f", sum);
+    }
 }
