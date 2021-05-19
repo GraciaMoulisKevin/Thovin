@@ -30,10 +30,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialCardView container;
+        private TextView text;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             container = itemView.findViewById(R.id.adapter_history_container);
+            text = itemView.findViewById(R.id.ENORME);
             container.setOnClickListener(v ->
                     recycleViewOnClickListener.onItemClick(getAdapterPosition(),
                             RecycleViewOnClickListener.TAG_ORDER));
@@ -51,7 +53,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter.OrderViewHolder holder, int position) {
         OrderResult order = orders.get(position);
-
+        holder.text.setText(order.getClient().getFullName());
     }
 
     @Override

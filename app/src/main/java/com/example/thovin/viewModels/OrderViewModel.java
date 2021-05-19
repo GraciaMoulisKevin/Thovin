@@ -110,9 +110,7 @@ public class OrderViewModel extends ViewModel {
             public void onResponse(Call<ArrayList<OrderResult>> call, Response<ArrayList<OrderResult>> response) {
 
                 if (response.isSuccessful()) {
-                    Log.i("MYDEBUG", "SUCCES");
                     ArrayList<OrderResult> orders = response.body();
-                    Log.i("MYDEBUG", ""+response.body());
 
                     if (orders.size() > 0) {
                         OrderResult lastOrder = orders.get(orders.size() - 1);
@@ -123,7 +121,6 @@ public class OrderViewModel extends ViewModel {
 
                 } else {
                     setHistoric(null);
-                    Log.i("MYDEBUG", "ERROR");
                 }
 
                 setIsLoading(false);
