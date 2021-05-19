@@ -73,7 +73,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         }
         holder.price.setText(String.valueOf(total));
 
-        Picasso.with(context).load(menu.imgURL)
+        Picasso.get().load(menu.imgURL)
                 .resize(80, 80)
                 .error(R.drawable.app_logo)
                 .into(holder.image);

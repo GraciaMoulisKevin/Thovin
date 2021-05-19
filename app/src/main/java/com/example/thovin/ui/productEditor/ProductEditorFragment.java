@@ -87,9 +87,10 @@ public class ProductEditorFragment extends Fragment {
 
         restaurantViewModel.getCurrentRestaurantProducts().observe(getViewLifecycleOwner(), products -> {
             if (restaurantViewModel.getState() == Utility.STATE_SUCCESS) {
+                restaurantViewModel.setState(Utility.STATE_UNDEFINED);
                 Utility.getSuccessSnackbar(context, rootView, getString(R.string.success_add_product), Snackbar.LENGTH_SHORT).show();
-                // Navigation.findNavController(rootView).popBackStack();
-            } else
+                Navigation.findNavController(rootView).popBackStack();
+            } else if (restaurantViewModel.getState() != Utility.STATE_UNDEFINED)
                 Utility.getErrorSnackbar(context, rootView, getString(R.string.error_add_product), Snackbar.LENGTH_SHORT).show();
         });
     }
