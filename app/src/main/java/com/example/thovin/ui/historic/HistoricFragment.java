@@ -109,6 +109,6 @@ public class HistoricFragment extends Fragment implements RecycleViewOnClickList
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, String tag) {
     }
 }

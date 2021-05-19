@@ -33,7 +33,7 @@ public interface IRestaurantServices {
                                     @Body ProductModel product);
 
     @DELETE("restaurants/{restaurant_id}/products/{product_id}")
-    Call<ProductModel> deleteProduct(@Header("Authorization") String token,
+    Call<ArrayList<ProductModel>> deleteProduct(@Header("Authorization") String token,
                                      @Path(value="restaurant_id", encoded = true) String restaurantId,
                                      @Path(value="product_id", encoded = true) String productId);
 }

@@ -26,12 +26,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/name"
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
         app:endIconMode="clear_text"
         app:errorEnabled="true"
         app:helperText="Nom du produit"
         app:helperTextEnabled="true"
-        app:counterEnabled="true"
-        app:counterMaxLength="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_information_header">
@@ -39,8 +39,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="50"
             android:inputType="textShortMessage"
+            android:maxLength="50"
             android:text="Burger végie" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -71,29 +71,29 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/product_type"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/product_type"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/type"
+        app:counterEnabled="true"
+        app:counterMaxLength="25"
+        app:errorEnabled="true"
+        app:helperText="Type du produit"
+        app:helperTextEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_description">
+
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/type"
-            app:errorEnabled="true"
-            app:helperText="Type du produit"
-            app:helperTextEnabled="true"
-            app:counterEnabled="true"
-            app:counterMaxLength="25"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_description">
+            android:inputType="textShortMessage"
+            android:maxLength="25" />
 
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLength="25"
-                android:inputType="textShortMessage" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/product_extras_header"
@@ -150,4 +150,24 @@
             android:backgroundTint="@color/main_green"
             android:text="@string/add" />
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/remove_btn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/remove"
+        android:textColor="@color/red_500"
+        app:icon="@drawable/ic_round_delete_24"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/small_spacing"
+        app:iconTint="@color/red_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fg_auth_client_buttons"
+        app:strokeColor="@color/red_500"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

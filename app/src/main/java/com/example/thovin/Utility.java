@@ -25,9 +25,10 @@ import java.util.HashMap;
 
 public class Utility {
 
+    public final static int STATE_UNDEFINED = -1;
     public final static int STATE_SUCCESS = 0;
     public final static int STATE_ERROR = 1;
-    public final static int STATE_FAILURE = -1;
+    public final static int STATE_FAILURE = 2;
 
     public final static int TYPE_LOGIN = 0;
     public final static int TYPE_REGISTER = 1;

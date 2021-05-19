@@ -126,4 +126,8 @@
     <string name="noodles">Nouilles</string>
     <string name="success_add_product">Le produit a été ajouté</string>
     <string name="error_add_product">Le produit n\'as pas pus être ajouté</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="remove">supprimer</string>
+    <string name="success_remove_product">Le produit a bien été supprimé</string>
 </resources>
