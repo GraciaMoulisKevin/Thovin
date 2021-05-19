@@ -79,11 +79,6 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
         configureViews();
         configureViewModel();
 
-        // --- Check current user
-        currentUser = userViewModel.getCurrentUser().getValue();
-        if (currentUser == null) startActivity(Utility.getLogoutIntent(context));
-        else currentRestaurant = currentUser.user;
-
         if (isFirstStart) {
             // --- Welcome message
             Utility.getSuccessSnackbar(context, view, getString(R.string.success_connection),
@@ -131,8 +126,11 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
 
     public void configureViewModel() {
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        restaurantViewModel = new ViewModelProvider(requireActivity()).get(RestaurantViewModel.class);
+        currentUser = userViewModel.getCurrentUser().getValue();
+        if (currentUser == null) startActivity(Utility.getLogoutIntent(context));
+        else currentRestaurant = currentUser.user;
 
+        restaurantViewModel = new ViewModelProvider(requireActivity()).get(RestaurantViewModel.class);
         restaurantViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading ->
                 Utility.toggleSpinner(getActivity(), isLoading));
     }
@@ -154,9 +152,10 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, String tag) {
         Bundle bundle = new Bundle();
         bundle.putInt("POSITION", position);
-        Navigation.findNavController(rootView).navigate(R.id.action_nav_restaurant_details_to_nav_menu_details, bundle);
+        if (tag.equals(RecycleViewOnClickListener.TAG_PRODUCT))
+            Navigation.findNavController(rootView).navigate(R.id.action_nav_home_to_nav_product_editor, bundle);
     }
 }

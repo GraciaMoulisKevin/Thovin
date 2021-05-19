@@ -43,7 +43,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             super(itemView);
             container = itemView.findViewById(R.id.adapter_menu_container);
             container.setOnClickListener(v ->
-                    recycleViewOnClickListener.onItemClick(getAdapterPosition()));
+                    recycleViewOnClickListener.onItemClick(getAdapterPosition(),
+                            RecycleViewOnClickListener.TAG_MENU));
 
             name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);

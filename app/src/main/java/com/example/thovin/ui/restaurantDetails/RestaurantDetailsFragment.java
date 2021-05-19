@@ -113,7 +113,7 @@ public class RestaurantDetailsFragment extends Fragment implements RecycleViewOn
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, String tag) {
         Bundle bundle = new Bundle();
         bundle.putInt("POSITION", position);
         Navigation.findNavController(rootView).navigate(R.id.action_nav_restaurant_details_to_nav_menu_details, bundle);

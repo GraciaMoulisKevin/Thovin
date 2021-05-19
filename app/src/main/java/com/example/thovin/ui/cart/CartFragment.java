@@ -130,6 +130,6 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, String tag) {
     }
 }

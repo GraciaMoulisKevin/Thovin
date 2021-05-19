@@ -43,7 +43,8 @@ public class ProductModelAdapter extends RecyclerView.Adapter<ProductModelAdapte
 
             container = itemView.findViewById(R.id.adapter_menu_container);
 
-            container.setOnClickListener(v -> recycleViewOnClickListener.onItemClick(getAdapterPosition()));
+            container.setOnClickListener(v -> recycleViewOnClickListener.onItemClick(getAdapterPosition(),
+                    RecycleViewOnClickListener.TAG_PRODUCT));
 
             name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);
