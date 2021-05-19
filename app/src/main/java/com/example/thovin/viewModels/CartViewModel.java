@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.thovin.models.AddItemRequest;
 import com.example.thovin.models.CartModel;
 import com.example.thovin.models.MenuModel;
-import com.example.thovin.models.ProductResult;
 import com.example.thovin.services.HttpClient;
 import com.example.thovin.services.ICartServices;
 
