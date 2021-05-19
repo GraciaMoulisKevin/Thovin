@@ -12,25 +12,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thovin.R;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
-import com.example.thovin.models.MenuModel;
-import com.example.thovin.models.ProductResult;
+import com.example.thovin.models.ProductModel;
 import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> {
+public class ProductModelAdapter extends RecyclerView.Adapter<ProductModelAdapter.ProductModelViewHolder> {
     Context context;
-    ArrayList<MenuModel> menus;
+    ArrayList<ProductModel> products;
     private final RecycleViewOnClickListener recycleViewOnClickListener;
 
-    public MenuAdapter(Context context, ArrayList<MenuModel> menus, RecycleViewOnClickListener recycleViewOnClickListener) {
+    public ProductModelAdapter(Context context, ArrayList<ProductModel> products, RecycleViewOnClickListener recycleViewOnClickListener) {
         this.context = context;
-        this.menus = menus;
+        this.products = products;
         this.recycleViewOnClickListener = recycleViewOnClickListener;
     }
 
-    public class MenuViewHolder extends RecyclerView.ViewHolder {
+    public class ProductModelViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialCardView container;
 
@@ -39,12 +38,13 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         private TextView price;
         private ImageView image;
 
-        public MenuViewHolder(@NonNull View itemView) {
+        public ProductModelViewHolder(@NonNull View itemView) {
             super(itemView);
+
             container = itemView.findViewById(R.id.adapter_menu_container);
-            container.setOnClickListener(v ->
-                    recycleViewOnClickListener.onItemClick(getAdapterPosition(),
-                            RecycleViewOnClickListener.TAG_MENU));
+
+            container.setOnClickListener(v -> recycleViewOnClickListener.onItemClick(getAdapterPosition(),
+                    RecycleViewOnClickListener.TAG_PRODUCT));
 
             name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);
@@ -55,34 +55,28 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     @NonNull
     @Override
-    public MenuAdapter.MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductModelAdapter.ProductModelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.adapter_menu, parent, false);
-        return new MenuAdapter.MenuViewHolder(view);
+        return new ProductModelAdapter.ProductModelViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
-        MenuModel menu = menus.get(position);
+    public void onBindViewHolder(@NonNull ProductModelViewHolder holder, int position) {
+        ProductModel product = products.get(position);
+        holder.name.setText(product.name);
+        holder.description.setText(product.description);
+        holder.price.setVisibility(View.GONE);
 
-        holder.name.setText(menu.name);
-        holder.description.setText(menu.description);
-
-        float total = 0;
-        for (ProductResult product : menu.getProducts()) {
-            total += product.getPrice();
-        }
-        holder.price.setText(String.valueOf(total));
-
-        Picasso.get().load(menu.imgURL)
+        Picasso.get()
+                .load(product.imgURL)
                 .resize(80, 80)
                 .error(R.drawable.app_logo)
                 .into(holder.image);
     }
 
-
     @Override
     public int getItemCount() {
-        return (menus != null)? menus.size() : 0;
+        return products.size();
     }
 }

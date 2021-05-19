@@ -1,5 +1,7 @@
 package com.example.thovin.viewModels;
 
+import android.text.BoringLayout;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -31,12 +33,12 @@ public class RestaurantViewModel extends ViewModel {
 
 
     /**
-     * The current restaurant menus the user is watching
+     * The current restaurant menus
      */
     private MutableLiveData<ArrayList<MenuModel>> currentRestaurantMenus;
 
     /**
-     * The current restaurant products the user is watching
+     * The current restaurant products
      */
     private MutableLiveData<ArrayList<ProductModel>> currentRestaurantProducts;
 
@@ -178,6 +180,64 @@ public class RestaurantViewModel extends ViewModel {
             @Override
             public void onFailure(Call<ArrayList<ProductModel>> call, Throwable t) {
                 setCurrentRestaurantProducts(null);
+                setIsLoading(false);
+            }
+        });
+    }
+
+    /**
+     * Add a new product in the restaurant
+     * @param token The user authorization token
+     * @param restaurantId The restaurant id
+     * @param product The product to add
+     */
+    public void addNewProduct(String token, String restaurantId, ProductModel product) {
+        setIsLoading(true);
+
+        apiRestaurantServices.postProduct("Bearer " + token, restaurantId, product).enqueue(new Callback<ArrayList<ProductModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ProductModel>> call, Response<ArrayList<ProductModel>> response) {
+
+                if (response.isSuccessful()) {
+                    setState(Utility.STATE_SUCCESS);
+                    setCurrentRestaurantProducts(response.body());
+                }
+                else setState(Utility.STATE_ERROR);
+                setIsLoading(false);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ProductModel>> call, Throwable t) {
+                setState(Utility.STATE_FAILURE);
+                setIsLoading(false);
+            }
+        });
+    }
+
+    /**
+     * Remove a product of the restaurant
+     * @param token The user authorization token
+     * @param restaurantId The restaurant id
+     * @param productId The product id to remove
+     */
+    public void removeProduct(String token, String restaurantId, String productId) {
+        setIsLoading(true);
+
+        apiRestaurantServices.deleteProduct("Bearer " + token, restaurantId, productId).enqueue(new Callback<ArrayList<ProductModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ProductModel>> call, Response<ArrayList<ProductModel>> response) {
+
+                if (response.isSuccessful()) {
+                    setState(Utility.STATE_SUCCESS);
+                    setCurrentRestaurantProducts(response.body());
+                }
+                else setState(Utility.STATE_ERROR);
+                setIsLoading(false);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ProductModel>> call, Throwable t) {
+                setState(Utility.STATE_FAILURE);
                 setIsLoading(false);
             }
         });

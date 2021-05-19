@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 public class UserModel {
 
+    public static String CLIENT = "client";
+    public static String DELIVERER = "deliverer";
+    public static String RESTAURANT = "restaurant";
+
     @SerializedName("_id")
     public String id;
     public Boolean admin;

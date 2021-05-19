@@ -38,7 +38,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
             container = itemView.findViewById(R.id.adapter_restaurant_container);
-            container.setOnClickListener(v -> recycleViewOnClickListener.onItemClick(getAdapterPosition()));
+            container.setOnClickListener(v -> recycleViewOnClickListener.onItemClick(getAdapterPosition(),
+                    RecycleViewOnClickListener.TAG_RESTAURANT));
 
             name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);

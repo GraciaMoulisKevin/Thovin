@@ -81,10 +81,25 @@
     <string name="card_numbers">Card numbers</string>
     <string name="cart">Cart</string>
     <string name="command_success">Your order has been validated</string>
-    <string name="products">Produits</string>
+    <string name="products">Products</string>
     <string name="empty_cart">Your cart is empty</string>
     <string name="type">Type</string>
     <string name="extra">Extra</string>
     <string name="add">Add</string>
     <string name="image">Image</string>
+    <string name="sushi">Sushi</string>
+    <string name="in_progress">Currently in development</string>
+    <string name="products_editor">Products editor</string>
+    <string name="new_product">New product</string>
+    <string name="new_menu">New menu</string>
+    <string name="meal">Meal</string>
+    <string name="accompaniment">Accompaniment</string>
+    <string name="drink">Drink</string>
+    <string name="sauce">Sauce</string>
+    <string name="burger">Burger</string>
+    <string name="salad">Salad</string>
+    <string name="soup">Soup</string>
+    <string name="noodles">Noodles</string>
+    <string name="success_add_product">Le produit a été ajouté</string>
+    <string name="error_add_product">Le produit n\'as pas pus être ajouté</string>
 </resources>

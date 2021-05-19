@@ -1,6 +1,5 @@
 package com.example.thovin;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -12,13 +11,15 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         // --- Configure the fragment navigation
         configureNavigationUi();
+
+        setProductCategories();
     }
 
     /**
@@ -99,5 +102,31 @@ public class MainActivity extends AppCompatActivity {
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else super.onBackPressed();
+    }
+
+    public void setProductCategories() {
+        Utility.PRODUCT_TYPE = new ArrayList<>(Arrays.asList(
+                "",
+                "Meal",
+                "Burger",
+                "Sushi",
+                "Salad",
+                "Soup",
+                "Noodles",
+                "Accompaniment",
+                "Drink",
+                "Sauce"));
+
+        Utility.PRODUCT_TYPE_TRANSLATE = new ArrayList<>(Arrays.asList(
+                "",
+                getString(R.string.meal),
+                getString(R.string.burger),
+                getString(R.string.sushi),
+                getString(R.string.salad),
+                getString(R.string.soup),
+                getString(R.string.noodles),
+                getString(R.string.accompaniment),
+                getString(R.string.drink),
+                getString(R.string.sauce)));
     }
 }

@@ -51,7 +51,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
             container = itemView.findViewById(R.id.adapter_menu_container);
 
-            container.setOnClickListener(v -> recycleViewOnClickListener.onItemClick(getAdapterPosition()));
+            container.setOnClickListener(v -> recycleViewOnClickListener.onItemClick(getAdapterPosition(),
+                    RecycleViewOnClickListener.TAG_PRODUCT));
 
             name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);
@@ -75,7 +76,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.description.setText(product.description);
         holder.price.setVisibility(View.GONE);
 
-        Picasso.with(context).load(product.imgURL)
+        Picasso.get()
+                .load(product.imgURL)
                 .resize(80, 80)
                 .error(R.drawable.app_logo)
                 .into(holder.image);

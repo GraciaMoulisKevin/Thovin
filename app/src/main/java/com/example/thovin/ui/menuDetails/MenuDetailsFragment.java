@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +28,6 @@ import com.example.thovin.models.UserModel;
 import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.example.thovin.viewModels.UserViewModel;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -35,20 +35,23 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
 
     private View rootView;
     private Context context;
-    private TextView name, price;
-    private RecyclerView products;
-    private int menuPosition;
 
     // --- User
     private UserViewModel userViewModel;
-    private AuthResult user;
+    private AuthResult currentUser;
+
+    // --- Cart
     private CartViewModel cartViewModel;
 
     // --- Restaurant
     private RestaurantViewModel restaurantViewModel;
     private UserModel currentRestaurant;
-    private MenuModel currentMenu;
 
+    private MenuModel currentMenu;
+    private TextView name, price;
+    private RecyclerView products;
+
+    private int menuPosition;
 
     public MenuDetailsFragment() {
     }
@@ -77,18 +80,12 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
         configureViews();
         configureViewModels();
 
-        user = userViewModel.getCurrentUser().getValue();
-        currentRestaurant = restaurantViewModel.getCurrentRestaurant().getValue();
-
-        if (currentRestaurant != null)
-            currentMenu = restaurantViewModel.getCurrentRestaurantMenus().getValue().get(menuPosition);
-
         name.setText(currentMenu.name);
         price.setText(String.valueOf(getTotalPrice(currentMenu.products)));
         setProductsRecyclerView();
 
         Button addToCartBtn = rootView.findViewById(R.id.add_to_cart_btn);
-        addToCartBtn.setOnClickListener(v -> cartViewModel.addItem(user.token, currentMenu.id, currentRestaurant.id));
+        addToCartBtn.setOnClickListener(v -> cartViewModel.addItem(currentUser.token, currentMenu.id, currentRestaurant.id));
     }
 
     /**
@@ -96,8 +93,15 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
      */
     public void configureViewModels() {
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
+        currentUser = userViewModel.getCurrentUser().getValue();
+        if (currentUser == null) startActivity(Utility.getLogoutIntent(context));
+
         restaurantViewModel = new ViewModelProvider(requireActivity()).get(RestaurantViewModel.class);
+        currentRestaurant = restaurantViewModel.getCurrentRestaurant().getValue();
+        if (currentRestaurant == null) Navigation.findNavController(rootView).popBackStack();
+        else currentMenu = restaurantViewModel.getCurrentRestaurantMenus().getValue().get(menuPosition);
+
+        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
     }
 
 
@@ -120,7 +124,7 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, String tag) {
         // Navigation.findNavController(rootView).navigate();
     }
 }

@@ -121,5 +121,12 @@ public class PaymentFragment extends Fragment {
 
         cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
         orderViewModel = new ViewModelProvider(requireActivity()).get(OrderViewModel.class);
+
+        // --- Loading spinner
+        orderViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading ->
+                Utility.toggleSpinner(getActivity(), isLoading));
+
+        cartViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading ->
+                Utility.toggleSpinner(getActivity(), isLoading));
     }
 }
