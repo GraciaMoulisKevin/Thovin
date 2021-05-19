@@ -34,7 +34,7 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
     private View rootView;
     private Context context;
 
-    // --- User
+    // --- User.
     private UserViewModel userViewModel;
     private AuthResult currentUser;
 
