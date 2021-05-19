@@ -13,10 +13,10 @@
         android:layout_marginTop="16dp"
         android:text="@string/empty_cart"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menu_products"
@@ -43,23 +43,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_products">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/dump_cart_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginEnd="@dimen/medium_spacing"
             android:layout_weight="0.5"
             android:backgroundTint="@color/red_500"
-            android:text="@string/delete_all" />
+            android:text="@string/delete_all"
+            app:icon="@drawable/ic_round_delete_24"
+            app:iconGravity="textEnd" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/go_to_payment_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/medium_spacing"
             android:layout_weight="0.5"
             android:backgroundTint="@color/main_green"
-            android:text="@string/pay" />
+            android:text="@string/pay"
+            app:icon="@drawable/ic_round_euro_24"
+            app:iconGravity="textEnd" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
