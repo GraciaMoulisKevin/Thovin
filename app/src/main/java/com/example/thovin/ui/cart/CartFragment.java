@@ -23,7 +23,9 @@ import com.example.thovin.Utility;
 import com.example.thovin.adapters.MenuAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
+import com.example.thovin.models.CartModel;
 import com.example.thovin.models.MenuModel;
+import com.example.thovin.models.ProductResult;
 import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.UserViewModel;
 
@@ -70,9 +72,10 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
         currentUser = userViewModel.getCurrentUser().getValue();
 
         cartViewModel.getCurrentCart().observe(getViewLifecycleOwner(), currentCart -> {
-            if (currentCart != null && currentCart.getMenus() != null)
+            if (currentCart != null && currentCart.getMenus() != null) {
                 setProductsRecyclerView(currentCart.getMenus());
-            else toggleDisplay();
+                goToPaymentBtn.setText(currentCart.getPrice());
+            } else toggleDisplay();
         });
 
         goToPaymentBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_cart_to_nav_payment));
