@@ -44,7 +44,7 @@ public class CartModel {
     }
 
     /**
-     * Send total price of the cart
+     * Send total price of the cart.
      */
     public String getPrice(){
         double sum = 0;
