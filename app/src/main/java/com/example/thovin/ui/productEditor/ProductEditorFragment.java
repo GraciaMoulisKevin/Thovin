@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -84,6 +85,13 @@ public class ProductEditorFragment extends Fragment {
             restaurantViewModel.addNewProduct(currentUser.token, currentUser.user.id, getNewProduct());
         });
 
+        restaurantViewModel.getCurrentRestaurantProducts().observe(getViewLifecycleOwner(), products -> {
+            if (restaurantViewModel.getState() == Utility.STATE_SUCCESS) {
+                Utility.getSuccessSnackbar(context, rootView, getString(R.string.success_add_product), Snackbar.LENGTH_SHORT).show();
+                // Navigation.findNavController(rootView).popBackStack();
+            } else
+                Utility.getErrorSnackbar(context, rootView, getString(R.string.error_add_product), Snackbar.LENGTH_SHORT).show();
+        });
     }
 
     /**

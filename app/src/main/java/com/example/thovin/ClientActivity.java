@@ -47,7 +47,6 @@ public class ClientActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         navigationView = findViewById(R.id.nav_view);
-
         drawerLayout = findViewById(R.id.drawer_layout);
 
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())

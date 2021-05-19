@@ -199,13 +199,16 @@ public class RestaurantViewModel extends ViewModel {
             public void onResponse(Call<ArrayList<ProductModel>> call, Response<ArrayList<ProductModel>> response) {
 
                 if (response.isSuccessful()) {
+                    setState(Utility.STATE_SUCCESS);
                     setCurrentRestaurantProducts(response.body());
                 }
+                else setState(Utility.STATE_ERROR);
                 setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<ArrayList<ProductModel>> call, Throwable t) {
+                setState(Utility.STATE_FAILURE);
                 setIsLoading(false);
             }
         });

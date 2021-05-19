@@ -29,6 +29,8 @@ import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class RestaurantHomeFragment extends Fragment implements RecycleViewOnClickListener {
@@ -62,6 +64,10 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            isFirstStart = savedInstanceState.getBoolean("isFirstStart");
+        }
     }
 
     @Override
@@ -79,6 +85,7 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
         configureViewModel();
 
         currentUser = userViewModel.getCurrentUser().getValue();
+        if (currentUser == null) startActivity(Utility.getLogoutIntent(context));
 
         // --- Check if it is restaurant owner
         isRestaurantOwner = currentUser.getUser().type.equals(UserModel.RESTAURANT);
@@ -123,6 +130,12 @@ public class RestaurantHomeFragment extends Fragment implements RecycleViewOnCli
         if (isRestaurantOwner) {
             restaurantViewModel.getCurrentRestaurantProducts().observe(getViewLifecycleOwner(), this::setProductsRecyclerView);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("isFirstStart", false);
     }
 
     public void configureViews() {
