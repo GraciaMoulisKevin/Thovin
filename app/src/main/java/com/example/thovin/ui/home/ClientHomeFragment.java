@@ -117,8 +117,10 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
                 if (result.size() == 0) {
                     Utility.getWarningSnackbar(context, view, getString(R.string.warn_no_restaurant_available), Snackbar.LENGTH_LONG).show();
                     noRestaurantAvailable.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                 } else {
                     noRestaurantAvailable.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
                     restaurants = result;
                     setRecyclerViewAdapter(restaurants);
                 }
@@ -207,8 +209,6 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
     }
 
     private void update(String type) {
-        ArrayList<UserModel> rest = new ArrayList<UserModel>();
         restaurantViewModel.loadRestaurant(currentUser.token,type);
-        setRecyclerViewAdapter(rest);
     }
 }
