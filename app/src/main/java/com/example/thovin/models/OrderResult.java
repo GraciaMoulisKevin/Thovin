@@ -8,13 +8,11 @@ public class OrderResult {
     @SerializedName("_id")
     public String id;
     public String status;
-    @SerializedName("client")
-    public String clientId;
+    public UserModel client;
     @SerializedName("deliverer")
     public String delivererId;
-    @SerializedName("restaurant")
-    public String restaurantId;
-    public ArrayList<String> menus;
+    public UserModel restaurant;
+    public ArrayList<MenuModel> menus;
     public CreditCardModel payment;
 
     public String getId() {
@@ -33,12 +31,12 @@ public class OrderResult {
         this.status = status;
     }
 
-    public String getClientId() {
-        return clientId;
+    public UserModel getClient() {
+        return client;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
+    public void setClient(UserModel client) {
+        this.client = client;
     }
 
     public String getDelivererId() {
@@ -49,19 +47,19 @@ public class OrderResult {
         this.delivererId = delivererId;
     }
 
-    public String getRestaurantId() {
-        return restaurantId;
+    public UserModel getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurantId(String restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setRestaurant(UserModel restaurant) {
+        this.restaurant = restaurant;
     }
 
-    public ArrayList<String> getMenus() {
+    public ArrayList<MenuModel> getMenus() {
         return menus;
     }
 
-    public void setMenus(ArrayList<String> menus) {
+    public void setMenus(ArrayList<MenuModel> menus) {
         this.menus = menus;
     }
 

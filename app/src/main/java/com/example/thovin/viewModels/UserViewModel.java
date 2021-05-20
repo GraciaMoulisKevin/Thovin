@@ -29,8 +29,6 @@ public class UserViewModel extends ViewModel {
      * Retrofit services
      */
     private static final IAuthServices apiAuthServices = HttpClient.getInstance().getAuthServices();
-    private static final IOrderServices apiOrderServices = HttpClient.getInstance().getOrderServices();
-
 
     /**
      * This repository store the current user connected. This enable different activity to share
