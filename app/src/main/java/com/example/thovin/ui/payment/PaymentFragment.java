@@ -127,12 +127,16 @@ public class PaymentFragment extends Fragment {
                 Utility.toggleSpinner(getActivity(), isLoading));
 
         orderViewModel.getErr().observe(getViewLifecycleOwner(), err -> {
-            if (err.resCode == -1)
-                Utility.getErrorSnackbar(context, rootView, getString(R.string.err_occurred),
-                        Snackbar.LENGTH_SHORT).show();
-            else
-                Utility.getErrorSnackbar(context, rootView, err.message,
-                        Snackbar.LENGTH_SHORT).show();
+            if (err != null) {
+                if (err.resCode == -1)
+                    Utility.getErrorSnackbar(context, rootView, getString(R.string.err_occurred),
+                            Snackbar.LENGTH_SHORT).show();
+                else
+                    Utility.getErrorSnackbar(context, rootView, err.message,
+                            Snackbar.LENGTH_SHORT).show();
+
+                orderViewModel.setErr(null);
+            }
         });
 
         cartViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading ->

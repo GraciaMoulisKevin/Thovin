@@ -6,12 +6,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.thovin.Utility;
+import com.example.thovin.models.ErrorModel;
 import com.example.thovin.models.MenuModel;
 import com.example.thovin.models.ProductModel;
 import com.example.thovin.models.UserModel;
 import com.example.thovin.services.HttpClient;
 import com.example.thovin.services.IRestaurantServices;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -46,6 +48,12 @@ public class RestaurantViewModel extends ViewModel {
      * A boolean to inspect loading progression
      */
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
+
+    /**
+     * Handle error response.
+     */
+    private MutableLiveData<ErrorModel> err = new MutableLiveData<>();
+
 
     private int state = -1;
 
@@ -98,6 +106,14 @@ public class RestaurantViewModel extends ViewModel {
         this.isLoading.setValue(isLoading);
     }
 
+    public MutableLiveData<ErrorModel> getErr() {
+        return err;
+    }
+
+    public void setErr(ErrorModel err) {
+        this.err.setValue(err);
+    }
+
     public int getState() {
         return state;
     }
@@ -125,6 +141,11 @@ public class RestaurantViewModel extends ViewModel {
                 else {
                     setState(Utility.STATE_ERROR);
                     setRestaurants(null);
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 setIsLoading(false);
@@ -132,6 +153,7 @@ public class RestaurantViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ArrayList<UserModel>> call, Throwable t) {
+                setErr(new ErrorModel(-1));
                 setState(Utility.STATE_FAILURE);
                 setRestaurants(null);
                 setIsLoading(false);
@@ -151,11 +173,21 @@ public class RestaurantViewModel extends ViewModel {
             public void onResponse(Call<ArrayList<MenuModel>> call, Response<ArrayList<MenuModel>> response) {
 
                 if (response.isSuccessful()) setCurrentRestaurantMenus(response.body());
+                else {
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
                 setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<ArrayList<MenuModel>> call, Throwable t) {
+                setErr(new ErrorModel(-1));
                 setCurrentRestaurantMenus(null);
                 setIsLoading(false);
             }
@@ -174,11 +206,19 @@ public class RestaurantViewModel extends ViewModel {
             public void onResponse(Call<ArrayList<ProductModel>> call, Response<ArrayList<ProductModel>> response) {
 
                 if (response.isSuccessful()) setCurrentRestaurantProducts(response.body());
+                else {
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<ArrayList<ProductModel>> call, Throwable t) {
+                setErr(new ErrorModel(-1));
                 setCurrentRestaurantProducts(null);
                 setIsLoading(false);
             }
@@ -202,12 +242,20 @@ public class RestaurantViewModel extends ViewModel {
                     setState(Utility.STATE_SUCCESS);
                     setCurrentRestaurantProducts(response.body());
                 }
-                else setState(Utility.STATE_ERROR);
+                else {
+                    setState(Utility.STATE_ERROR);
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<ArrayList<ProductModel>> call, Throwable t) {
+                setErr(new ErrorModel(-1));
                 setState(Utility.STATE_FAILURE);
                 setIsLoading(false);
             }
@@ -231,12 +279,21 @@ public class RestaurantViewModel extends ViewModel {
                     setState(Utility.STATE_SUCCESS);
                     setCurrentRestaurantProducts(response.body());
                 }
-                else setState(Utility.STATE_ERROR);
+                else {
+                    setState(Utility.STATE_ERROR);
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<ArrayList<ProductModel>> call, Throwable t) {
+                setErr(new ErrorModel(-1));
                 setState(Utility.STATE_FAILURE);
                 setIsLoading(false);
             }
