@@ -32,13 +32,12 @@ public class HistoricFragment extends Fragment implements RecycleViewOnClickList
     private OrderViewModel orderViewModel;
 
     private ArrayList<OrderResult> historic;
+    private ArrayList<OrderResult> pendingList;
 
     private RecyclerView orders;
+    private RecyclerView pending;
 
     private TextView noPendingOrderText;
-    private MaterialCardView currentOrderCardView;
-    private TextView currentStatus;
-    private TextView currentPrice;
 
     public HistoricFragment() {
     }
@@ -77,16 +76,17 @@ public class HistoricFragment extends Fragment implements RecycleViewOnClickList
         if (orderViewModel.getCurrentOrder().getValue() == null) showAnyPendingOrderText(true);
         orderViewModel.getCurrentOrder().observe(getViewLifecycleOwner(), currentOrder -> {
             showAnyPendingOrderText(false);
-            currentStatus.setText("Status: "+currentOrder.status);
-            currentPrice.setText("66.66");
+            pendingList = new ArrayList<>();
+            if (currentOrder != null) {
+                pendingList.add(currentOrder);
+                if (pendingList.size() > 0) setPendingRecyclerView();
+            }
         });
     }
 
     public void configureViews() {
         noPendingOrderText = rootView.findViewById(R.id.no_pending_order);
-        currentOrderCardView = rootView.findViewById(R.id.current_order);
-        currentStatus = rootView.findViewById(R.id.pending_order_status);
-        currentPrice = rootView.findViewById(R.id.pending_order_price);
+        pending = rootView.findViewById(R.id.current_order);
         orders = rootView.findViewById(R.id.order_history);
     }
 
@@ -97,13 +97,19 @@ public class HistoricFragment extends Fragment implements RecycleViewOnClickList
         orders.setAdapter(orderAdapter);
     }
 
+    public void setPendingRecyclerView() {
+        pending.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        OrderAdapter orderAdapter = new OrderAdapter(context, pendingList, this);
+        pending.setAdapter(orderAdapter);
+    }
+
     public void showAnyPendingOrderText(boolean state) {
         if (state) {
-            currentOrderCardView.setVisibility(View.GONE);
+            pending.setVisibility(View.GONE);
             noPendingOrderText.setVisibility(View.VISIBLE);
         }
         else {
-            currentOrderCardView.setVisibility(View.VISIBLE);
+            pending.setVisibility(View.VISIBLE);
             noPendingOrderText.setVisibility(View.GONE);
         }
     }

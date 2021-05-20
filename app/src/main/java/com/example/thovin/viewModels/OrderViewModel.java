@@ -136,6 +136,7 @@ public class OrderViewModel extends ViewModel {
 
                 } else {
                     setHistoric(null);
+
                     try {
                         setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
                     } catch (IOException e) {

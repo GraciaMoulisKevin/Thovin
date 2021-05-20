@@ -64,6 +64,11 @@ public class RestaurantViewModel extends ViewModel {
         return restaurants;
     }
 
+    public MutableLiveData<ArrayList<UserModel>> getRestaurants(String categorie) {
+        if (restaurants == null) restaurants = new MutableLiveData<>();
+        return restaurants;
+    }
+
     public void setRestaurants(ArrayList<UserModel> value) {
         restaurants.setValue(value);
     }
@@ -127,10 +132,10 @@ public class RestaurantViewModel extends ViewModel {
      * Load all the restaurants available from the database
      * @param token The user authorization token
      */
-    public void loadRestaurant(String token) {
+    public void loadRestaurant(String token, String category) {
         setIsLoading(true);
 
-        apiRestaurantServices.getRestaurants("Bearer " + token).enqueue(new Callback<ArrayList<UserModel>>() {
+        apiRestaurantServices.getRestaurants("Bearer " + token, category).enqueue(new Callback<ArrayList<UserModel>>() {
             @Override
             public void onResponse(Call<ArrayList<UserModel>> call, Response<ArrayList<UserModel>> response) {
 
