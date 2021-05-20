@@ -8,9 +8,12 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +41,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialCardView container;
-        private TextView clientname;
+        private LinearLayout content;
+        private ConstraintLayout historic;
+        private TextView clientName;
         private TextView adresse;
         private TextView restaurantName;
         private TextView menus1;
@@ -48,9 +53,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             container = itemView.findViewById(R.id.adapter_history_container);
-            clientname = itemView.findViewById(R.id.Clientname);
+            content = itemView.findViewById(R.id.content);
+            clientName = itemView.findViewById(R.id.client_name);
             adresse = itemView.findViewById(R.id.adresse);
-            restaurantName = itemView.findViewById(R.id.RestaurantName);
+            restaurantName = itemView.findViewById(R.id.restaurant_name);
             menus1 = itemView.findViewById(R.id.Menus1);
             menus2 = itemView.findViewById(R.id.Menus2);
             adresseAdd = itemView.findViewById(R.id.adresse_add);
@@ -74,7 +80,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         OrderResult order = orders.get(position);
 
         setColor(holder, order);
-        holder.clientname.setText(order.getClient().getFullName());
+        holder.clientName.setText(order.getClient().getFullName());
         holder.adresse.setText(order.getClient().getAddress().getStreet());
         holder.adresseAdd.setText(order.getClient().getAddress().getAdditional());
         holder.restaurantName.setText(order.getRestaurant().getRestaurantName());
@@ -96,7 +102,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     private void setTextViewDrawableColor(@NonNull OrderViewHolder holder, int color) {
-        for (Drawable drawable : holder.clientname.getCompoundDrawablesRelative()) {
+        for (Drawable drawable : holder.clientName.getCompoundDrawablesRelative()) {
             if (drawable != null) {
                 drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
             }
@@ -126,6 +132,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             default:
                 setTextViewDrawableColor(holder, Color.WHITE);
         }
+    }
+
+    private boolean hide(String status) {
+        return status.equals("delivered") || status.equals("waiting_for_payment");
     }
 
     @Override
