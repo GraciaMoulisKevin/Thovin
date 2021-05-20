@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,6 +95,18 @@ public class DelivererHomeFragment extends Fragment implements RecycleViewOnClic
                 setRecyclerViewAdapter(result);
             }
         });
+
+        // Timer
+        final Handler handler = new Handler();
+        final int delay = 10000; // 1000 milliseconds == 1 second
+
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                handler.postDelayed(this, delay);
+                orderViewModel.getOrders(currentUser.token);
+                Utility.getWarningSnackbar(context, view, "Vive Android c fo", Snackbar.LENGTH_LONG).show();
+            }
+        }, delay);
     }
 
     /**
