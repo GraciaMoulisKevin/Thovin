@@ -28,6 +28,7 @@ import com.example.thovin.models.UserModel;
 import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.example.thovin.viewModels.UserViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -102,6 +103,15 @@ public class MenuDetailsFragment extends Fragment implements RecycleViewOnClickL
         else currentMenu = restaurantViewModel.getCurrentRestaurantMenus().getValue().get(menuPosition);
 
         cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
+
+        cartViewModel.getErr().observe(getViewLifecycleOwner(), err -> {
+            if (err.resCode == -1)
+                Utility.getErrorSnackbar(context, rootView, getString(R.string.err_occurred),
+                        Snackbar.LENGTH_SHORT).show();
+            else
+                Utility.getErrorSnackbar(context, rootView, err.message,
+                        Snackbar.LENGTH_SHORT).show();
+        });
     }
 
 

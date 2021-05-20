@@ -6,12 +6,16 @@ import android.view.View;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.thovin.Utility;
 import com.example.thovin.models.AddItemRequest;
+import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.CartModel;
+import com.example.thovin.models.ErrorModel;
 import com.example.thovin.models.MenuModel;
 import com.example.thovin.services.HttpClient;
 import com.example.thovin.services.ICartServices;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -22,14 +26,19 @@ public class CartViewModel extends ViewModel {
     private static final ICartServices apiCartServices = HttpClient.getInstance().getCartServices();
 
     /**
-     * Current user cart
+     * Current user cart.
      */
-    private MutableLiveData<CartModel> currentCart = new MutableLiveData<>();
+    private MutableLiveData<CartModel> currentCart;
 
     /**
-     * A boolean to inspect loading progression
+     * A boolean to inspect loading progression.
      */
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
+
+    /**
+     * Handle error response.
+     */
+    private MutableLiveData<ErrorModel> err = new MutableLiveData<>();
 
 
     // ---------------------------------------------------------------------------------------------
@@ -40,6 +49,7 @@ public class CartViewModel extends ViewModel {
     }
 
     public void setCurrentCart(CartModel value) {
+        if (currentCart == null) currentCart = new MutableLiveData<>();
         this.currentCart.setValue(value);
     }
 
@@ -51,10 +61,20 @@ public class CartViewModel extends ViewModel {
     public void setIsLoading(Boolean isLoading) {
         this.isLoading.setValue(isLoading);
     }
+
+    public MutableLiveData<ErrorModel> getErr() {
+        return err;
+    }
+
+    public void setErr(ErrorModel err) {
+        this.err.setValue(err);
+    }
+
     // ---------------------------------------------------------------------------------------------
 
     /**
      * Initialize user cart
+     *
      * @param token the user authorization token
      */
     public void initCart(String token) {
@@ -77,8 +97,9 @@ public class CartViewModel extends ViewModel {
 
     /**
      * Add new item in the cart
-     * @param token the user authorization token
-     * @param menuId the menu id to add
+     *
+     * @param token        the user authorization token
+     * @param menuId       the menu id to add
      * @param restaurantId the restaurant id providing the menu
      */
     public void addItem(String token, String menuId, String restaurantId) {
@@ -92,12 +113,20 @@ public class CartViewModel extends ViewModel {
 
                 if (response.isSuccessful()) {
                     setCurrentCart(response.body());
+                } else {
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
                 setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<CartModel> call, Throwable t) {
+                setErr(new ErrorModel(-1));
                 setIsLoading(false);
             }
         });
@@ -105,6 +134,7 @@ public class CartViewModel extends ViewModel {
 
     /**
      * Empty the cart
+     *
      * @param token the user authorization token
      */
     public void deleteCart(String token) {
@@ -115,11 +145,19 @@ public class CartViewModel extends ViewModel {
             public void onResponse(Call<Void> call, Response<Void> response) {
 
                 if (response.isSuccessful()) setCurrentCart(null);
+                else {
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                setErr(new ErrorModel(-1));
                 setIsLoading(false);
             }
         });
