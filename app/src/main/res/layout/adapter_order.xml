@@ -134,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Menus"
+                android:layout_gravity="end"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         </LinearLayout>

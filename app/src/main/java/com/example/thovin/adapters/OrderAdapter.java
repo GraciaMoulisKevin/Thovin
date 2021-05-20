@@ -121,22 +121,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private void setColor(@NonNull OrderViewHolder holder, OrderResult order) {
         switch (order.getStatus()) {
             case "waiting_for_payment":
-                setTextViewDrawableColor(holder, Color.RED);
+                setTextViewDrawableColor(holder, context.getColor(R.color.red_700));
                 break;
             case "pending":
-                setTextViewDrawableColor(holder, Color.YELLOW);
+                setTextViewDrawableColor(holder, context.getColor(R.color.main_yellow));
                 break;
             case "ready":
-                setTextViewDrawableColor(holder, Color.rgb(39, 174, 96));
+                setTextViewDrawableColor(holder, context.getColor(R.color.main_yellow));
                 break;
             case "accepted":
-                setTextViewDrawableColor(holder, Color.rgb(34, 153, 84));
+                setTextViewDrawableColor(holder, context.getColor(R.color.main_yellow));
                 break;
             case "delivering":
-                setTextViewDrawableColor(holder, Color.rgb(25, 111, 61));
+                setTextViewDrawableColor(holder, context.getColor(R.color.main_yellow));
                 break;
             case "delivered":
-                setTextViewDrawableColor(holder, Color.rgb(20, 90, 50));
+                setTextViewDrawableColor(holder, context.getColor(R.color.main_green));
                 break;
             default:
                 setTextViewDrawableColor(holder, Color.WHITE);
