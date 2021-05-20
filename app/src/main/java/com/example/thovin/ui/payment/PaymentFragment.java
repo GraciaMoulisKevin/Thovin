@@ -89,7 +89,7 @@ public class PaymentFragment extends Fragment {
 
 
         orderViewModel.getIsPaymentSuccess().observe(getViewLifecycleOwner(), isOk -> {
-            if (isOk != null) {
+            if (isOk) {
                 Utility.getSuccessSnackbar(context, view,
                         getString(R.string.command_success), Snackbar.LENGTH_SHORT).show();
                 cartViewModel.deleteCart(user.token);
@@ -125,6 +125,19 @@ public class PaymentFragment extends Fragment {
         // --- Loading spinner
         orderViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading ->
                 Utility.toggleSpinner(getActivity(), isLoading));
+
+        orderViewModel.getErr().observe(getViewLifecycleOwner(), err -> {
+            if (err != null) {
+                if (err.resCode == -1)
+                    Utility.getErrorSnackbar(context, rootView, getString(R.string.err_occurred),
+                            Snackbar.LENGTH_SHORT).show();
+                else
+                    Utility.getErrorSnackbar(context, rootView, err.message,
+                            Snackbar.LENGTH_SHORT).show();
+
+                orderViewModel.setErr(null);
+            }
+        });
 
         cartViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading ->
                 Utility.toggleSpinner(getActivity(), isLoading));

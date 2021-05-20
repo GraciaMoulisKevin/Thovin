@@ -5,7 +5,9 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.thovin.Utility;
 import com.example.thovin.models.AuthResult;
+import com.example.thovin.models.ErrorModel;
 import com.example.thovin.models.OrderRequest;
 import com.example.thovin.models.OrderResult;
 import com.example.thovin.models.ProductModel;
@@ -48,6 +50,11 @@ public class OrderViewModel extends ViewModel {
      * A boolean to inspect loading progression
      */
     private MutableLiveData<Boolean> isPaymentSuccess;
+
+    /**
+     * Handle error response.
+     */
+    private MutableLiveData<ErrorModel> err = new MutableLiveData<>();
 
     // ---------------------------------------------------------------------------------------------
     // --- GETTER && SETTERS
@@ -94,6 +101,14 @@ public class OrderViewModel extends ViewModel {
     public void dumpIsPaymentSuccess() {
         isPaymentSuccess = null;
     }
+
+    public MutableLiveData<ErrorModel> getErr() {
+        return err;
+    }
+
+    public void setErr(ErrorModel err) {
+        this.err.setValue(err);
+    }
     // ---------------------------------------------------------------------------------------------
 
 
@@ -121,6 +136,12 @@ public class OrderViewModel extends ViewModel {
 
                 } else {
                     setHistoric(null);
+
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 setIsLoading(false);
@@ -128,6 +149,7 @@ public class OrderViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ArrayList<OrderResult>> call, Throwable t) {
+                setErr(new ErrorModel(-1));
                 setHistoric(null);
                 setIsLoading(false);
             }
@@ -151,14 +173,20 @@ public class OrderViewModel extends ViewModel {
                     setCurrentOrder(response.body());
                     setIsPaymentSuccess(true);
                 }
-                else setIsPaymentSuccess(false);
+                else {
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 setIsLoading(false);
             }
 
             @Override
             public void onFailure(Call<OrderResult> call, Throwable t) {
-                setIsPaymentSuccess(false);
+                setErr(new ErrorModel(-1));
                 setIsLoading(false);
             }
 

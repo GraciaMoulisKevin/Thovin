@@ -26,6 +26,7 @@ import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.MenuModel;
 import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.UserViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -73,8 +74,7 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
             if (currentCart != null && currentCart.getMenus() != null) {
                 setProductsRecyclerView(currentCart.getMenus());
                 goToPaymentBtn.setText(currentCart.getPrice());
-            }
-            else toggleDisplay();
+            } else toggleDisplay();
         });
 
         goToPaymentBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_nav_cart_to_nav_payment));
@@ -104,6 +104,19 @@ public class CartFragment extends Fragment implements RecycleViewOnClickListener
 
         cartViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading ->
                 Utility.toggleSpinner(getActivity(), isLoading));
+
+        cartViewModel.getErr().observe(getViewLifecycleOwner(), err -> {
+            if (err != null) {
+                if (err.resCode == -1)
+                    Utility.getErrorSnackbar(context, rootView, getString(R.string.err_occurred),
+                            Snackbar.LENGTH_SHORT).show();
+                else
+                    Utility.getErrorSnackbar(context, rootView, err.message,
+                            Snackbar.LENGTH_SHORT).show();
+
+                cartViewModel.setErr(null);
+            }
+        });
     }
 
     /**

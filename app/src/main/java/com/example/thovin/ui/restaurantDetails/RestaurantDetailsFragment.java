@@ -102,6 +102,19 @@ public class RestaurantDetailsFragment extends Fragment implements RecycleViewOn
 
         restaurantViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading ->
                 Utility.toggleSpinner(getActivity(), isLoading));
+
+        restaurantViewModel.getErr().observe(getViewLifecycleOwner(), err -> {
+            if (err != null) {
+                if (err.resCode == -1)
+                    Utility.getErrorSnackbar(context, rootView, getString(R.string.err_occurred),
+                            Snackbar.LENGTH_SHORT).show();
+                else
+                    Utility.getErrorSnackbar(context, rootView, err.message,
+                            Snackbar.LENGTH_SHORT).show();
+
+                restaurantViewModel.setErr(null);
+            }
+        });
     }
 
     public void setMenusRecyclerView(ArrayList<MenuModel> menus) {
