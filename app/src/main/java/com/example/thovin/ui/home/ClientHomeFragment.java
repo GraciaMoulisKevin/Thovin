@@ -207,8 +207,29 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
     }
 
     private void update(String type) {
-        ArrayList<UserModel> rest = new ArrayList<UserModel>();
         restaurantViewModel.loadRestaurant(currentUser.token,type);
-        setRecyclerViewAdapter(rest);
+        ArrayList<UserModel> filteredRestaurants = filterRestaurant(type);
+        Log.i("DEBUG XXIXIXIXI"," "+filteredRestaurants);
+        setRecyclerViewAdapter(filteredRestaurants);
+    }
+
+    private ArrayList<UserModel> filterRestaurant(String type) {
+        ArrayList<UserModel> res = new ArrayList<UserModel>();
+        for (UserModel restaurant : restaurants) {
+            if(restaurant.getMenus() != null) {
+                for (MenuModel menu : restaurant.getMenus()) {
+                    if (menu.getCategory().equals(type)) {
+                        // SHOW TYPE
+                        res.add(restaurant);
+                    } else if (type.equals("")) {
+                        // SHOW ALL
+                        res.add(restaurant);
+                    } else {
+                        // HIDE
+                    }
+                }
+            }
+        }
+        return res;
     }
 }

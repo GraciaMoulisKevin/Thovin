@@ -28,8 +28,8 @@ public class UserModel {
     @SerializedName("products")
     public ArrayList<String> productsId;
     public ArrayList<ProductModel> productsModels;
-    @SerializedName("menus")
     public ArrayList<String> menusId;
+    @SerializedName("menus")
     public ArrayList<MenuModel> menusModels;
 
 
