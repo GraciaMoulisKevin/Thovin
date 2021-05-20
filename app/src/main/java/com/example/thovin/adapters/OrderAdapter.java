@@ -41,25 +41,28 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialCardView container;
-        private LinearLayout content;
-        private ConstraintLayout historic;
+        private TextView status;
         private TextView clientName;
-        private TextView adresse;
+        private TextView clientPhone;
+        private TextView clientAdresse;
         private TextView restaurantName;
+        private TextView restaurantPhone;
+        private TextView restaurantAddress;
         private TextView menus1;
         private TextView menus2;
-        private TextView adresseAdd;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             container = itemView.findViewById(R.id.adapter_history_container);
-            content = itemView.findViewById(R.id.content);
-            clientName = itemView.findViewById(R.id.client_name);
-            adresse = itemView.findViewById(R.id.adresse);
+            status = itemView.findViewById(R.id.order_status);
+            clientName = itemView.findViewById(R.id.client_full_name);
+            clientPhone = itemView.findViewById(R.id.client_phone);
+            clientAdresse = itemView.findViewById(R.id.client_address);
             restaurantName = itemView.findViewById(R.id.restaurant_name);
-            menus1 = itemView.findViewById(R.id.Menus1);
-            menus2 = itemView.findViewById(R.id.Menus2);
-            adresseAdd = itemView.findViewById(R.id.adresse_add);
+            restaurantPhone = itemView.findViewById(R.id.restaurant_phone);
+            restaurantAddress = itemView.findViewById(R.id.restaurant_address);
+            menus1 = itemView.findViewById(R.id.menus1);
+            menus2 = itemView.findViewById(R.id.menus2);
 
             container.setOnClickListener(v ->
                     recycleViewOnClickListener.onItemClick(getAdapterPosition(),
@@ -80,10 +83,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         OrderResult order = orders.get(position);
 
         setColor(holder, order);
+        holder.status.setText(order.getStatus());
+
         holder.clientName.setText(order.getClient().getFullName());
-        holder.adresse.setText(order.getClient().getAddress().getStreet());
-        holder.adresseAdd.setText(order.getClient().getAddress().getAdditional());
+        holder.clientPhone.setText(order.getClient().getPhone());
+        holder.clientAdresse.setText(order.getClient().getAddress().getStreet());
+
         holder.restaurantName.setText(order.getRestaurant().getRestaurantName());
+        holder.restaurantPhone.setText(order.getRestaurant().getPhone());
+        holder.restaurantAddress.setText(order.getRestaurant().getFullAddress());
+
         LinkedList<String> tmp = displayMenu(order.getMenus());
         holder.menus1.setText(tmp.get(0));
         holder.menus2.setText(tmp.get(1));
@@ -102,7 +111,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     private void setTextViewDrawableColor(@NonNull OrderViewHolder holder, int color) {
-        for (Drawable drawable : holder.clientName.getCompoundDrawablesRelative()) {
+        for (Drawable drawable : holder.status.getCompoundDrawablesRelative()) {
             if (drawable != null) {
                 drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
             }
