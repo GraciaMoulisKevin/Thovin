@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +27,7 @@ import com.example.thovin.Utility;
 import com.example.thovin.adapters.RestaurantAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
+import com.example.thovin.models.MenuModel;
 import com.example.thovin.models.UserModel;
 import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.OrderViewModel;
@@ -55,6 +58,8 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
     // --- Order view model
     private OrderViewModel orderViewModel;
 
+    private TextInputLayout typeSpinner;
+
     private TextView noRestaurantAvailable;
     private Boolean firstStart = true;
     private RecyclerView recyclerView;
@@ -80,6 +85,7 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
         noRestaurantAvailable = rootView.findViewById(R.id.no_restaurant_available);
         configureViewModels();
         configureRecyclerView();
+        configureTypeDropdownMenu();
 
         currentUser = userViewModel.getCurrentUser().getValue();
         if (currentUser == null) startActivity(Utility.getLogoutIntent(context));
@@ -92,7 +98,7 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
                         + " " + currentUser.getUser().getFullName(), Snackbar.LENGTH_SHORT).show();
 
                 // --- Load restaurants
-                restaurantViewModel.loadRestaurant(currentUser.token);
+                restaurantViewModel.loadRestaurant(currentUser.token,null);
 
                 // --- Init user cart
                 cartViewModel.initCart(currentUser.token);
@@ -114,7 +120,7 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
                 } else {
                     noRestaurantAvailable.setVisibility(View.GONE);
                     restaurants = result;
-                    setRecyclerViewAdapter();
+                    setRecyclerViewAdapter(restaurants);
                 }
             } else if (state == Utility.STATE_ERROR) {
                 noRestaurantAvailable.setVisibility(View.VISIBLE);
@@ -145,15 +151,18 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
     public void configureRecyclerView() {
         recyclerView = rootView.findViewById(R.id.restaurant_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        setRecyclerViewAdapter();
+        setRecyclerViewAdapter(restaurants);
     }
 
     /**
      * Set the RecyclerView Adapter with the list of restaurants
      */
-    public void setRecyclerViewAdapter() {
-        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(context, restaurants, this);
-        recyclerView.setAdapter(restaurantAdapter);
+    public void setRecyclerViewAdapter(ArrayList<UserModel> restaurants) {
+        if (restaurants != null && restaurants.size() > 0) {
+            recyclerView.setVisibility(View.VISIBLE);
+            RestaurantAdapter restaurantAdapter = new RestaurantAdapter(context, restaurants, this);
+            recyclerView.setAdapter(restaurantAdapter);
+        } else recyclerView.setVisibility(View.GONE);
     }
 
     // --- Recycler View onClick methods
@@ -164,70 +173,42 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
         restaurantViewModel.setCurrentRestaurant(restaurants.get(position));
         Navigation.findNavController(rootView).navigate(R.id.action_nav_home_to_nav_restaurant_details);
     }
+
+    /**
+     * Configure the type spinner (Material spinner)
+     */
+    private void configureTypeDropdownMenu() {
+        List<String> types = Utility.PRODUCT_TYPE_TRANSLATE;
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.material_dropdown_items, types);
+
+        TextInputLayout typeSpinner = rootView.findViewById(R.id.type_spinner);
+        AutoCompleteTextView spinner = (AutoCompleteTextView) typeSpinner.getEditText();
+        spinner.setAdapter(adapter);
+
+        spinner.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String type = Utility.getProductType(s.toString());
+                Snackbar.make(rootView, type, Snackbar.LENGTH_SHORT).show();
+                update(type);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void update(String type) {
+        ArrayList<UserModel> rest = new ArrayList<UserModel>();
+        restaurantViewModel.loadRestaurant(currentUser.token,type);
+        setRecyclerViewAdapter(rest);
+    }
 }
-
-
-// --- ARCHIVE
-//    /**
-//     * Configure the type spinner (old fashion spinner)
-//     */
-//    private void configureTypeDropdownMenu() {
-//        List<String> categories = Utility.PRODUCT_TYPE_TRANSLATE;
-//
-//        Spinner categorySpinner = rootView.findViewById(R.id.type_spinner);
-//
-//        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(context, R.layout.material_dropdown_items, categories);
-//        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//        categorySpinner.setAdapter(categoryAdapter);
-//
-//        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if (position > 0) {
-//                    String item = parent.getItemAtPosition(position).toString();
-//                    Snackbar.make(rootView, "Selected: " + item, Snackbar.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-//    }
-//
-//    /**
-//     * Configure the type spinner (Material spinner)
-//     */
-//    private void configureTypeDropdownMenu() {
-//        // Mock category until API not complete
-//        List<String> types = Utility.PRODUCT_TYPE_TRANSLATE;
-//
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.material_dropdown_items, types);
-//
-//        TextInputLayout typeSpinner = rootView.findViewById(R.id.type_spinner);
-//        AutoCompleteTextView spinner = (AutoCompleteTextView) typeSpinner.getEditText();
-//        spinner.setAdapter(adapter);
-//
-//        spinner.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                String type = Utility.getProductType(s.toString());
-//                Snackbar.make(rootView, type, Snackbar.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//    }
-
-
-

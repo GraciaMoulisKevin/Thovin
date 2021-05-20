@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Commande en cours"
-        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,46 +29,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/current_order" />
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/current_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pending_order_header">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/small_spacing"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/pending_order_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/status"/>
-
-            <TextView
-                android:id="@+id/item_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="list des items"/>
-
-            <TextView
-                android:id="@+id/pending_order_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/price"
-                app:drawableEndCompat="@drawable/ic_round_euro_24"
-                app:drawableTint="@color/black"
-                android:layout_gravity="end" />
-
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toBottomOf="@+id/pending_order_header" />
 
     <TextView
         android:id="@+id/historic_header"
