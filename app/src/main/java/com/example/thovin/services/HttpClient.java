@@ -89,8 +89,8 @@ public class HttpClient {
      */
     public void initHttpClient() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
-                .readTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS);
+                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS);
 
         if (DEBUG) okHttpBuilder.addInterceptor(getInterceptor()).build();
 
