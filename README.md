@@ -72,11 +72,12 @@ Voici la liste des potentielles que nous avons pus rencontrer et que vous êtes 
 
 <details>
 <summary> Résolutions possibles </summary>
+
 1. Accéder au fichier [build.gradle](https://github.com/GraciaMoulisKevin/Thovin/blob/main/build.gradle)
 
 Chemin du fichier: */build.gradle*
 
-1. Modifier la version de Gradle avec la version `4.1.3` ou `4.0.2`
+2. Modifier la version de Gradle avec la version `4.1.3` ou `4.0.2`
 
 ```java
     dependencies {
