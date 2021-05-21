@@ -126,15 +126,18 @@ public class OrderViewModel extends ViewModel {
 
                 if (response.isSuccessful()) {
                     ArrayList<OrderResult> orders = response.body();
+                    ArrayList<OrderResult> historic = new ArrayList<>();
                     ArrayList<OrderResult> pendingOrders = new ArrayList<>();
 
                     for (OrderResult order : orders) {
-                        if (order.status.equals("pending"))
+                        if (order.status.equals("delivered"))
+                            historic.add(order);
+                        else
                             pendingOrders.add(order);
                     }
 
                     setCurrentOrders(pendingOrders);
-                    setHistoric(orders);
+                    setHistoric(historic);
 
                 } else {
                     setHistoric(null);
