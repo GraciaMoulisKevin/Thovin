@@ -39,10 +39,8 @@ Pour initialiser et démarrer le serveur vous pouvez suivre les instructions fou
 Chemin du fichier: *app/src/main/java/com/example/thovin/services/HttpClient.java*
 
 ```java
-...
-    private static final String BASE_URL = "http://192.168.1.15:29321/v1/"; // personal device
-    // private static final String BASE_URL = "http://10.0.2.2:29321/v1/"; // emulator
-...
+private static final String BASE_URL = "http://192.168.1.15:29321/v1/"; // personal device
+// private static final String BASE_URL = "http://10.0.2.2:29321/v1/"; // emulator
 ```
 
 5. Modifier la ligne décommentez en y remplaçant l'IP présente par la votre (ici *192.168.1.15*). Pour trouver votre IP facilement voir [Comment trouver mon IP](#comment-trouver-mon-IP).
