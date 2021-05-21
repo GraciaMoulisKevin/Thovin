@@ -89,7 +89,8 @@ dependencies {
 
 ---
 
-#### 📛 Connection/Inscription impossible
+#### 📛 Connection/Inscription (téléphone personnel seulement).
+
 <details> 
 <summary> Détails de l'erreur </summary>
 
