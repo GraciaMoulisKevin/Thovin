@@ -2,22 +2,20 @@ package com.example.thovin.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class MenuModel {
     @SerializedName("_id")
-    public Object id;
+    public String id;
     public String name;
     public String description;
     @SerializedName("img_url")
     public String imgURL;
-    public ProductModel[] products;
+    public ArrayList<ProductResult> products;
     public String category;
 
-    public Object getId() {
+    public String getId() {
         return id;
-    }
-
-    public void setId(Object id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -44,11 +42,11 @@ public class MenuModel {
         this.imgURL = imgURL;
     }
 
-    public ProductModel[] getProducts() {
+    public ArrayList<ProductResult> getProducts() {
         return products;
     }
 
-    public void setProducts(ProductModel[] products) {
+    public void setProducts(ArrayList<ProductResult> products) {
         this.products = products;
     }
 

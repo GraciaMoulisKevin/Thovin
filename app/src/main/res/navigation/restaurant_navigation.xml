@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/restaurant_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.thovin.ui.home.RestaurantHomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_restaurant_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_account"
+            app:destination="@id/nav_account" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_parameters"
+            app:destination="@id/nav_parameters" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_menu_details"
+            app:destination="@id/nav_menu_details" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_product_editor"
+            app:destination="@id/nav_product_editor" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_account"
+        android:name="com.example.thovin.ui.account.AccountFragment"
+        android:label="@string/my_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/nav_parameters"
+        android:name="com.example.thovin.ui.parameters.RestaurantParametersFragment"
+        android:label="@string/parameters"
+        tools:layout="@layout/fragment_restaurant_parameters" />
+    <fragment
+        android:id="@+id/nav_menu_details"
+        android:name="com.example.thovin.ui.menuDetails.MenuDetailsFragment"
+        android:label="@string/menu"
+        tools:layout="@layout/fragment_menu_details" />
+    <fragment
+        android:id="@+id/nav_product_editor"
+        android:name="com.example.thovin.ui.productEditor.ProductEditorFragment"
+        android:label="@string/products_editor"
+        tools:layout="@layout/fragment_product_editor" />
+</navigation>

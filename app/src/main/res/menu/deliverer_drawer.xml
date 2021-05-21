@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/main_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_round_home_24"
+            android:title="@string/home"
+            android:checked="true" />
+
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_round_person_24"
+            android:title="@string/my_account" />
+
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_round_history_24"
+            android:title="@string/history"/>
+    </group>
+
+    <group android:id="@+id/options_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_parameters"
+            android:icon="@drawable/ic_round_settings_24"
+            android:title="@string/parameters" />
+    </group>
+
+</menu>

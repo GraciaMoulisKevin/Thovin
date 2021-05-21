@@ -1,28 +1,44 @@
 package com.example.thovin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Utility {
 
+    public final static int STATE_UNDEFINED = -1;
+    public final static int STATE_SUCCESS = 0;
+    public final static int STATE_ERROR = 1;
+    public final static int STATE_FAILURE = 2;
+
     public final static int TYPE_LOGIN = 0;
     public final static int TYPE_REGISTER = 1;
+
+    public final static Gson GSON = new Gson();
 
     // ----------------- TEXT INPUT -----------------
     // --- Error fields
     public static void setErrorOnField(Context context, TextInputLayout field, String errMessage) {
-        ColorStateList colorState = context.getColorStateList(R.color.dark_red);
+        ColorStateList colorState = context.getColorStateList(R.color.red_500);
 
         // --- Error
         field.setError(errMessage);
@@ -82,8 +98,160 @@ public class Utility {
     // --- Error Snackbars
     public static Snackbar getErrorSnackbar(Context context, View v, String message, int length) {
         Snackbar snackbar = Snackbar.make(v, message, length);
-        snackbar.setBackgroundTint(context.getColor(R.color.dark_red));
+        snackbar.setBackgroundTint(context.getColor(R.color.red_500));
         return snackbar;
+    }
+
+    // ----------------- PROGRESS SPINNER -----------------
+    public static void toggleSpinner(FragmentActivity activity, Boolean isLoading) {
+        RelativeLayout pSpinner = activity.findViewById(R.id.progress_spinner);
+        if (isLoading) pSpinner.setVisibility(View.VISIBLE);
+        else pSpinner.setVisibility(View.INVISIBLE);
+    }
+
+    // ----------------- AUTH TEXTLISTENER -----------------
+    public static void addTextChangedListener(Context context, ArrayList<TextInputLayout> t){
+        for (TextInputLayout field : t) {
+            field.getEditText().addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (s.length() == 0)
+                        setErrorOnField(context, field, context.getString(R.string.err_empty_field));
+                    else
+                        field.setError(null);
+                }
+            });
+        }
+    }
+
+    public static void addTextChangedListenerLogin(Context context, TextInputLayout t){
+        t.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0)
+                    setErrorOnField(context, t, context.getString(R.string.err_empty_field));
+                else if (s.length() < 8)
+                    setErrorOnField(context, t, context.getString(R.string.err_password_length));
+                else
+                    t.setError(null);
+            }
+        });
+    }
+
+    public static void addTextChangedListenerRegister(Context context, TextInputLayout t, TextInputLayout t_check){
+        t.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    setErrorOnField(context, t, context.getString(R.string.err_empty_field));
+                    if (t_check.getEditText().getText().toString().equals(s.toString()))
+                        t_check.setError(null);
+                    else
+                        setErrorOnField(context, t_check, context.getString(R.string.err_password_not_equals));
+                } else if (s.length() < 8) {
+                    setErrorOnField(context, t, context.getString(R.string.err_password_length));
+                    if (t_check.getEditText().getText().toString().equals(s.toString()))
+                        t_check.setError(null);
+                    else
+                        setErrorOnField(context, t_check, context.getString(R.string.err_password_not_equals));
+                } else {
+                    t.setError(null);
+                    if (t_check.getEditText().getText().toString().equals(s.toString()))
+                        t_check.setError(null);
+                    else
+                        setErrorOnField(context, t_check, context.getString(R.string.err_password_not_equals));
+                }
+            }
+        });
+
+        t_check.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0)
+                    setErrorOnField(context, t_check, context.getString(R.string.err_empty_field));
+                else if (!s.toString().equals(t.getEditText().getText().toString()))
+                    setErrorOnField(context, t_check, context.getString(R.string.err_password_not_equals));
+                else
+                    t_check.setError(null);
+            }
+        });
+    }
+
+    /**
+     * Get a new intent to open a specific home activity.
+     * This intent clear the top stack and all task, then set this intent as the new main task.
+     * @param context The application context
+     * @param activity The activity to start
+     * @param <T> Generic type for activity class
+     * @return The intent to start the activity
+     */
+    public static <T> Intent getHomeIntent(Context context, Class<T> activity) {
+        Intent intent = new Intent(context, activity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
+    }
+
+    /**
+     * Get a new intent for logout purpose.
+     * This intent clear the top stack and all task, then set this intent as the new main task.
+     * @param context The application context
+     * @return The intent to restart the app from the MainActivity.
+     */
+    public static Intent getLogoutIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("STATE", context.getString(R.string.warn_logout));
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
+    }
+
+    // ----------------- Product Types -----------------
+    public static ArrayList<String> PRODUCT_TYPE = new ArrayList<>();
+    public static ArrayList<String> PRODUCT_TYPE_TRANSLATE = new ArrayList<>();
+
+    /**
+     * Get the common name type (for database purpose)
+     * @param typeSelected The selected type
+     * @return The product name translate for the database
+     */
+    public static String getProductType(String typeSelected) {
+        int index = PRODUCT_TYPE_TRANSLATE.indexOf(typeSelected);
+        return (index != -1)? PRODUCT_TYPE.get(index) : typeSelected;
     }
 }
 
@@ -120,4 +288,4 @@ public class Utility {
 ////        Drawable icon = context.getDrawable(R.drawable.ic_baseline_check_circle_24).mutate();
 ////        icon.setColorFilter(context.getColor(R.color.main_green), PorterDuff.Mode.SRC_ATOP);
 ////        field.setEndIconDrawable(icon);
-////    }
+////    }   

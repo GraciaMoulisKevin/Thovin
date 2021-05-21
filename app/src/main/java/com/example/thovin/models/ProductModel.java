@@ -1,14 +1,30 @@
 package com.example.thovin.models;
 
+import com.example.thovin.R;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class ProductModel {
+    @SerializedName("_id")
+    public String id;
     public String name;
     public String description;
     @SerializedName("img_url")
     public String imgURL;
-    public ProductModel[] extras;
+    public ArrayList<ProductResult> extras;
     public String type;
+
+    public ProductModel(String name, String description, String type) {
+        this.name = name;
+        this.description = description;
+        this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -34,11 +50,11 @@ public class ProductModel {
         this.imgURL = imgURL;
     }
 
-    public ProductModel[] getExtras() {
+    public ArrayList<ProductResult> getExtras() {
         return extras;
     }
 
-    public void setExtras(ProductModel[] extras) {
+    public void setExtras(ArrayList<ProductResult> extras) {
         this.extras = extras;
     }
 

@@ -7,27 +7,31 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.thovin.R;
-import com.example.thovin.Utility;
-import com.example.thovin.ui.auth.UserViewModel;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.thovin.models.AddressModel;
+import com.example.thovin.models.UserModel;
+import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AccountFragment extends Fragment {
 
     private View rootView;
     private UserViewModel userViewModel;
 
-    private TextInputLayout lastName, firstName, email, street, additional, city, zip, phone;
-    private JSONObject jsonUserData;
+    private Button navToAccountEditor;
+    private TextInputLayout lastName, firstName, email, street, additional, city, zip, country, phone;
+    ArrayList<TextInputLayout> fields = new ArrayList<>();
+
+    private Boolean onEdition = false;
+
 
     public AccountFragment() {
     }
@@ -47,20 +51,17 @@ public class AccountFragment extends Fragment {
         configureTextInputLayout();
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        if (userViewModel.getCurrentUser().getValue() == null)
+            Navigation.findNavController(view).navigate(R.id.nav_home);
 
-        if (userViewModel.getUser().getValue() == null)
-            Navigation.findNavController(view).navigate(R.id.nav_auth);
+        else userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
+            if (user == null) {
+                // TODO: popBackStack in case of
+            } else loadData(user.getUser());
+        });
 
-        else
-            userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
-                Log.i("TEST OBSERVER 1", "APPEL ON OBSERVER 1");
-                Utility.getSuccessSnackbar(getContext(), view, "Welcome " + user.getUser().getFullName(), Snackbar.LENGTH_LONG).show();
-            });
-
-//        if (user == null) test_user.setText("disconnected");
-//        else user.getUser().observe(getViewLifecycleOwner(), val -> {
-//            lastName.getEditText().setText(val.getUser().getLastName());
-//        });
+        navToAccountEditor = rootView.findViewById(R.id.fg_accounter_edition_btn);
+        navToAccountEditor.setOnClickListener(v -> { toggleEditionMode(); });
     }
 
     private void configureTextInputLayout() {
@@ -71,29 +72,49 @@ public class AccountFragment extends Fragment {
         additional = rootView.findViewById(R.id.fg_account_additional);
         city = rootView.findViewById(R.id.fg_account_city);
         zip = rootView.findViewById(R.id.fg_account_zip);
+        country = rootView.findViewById(R.id.fg_account_country);
         phone = rootView.findViewById(R.id.fg_account_phone);
+
+        fields = new ArrayList<>(Arrays.asList(
+                lastName,
+                firstName,
+                email,
+                street,
+                additional,
+                city,
+                zip,
+                country,
+                phone));
     }
 
-    private void loadData() throws JSONException {
 
-        // Mock json object received from the API
-        jsonUserData = new JSONObject();
-        jsonUserData.put("name", "Weebosaurus");
-        jsonUserData.put("first_name", "Rex");
-        jsonUserData.put("mail", "toto@letrain.fr");
-        jsonUserData.put("address", "117 Avenue du jambon perdu");
-        jsonUserData.put("additional_address", "Sans sauce");
-        jsonUserData.put("city", "Issou");
-        jsonUserData.put("postal_code", "34000");
-        jsonUserData.put("phone", "0636303630");
+    private void loadData(UserModel user) {
+        lastName.getEditText().setText(user.getLastName());
+        firstName.getEditText().setText(user.getFirstName());
+        email.getEditText().setText(user.getEmail());
+        phone.getEditText().setText(user.getPhone());
 
-        lastName.getEditText().setText("Weebosaurus");
-        firstName.getEditText().setText("Rex");
-        email.getEditText().setText("toto@letrain.fr");
-        street.getEditText().setText("117 Avenue du jambon perdu");
-        additional.getEditText().setText("Sans sauce");
-        city.getEditText().setText("Issou");
-        zip.getEditText().setText("34000");
-        phone.getEditText().setText("0636303630");
+        AddressModel userAddress = user.getAddress();
+        street.getEditText().setText(userAddress.getStreet());
+        additional.getEditText().setText(userAddress.getAdditional());
+        city.getEditText().setText(userAddress.getCity());
+        zip.getEditText().setText(userAddress.getZip());
+        country.getEditText().setText(userAddress.getCountry());
+    }
+
+    private void toggleEditionMode() {
+        onEdition = !onEdition;
+
+        if (onEdition) {
+            for (TextInputLayout field : fields) {
+                field.setEnabled(true);
+                field.setEndIconMode(TextInputLayout.END_ICON_CLEAR_TEXT);
+            }
+        } else {
+            for (TextInputLayout field : fields) {
+                field.setEnabled(false);
+                field.setEndIconMode(TextInputLayout.END_ICON_NONE);
+            }
+        }
     }
 }
