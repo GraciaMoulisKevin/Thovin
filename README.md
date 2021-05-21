@@ -72,7 +72,7 @@ Voici la liste des potentielles que nous avons pus rencontrer et que vous êtes 
 
 <details>
 <summary> Résolutions possibles </summary>
-
+<br/>
 1. Accéder au fichier [build.gradle](https://github.com/GraciaMoulisKevin/Thovin/blob/main/build.gradle)
 
 Chemin du fichier: */build.gradle*
@@ -80,8 +80,8 @@ Chemin du fichier: */build.gradle*
 2. Modifier la version de Gradle avec la version `4.1.3` ou `4.0.2`
 
 ```java
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
+dependencies {
+    classpath 'com.android.tools.build:gradle:4.1.3'
 ``` 
 </details>
 
