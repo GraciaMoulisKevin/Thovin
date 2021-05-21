@@ -106,4 +106,5 @@ Lorsque que vous essayer de vous connecter ou de vous inscrire le message suivan
 1. Vérifier que votre téléphone est connecté en Wifi avec les données mobiles désactivées.
 2. Vérifier que l'adresse IP référencé dans [HttpClient.java](app/src/main/java/com/example/thovin/services/HttpClient.java) est bien celle de votre machine ou vous démarrer l'application.
 3. Vérifier que le serveur Node, [AP-EAT](https://github.com/Dorpaxio/AP-EAT), est bien en marche.
+4. Patientez quelque instants avant de refaire une requête, parfois cela fonctionnait après un certains temps.
 </details>
