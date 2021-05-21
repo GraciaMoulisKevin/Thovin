@@ -197,7 +197,7 @@ public class ClientHomeFragment extends Fragment implements RecycleViewOnClickLi
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String type = Utility.getProductType(s.toString());
-                Snackbar.make(rootView, type, Snackbar.LENGTH_SHORT).show();
+                if (s.length() > 0) Snackbar.make(rootView, type, Snackbar.LENGTH_SHORT).show();
                 update(type);
             }
 
