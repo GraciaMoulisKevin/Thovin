@@ -73,13 +73,12 @@ public class HistoricFragment extends Fragment implements RecycleViewOnClickList
             }
         });
 
-        if (orderViewModel.getCurrentOrder().getValue() == null) showAnyPendingOrderText(true);
-        orderViewModel.getCurrentOrder().observe(getViewLifecycleOwner(), currentOrder -> {
-            showAnyPendingOrderText(false);
-            pendingList = new ArrayList<>();
-            if (currentOrder != null) {
-                pendingList.add(currentOrder);
-                if (pendingList.size() > 0) setPendingRecyclerView();
+        if (orderViewModel.getCurrentOrders().getValue() == null) showAnyPendingOrderText(true);
+        orderViewModel.getCurrentOrders().observe(getViewLifecycleOwner(), currentOrders -> {
+            if (currentOrders != null) {
+                showAnyPendingOrderText(false);
+                pendingList = currentOrders;
+                setPendingRecyclerView();
             }
         });
     }

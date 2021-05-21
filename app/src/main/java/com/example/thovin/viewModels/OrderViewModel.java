@@ -34,7 +34,7 @@ public class OrderViewModel extends ViewModel {
     /**
      * The current user connected
      */
-    private MutableLiveData<OrderResult> currentOrder;
+    private MutableLiveData<ArrayList<OrderResult>> currentOrders;
 
     /**
      * The order historic
@@ -58,14 +58,14 @@ public class OrderViewModel extends ViewModel {
 
     // ---------------------------------------------------------------------------------------------
     // --- GETTER && SETTERS
-    public MutableLiveData<OrderResult> getCurrentOrder() {
-        if (currentOrder == null) currentOrder = new MutableLiveData<>();
-        return currentOrder;
+    public MutableLiveData<ArrayList<OrderResult>> getCurrentOrders() {
+        if (currentOrders == null) currentOrders = new MutableLiveData<>();
+        return currentOrders;
     }
 
-    public void setCurrentOrder(OrderResult order) {
-        if (currentOrder == null) currentOrder = new MutableLiveData<>();
-        currentOrder.setValue(order);
+    public void setCurrentOrders(ArrayList<OrderResult> order) {
+        if (currentOrders == null) currentOrders = new MutableLiveData<>();
+        currentOrders.setValue(order);
     }
 
 
@@ -126,12 +126,14 @@ public class OrderViewModel extends ViewModel {
 
                 if (response.isSuccessful()) {
                     ArrayList<OrderResult> orders = response.body();
+                    ArrayList<OrderResult> pendingOrders = new ArrayList<>();
 
-                    if (orders.size() > 0) {
-                        OrderResult lastOrder = orders.get(orders.size() - 1);
-                        if (lastOrder.status.equals("pending")) setCurrentOrder(lastOrder);
+                    for (OrderResult order : orders) {
+                        if (order.status.equals("pending"))
+                            pendingOrders.add(order);
                     }
 
+                    setCurrentOrders(pendingOrders);
                     setHistoric(orders);
 
                 } else {
@@ -170,7 +172,9 @@ public class OrderViewModel extends ViewModel {
             public void onResponse(Call<OrderResult> call, Response<OrderResult> response) {
 
                 if (response.isSuccessful()) {
-                    setCurrentOrder(response.body());
+                    ArrayList<OrderResult> orders = currentOrders.getValue();
+                    orders.add(response.body());
+                    setCurrentOrders(orders);
                     setIsPaymentSuccess(true);
                 }
                 else {
@@ -191,11 +195,5 @@ public class OrderViewModel extends ViewModel {
             }
 
         });
-    }
-
-    public float getTotalPrice(ArrayList<ProductResult> products) {
-        float total = 0;
-        for (ProductResult product : products) total += product.price;
-        return total;
     }
 }
