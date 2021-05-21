@@ -73,6 +73,7 @@ Voici la liste des potentielles que nous avons pus rencontrer et que vous êtes 
 <details>
 <summary> Résolutions possibles </summary>
 <br/>
+
 1. Accéder au fichier [build.gradle](https://github.com/GraciaMoulisKevin/Thovin/blob/main/build.gradle)
 
 Chemin du fichier: */build.gradle*
@@ -93,12 +94,14 @@ dependencies {
 
 <details> 
 <summary> Détails de l'erreur </summary>
+<br/>
 
 Lorsque que vous essayer de vous connecter ou de vous inscrire le message suivant apparaît: "Connexion impossible" dans une SnackBar jaune.
 </details>
 
 <details> 
 <summary> Résolutions possibles </summary>
+<br/>
 
 1. Vérifier que votre téléphone est connecté en Wifi avec les données mobiles désactivées.
 2. Vérifier que l'adresse IP référencé dans [HttpClient.java](app/src/main/java/com/example/thovin/services/HttpClient.java) est bien celle de votre machine ou vous démarrer l'application.
