@@ -1,21 +1,14 @@
 package com.example.thovin.viewModels;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.thovin.Utility;
-import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.ErrorModel;
 import com.example.thovin.models.OrderRequest;
 import com.example.thovin.models.OrderResult;
-import com.example.thovin.models.ProductModel;
-import com.example.thovin.models.ProductResult;
 import com.example.thovin.services.HttpClient;
-import com.example.thovin.services.IAuthServices;
 import com.example.thovin.services.IOrderServices;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -197,6 +190,45 @@ public class OrderViewModel extends ViewModel {
                 setIsLoading(false);
             }
 
+        });
+    }
+
+    /**
+     * Post a new order after user pay for it
+     *
+     * @param authorizationToken The user authorization token
+     * @param orderId            The order id
+     */
+    public void updateStatus(String authorizationToken, String orderId) {
+        setIsLoading(true);
+
+        apiOrderServices.updateStatus("Bearer " + authorizationToken, orderId).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+                if (response.isSuccessful()) {
+                    ArrayList<OrderResult> orders = currentOrders.getValue();
+                    if (response.body().equals("delivered")) orders.remove(orders.size() - 1);
+                    else orders.get(orders.size() - 1).status = response.body();
+
+                    setCurrentOrders(orders);
+                }
+                else {
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                setIsLoading(false);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                setErr(new ErrorModel(-1));
+                setIsLoading(false);
+            }
         });
     }
 }
