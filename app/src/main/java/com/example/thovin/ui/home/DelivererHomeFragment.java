@@ -7,11 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +21,10 @@ import android.widget.TextView;
 import com.example.thovin.R;
 import com.example.thovin.Utility;
 import com.example.thovin.adapters.OrderAdapter;
-import com.example.thovin.adapters.RestaurantAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.OrderResult;
-import com.example.thovin.models.UserModel;
-import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.OrderViewModel;
-import com.example.thovin.viewModels.RestaurantViewModel;
 import com.example.thovin.viewModels.UserViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -54,6 +51,7 @@ public class DelivererHomeFragment extends Fragment implements RecycleViewOnClic
 
     private Handler handler = new Handler();
     private Runnable runnable;
+    private Vibrator vibrator;
 
     public DelivererHomeFragment() {
     }
@@ -75,6 +73,7 @@ public class DelivererHomeFragment extends Fragment implements RecycleViewOnClic
 
         noOrdersAvailable = rootView.findViewById(R.id.no_pending_order);
         updateStatusBtn = rootView.findViewById(R.id.update_status_btn);
+        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         configureViewModels();
         configureRecyclerView();
 
@@ -101,6 +100,10 @@ public class DelivererHomeFragment extends Fragment implements RecycleViewOnClic
             } else {
                 currentOrders = result;
                 setRecyclerViewAdapter(result);
+
+                if (result.get(result.size() - 1).status.equals("pending")) {
+                    vibrator.vibrate(2000);
+                }
             }
         });
 
