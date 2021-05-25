@@ -20,7 +20,6 @@ import com.example.thovin.adapters.OrderAdapter;
 import com.example.thovin.interfaces.RecycleViewOnClickListener;
 import com.example.thovin.models.OrderResult;
 import com.example.thovin.viewModels.OrderViewModel;
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 
@@ -35,7 +34,7 @@ public class HistoricFragment extends Fragment implements RecycleViewOnClickList
     private ArrayList<OrderResult> pendingList;
 
     private RecyclerView orders;
-    private RecyclerView pending;
+    private RecyclerView pendingOrders;
 
     private TextView noPendingOrderText;
 
@@ -73,20 +72,19 @@ public class HistoricFragment extends Fragment implements RecycleViewOnClickList
             }
         });
 
-        if (orderViewModel.getCurrentOrder().getValue() == null) showAnyPendingOrderText(true);
-        orderViewModel.getCurrentOrder().observe(getViewLifecycleOwner(), currentOrder -> {
-            showAnyPendingOrderText(false);
-            pendingList = new ArrayList<>();
-            if (currentOrder != null) {
-                pendingList.add(currentOrder);
-                if (pendingList.size() > 0) setPendingRecyclerView();
+        if (orderViewModel.getCurrentOrders().getValue() == null) showAnyPendingOrderText(true);
+        orderViewModel.getCurrentOrders().observe(getViewLifecycleOwner(), currentOrders -> {
+            if (currentOrders != null) {
+                showAnyPendingOrderText(false);
+                pendingList = currentOrders;
+                setPendingRecyclerView();
             }
         });
     }
 
     public void configureViews() {
         noPendingOrderText = rootView.findViewById(R.id.no_pending_order);
-        pending = rootView.findViewById(R.id.current_order);
+        pendingOrders = rootView.findViewById(R.id.current_order);
         orders = rootView.findViewById(R.id.order_history);
     }
 
@@ -98,18 +96,18 @@ public class HistoricFragment extends Fragment implements RecycleViewOnClickList
     }
 
     public void setPendingRecyclerView() {
-        pending.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        pendingOrders.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         OrderAdapter orderAdapter = new OrderAdapter(context, pendingList, this);
-        pending.setAdapter(orderAdapter);
+        pendingOrders.setAdapter(orderAdapter);
     }
 
     public void showAnyPendingOrderText(boolean state) {
         if (state) {
-            pending.setVisibility(View.GONE);
+            pendingOrders.setVisibility(View.GONE);
             noPendingOrderText.setVisibility(View.VISIBLE);
         }
         else {
-            pending.setVisibility(View.VISIBLE);
+            pendingOrders.setVisibility(View.VISIBLE);
             noPendingOrderText.setVisibility(View.GONE);
         }
     }

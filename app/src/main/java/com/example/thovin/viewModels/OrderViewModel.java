@@ -1,21 +1,14 @@
 package com.example.thovin.viewModels;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.thovin.Utility;
-import com.example.thovin.models.AuthResult;
 import com.example.thovin.models.ErrorModel;
 import com.example.thovin.models.OrderRequest;
 import com.example.thovin.models.OrderResult;
-import com.example.thovin.models.ProductModel;
-import com.example.thovin.models.ProductResult;
 import com.example.thovin.services.HttpClient;
-import com.example.thovin.services.IAuthServices;
 import com.example.thovin.services.IOrderServices;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +27,7 @@ public class OrderViewModel extends ViewModel {
     /**
      * The current user connected
      */
-    private MutableLiveData<OrderResult> currentOrder;
+    private MutableLiveData<ArrayList<OrderResult>> currentOrders;
 
     /**
      * The order historic
@@ -58,14 +51,14 @@ public class OrderViewModel extends ViewModel {
 
     // ---------------------------------------------------------------------------------------------
     // --- GETTER && SETTERS
-    public MutableLiveData<OrderResult> getCurrentOrder() {
-        if (currentOrder == null) currentOrder = new MutableLiveData<>();
-        return currentOrder;
+    public MutableLiveData<ArrayList<OrderResult>> getCurrentOrders() {
+        if (currentOrders == null) currentOrders = new MutableLiveData<>();
+        return currentOrders;
     }
 
-    public void setCurrentOrder(OrderResult order) {
-        if (currentOrder == null) currentOrder = new MutableLiveData<>();
-        currentOrder.setValue(order);
+    public void setCurrentOrders(ArrayList<OrderResult> order) {
+        if (currentOrders == null) currentOrders = new MutableLiveData<>();
+        currentOrders.setValue(order);
     }
 
 
@@ -126,13 +119,18 @@ public class OrderViewModel extends ViewModel {
 
                 if (response.isSuccessful()) {
                     ArrayList<OrderResult> orders = response.body();
+                    ArrayList<OrderResult> historic = new ArrayList<>();
+                    ArrayList<OrderResult> pendingOrders = new ArrayList<>();
 
-                    if (orders.size() > 0) {
-                        OrderResult lastOrder = orders.get(orders.size() - 1);
-                        if (lastOrder.status.equals("pending")) setCurrentOrder(lastOrder);
+                    for (OrderResult order : orders) {
+                        if (order.status.equals("delivered"))
+                            historic.add(order);
+                        else
+                            pendingOrders.add(order);
                     }
 
-                    setHistoric(orders);
+                    setCurrentOrders(pendingOrders);
+                    setHistoric(historic);
 
                 } else {
                     setHistoric(null);
@@ -170,7 +168,9 @@ public class OrderViewModel extends ViewModel {
             public void onResponse(Call<OrderResult> call, Response<OrderResult> response) {
 
                 if (response.isSuccessful()) {
-                    setCurrentOrder(response.body());
+                    ArrayList<OrderResult> orders = currentOrders.getValue();
+                    orders.add(response.body());
+                    setCurrentOrders(orders);
                     setIsPaymentSuccess(true);
                 }
                 else {
@@ -193,9 +193,42 @@ public class OrderViewModel extends ViewModel {
         });
     }
 
-    public float getTotalPrice(ArrayList<ProductResult> products) {
-        float total = 0;
-        for (ProductResult product : products) total += product.price;
-        return total;
+    /**
+     * Post a new order after user pay for it
+     *
+     * @param authorizationToken The user authorization token
+     * @param orderId            The order id
+     */
+    public void updateStatus(String authorizationToken, String orderId) {
+        setIsLoading(true);
+
+        apiOrderServices.updateStatus("Bearer " + authorizationToken, orderId).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+                if (response.isSuccessful()) {
+                    ArrayList<OrderResult> orders = currentOrders.getValue();
+                    if (response.body().equals("delivered")) orders.remove(orders.size() - 1);
+                    else orders.get(orders.size() - 1).status = response.body();
+
+                    setCurrentOrders(orders);
+                }
+                else {
+                    try {
+                        setErr(Utility.GSON.fromJson(response.errorBody().string(), ErrorModel.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                setIsLoading(false);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                setErr(new ErrorModel(-1));
+                setIsLoading(false);
+            }
+        });
     }
 }

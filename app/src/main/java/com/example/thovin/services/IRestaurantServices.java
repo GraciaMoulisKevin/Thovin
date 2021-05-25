@@ -19,7 +19,7 @@ import retrofit2.http.Query;
 public interface IRestaurantServices {
     @GET("restaurants")
     Call<ArrayList<UserModel>> getRestaurants(@Header("Authorization") String token,
-                                              @Query("filter") String category);
+                                              @Query("category") String category);
 
     @GET("restaurants/{restaurant_id}/menus")
     Call<ArrayList<MenuModel>> getMenus(@Header("Authorization") String token,

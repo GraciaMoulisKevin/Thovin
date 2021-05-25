@@ -29,6 +29,7 @@ import com.example.thovin.viewModels.CartViewModel;
 import com.example.thovin.viewModels.OrderViewModel;
 import com.example.thovin.viewModels.RestaurantViewModel;
 import com.example.thovin.viewModels.UserViewModel;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -44,10 +45,15 @@ public class DelivererHomeFragment extends Fragment implements RecycleViewOnClic
 
     // --- Order view model
     private OrderViewModel orderViewModel;
+    private ArrayList<OrderResult> currentOrders;
 
+    private MaterialButton updateStatusBtn;
     private TextView noOrdersAvailable;
     private Boolean firstStart = true;
     private RecyclerView recyclerView;
+
+    private Handler handler = new Handler();
+    private Runnable runnable;
 
     public DelivererHomeFragment() {
     }
@@ -68,6 +74,7 @@ public class DelivererHomeFragment extends Fragment implements RecycleViewOnClic
         super.onViewCreated(view, savedInstanceState);
 
         noOrdersAvailable = rootView.findViewById(R.id.no_pending_order);
+        updateStatusBtn = rootView.findViewById(R.id.update_status_btn);
         configureViewModels();
         configureRecyclerView();
 
@@ -87,26 +94,26 @@ public class DelivererHomeFragment extends Fragment implements RecycleViewOnClic
         }
 
         // Observe orders list
-        orderViewModel.getHistoric().observe(getViewLifecycleOwner(), result -> {
+        orderViewModel.getCurrentOrders().observe(getViewLifecycleOwner(), result -> {
             if (result.size() == 0) {
                 Utility.getWarningSnackbar(context, view, getString(R.string.warn_no_pending_order), Snackbar.LENGTH_LONG).show();
                 noOrdersAvailable.setVisibility(View.VISIBLE);
             } else {
+                currentOrders = result;
                 setRecyclerViewAdapter(result);
             }
         });
 
-        // Timer
-        final Handler handler = new Handler();
-        final int delay = 10000; // 1000 milliseconds == 1 second
-
-        handler.postDelayed(new Runnable() {
+        // --- Check every 15seconds for a new delivery
+        int delay = 15000; // 1000 milliseconds == 1 second
+        handler.postDelayed(runnable = new Runnable() {
             public void run() {
                 handler.postDelayed(this, delay);
                 orderViewModel.getOrders(currentUser.token);
-                Utility.getWarningSnackbar(context, view, "Vive Android c fo", Snackbar.LENGTH_LONG).show();
             }
         }, delay);
+
+        updateStatusBtn.setOnClickListener(v -> orderViewModel.updateStatus(currentUser.token, currentOrders.get(currentOrders.size() - 1).id));
     }
 
     /**
@@ -133,6 +140,12 @@ public class DelivererHomeFragment extends Fragment implements RecycleViewOnClic
     public void setRecyclerViewAdapter(ArrayList<OrderResult> orders) {
         OrderAdapter orderAdapter = new OrderAdapter(context, orders, this);
         recyclerView.setAdapter(orderAdapter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable); //stop handler when fragment not visible
     }
 
     // --- Recycler View onClick methods

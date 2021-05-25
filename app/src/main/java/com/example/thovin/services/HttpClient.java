@@ -14,8 +14,10 @@ public class HttpClient {
      * The base url to make call at the API.
      * On user device purpose, please use your IP address else use the emulator line
      */
-     private static final String BASE_URL = "http://192.168.1.15:29321/v1/"; // personal device
-//    private static final String BASE_URL = "http://10.0.2.2:29321/v1/"; // emulator
+//    private static final String BASE_URL = "https://apeat.dorpax.io/v1/"; // VPS server
+//    private static final String BASE_URL = "http://192.168.1.13:29321/v1/"; // personal device
+    private static final String BASE_URL = "http://10.0.2.2:29321/v1/"; // emulator
+
 
 
     /**
@@ -89,8 +91,8 @@ public class HttpClient {
      */
     public void initHttpClient() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
-                .readTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS);
+                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS);
 
         if (DEBUG) okHttpBuilder.addInterceptor(getInterceptor()).build();
 

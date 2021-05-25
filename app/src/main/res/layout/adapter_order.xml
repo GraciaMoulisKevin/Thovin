@@ -19,13 +19,14 @@
 
         <TextView
             android:id="@+id/order_status"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_spacing"
+            android:padding="@dimen/small_spacing"
             android:drawablePadding="@dimen/small_spacing"
             android:text="@string/status"
             app:drawableStartCompat="@drawable/ic_baseline_brightness_1_24"
-            android:drawableTint="@color/main_yellow"/>
+            app:drawableTint="@color/gray_500"
+            android:background="@drawable/round_rectangle_white" />
 
 
         <LinearLayout
@@ -36,7 +37,7 @@
 
             <TextView
                 android:id="@+id/client_full_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginEnd="8dp"
@@ -82,7 +83,7 @@
 
             <TextView
                 android:id="@+id/restaurant_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginEnd="8dp"
@@ -114,10 +115,29 @@
             android:maxLines="1"
             android:text="@string/address" />
 
+        <View
+            android:layout_width="50dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/small_spacing"
+            android:background="@drawable/spinner_bg_circle" />
+
+        <TextView
+            android:id="@+id/cart_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_spacing"
+            android:drawablePadding="@dimen/small_spacing"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/cart"
+            app:drawableStartCompat="@drawable/ic_outline_shopping_bag_24"
+            app:drawableTint="@color/orange_500" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_spacing"
+            android:layout_marginHorizontal="@dimen/small_spacing"
             android:orientation="horizontal">
 
             <TextView
@@ -126,7 +146,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Menus"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/menus2"
@@ -134,8 +154,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Menus"
+                android:textAlignment="textEnd"
                 android:layout_gravity="end"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         </LinearLayout>
     </LinearLayout>
