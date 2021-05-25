@@ -59,6 +59,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/no_pending_order" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/update_status_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="update"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_recycler_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

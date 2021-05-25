@@ -10,6 +10,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface IOrderServices {
     @GET("orders")
@@ -17,4 +18,8 @@ public interface IOrderServices {
 
     @POST("orders")
     Call<OrderResult> postOrder(@Header("Authorization") String token, @Body OrderRequest order);
+
+    @POST("orders/{order_id}")
+    Call<String> updateStatus(@Header("Authorization") String token,
+                              @Path(value="order_id", encoded = true) String orderId);
 }
