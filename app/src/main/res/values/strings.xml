@@ -131,4 +131,6 @@
     <string name="remove">supprimer</string>
     <string name="success_remove_product">Le produit a bien été supprimé</string>
     <string name="warn_no_pending_order">Pas de commande en attente.</string>
+    <string name="current_orders">Commande en cours</string>
+    <string name="no_current_command">Aucune commande en cours</string>
 </resources>
