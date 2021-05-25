@@ -19,7 +19,6 @@ public class HttpClient {
     private static final String BASE_URL = "http://10.0.2.2:29321/v1/"; // emulator
 
 
-
     /**
      * Define debug output
      */
