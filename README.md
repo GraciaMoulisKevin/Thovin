@@ -1,4 +1,4 @@
-# Thovin
+# WeeberEart - Livraison en ligne | Thovin#9
 Application mobile de livraison en ligne de nourriture.
 
 Projet effectué dans le cadre de l'année universitaire 2020/2021 à la Faculté des sciences de Montpellier.
