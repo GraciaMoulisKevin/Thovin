@@ -15,7 +15,7 @@ Projet effectué dans le cadre de l'année universitaire 2020/2021 à la Facult�
 
 ## Pré-requis
 * Serveur [AP-EAT](https://github.com/Dorpaxio/AP-EAT)
-* Téléphone portable et/ou émulateur utilisant Android API >= 23.
+* Téléphone portable et/ou émulateur utilisant Android SDK >= 23.
 
 ## Installation
 ```bash
