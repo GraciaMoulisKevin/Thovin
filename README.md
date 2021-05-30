@@ -56,7 +56,7 @@ private static final String BASE_URL = "http://192.168.1.15:29321/v1/"; // perso
 ipconfig #for Window users
 ifconfig #for Mac/Linux users
 ```
-3. Copier l'adresse IPv4 de la carte réseau utiliser par votre machine (ethernet ou sans-fil).
+3. Votre addresse IP est l'adresse IPv4 de la carte réseau utiliser par votre machine (ethernet ou sans-fil).
 
 ## Gestion d'erreurs
 
